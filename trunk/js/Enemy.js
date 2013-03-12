@@ -3,9 +3,11 @@ function Enemy(name, hp, tileId, damageRoll){
 	this.hp = hp;
 	this.tileId = tileId;
 	this.damageRoll = damageRoll;
+	this.aiType = "SIMPLE";
 }
 
 Enemy.prototype.enemyAI = function (){
+	if (this.aiType === "NETWORK") return; 
 	var directionToPlayer = this.starePlayer();
 	if (directionToPlayer == "NONE"){
 		//Wander aimlessly 

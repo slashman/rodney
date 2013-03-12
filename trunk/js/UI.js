@@ -45,9 +45,11 @@ UI.prototype.showMessage = function (msg){
 UI.prototype.enterName = function (k){
 	this.term.putString("          ", 35, 20, 255, 255, 255);
 	if (k === ut.KEY_ENTER){
-		this.term.clear();
-		Rodney.doStartGame();
-		this.mode = 'IN_GAME';
+		var callback = function(){
+			JSRL.ui.term.clear();
+			JSRL.ui.mode = 'IN_GAME';
+		}
+		Rodney.doStartGame(callback);
 	} else if (k >= ut.KEY_A && k <= ut.KEY_Z){
 		if (this.inkeyBuffer.length < 10){
 			this.inkeyBuffer += String.fromCharCode(k);
