@@ -73,6 +73,10 @@ Player.prototype.remember = function (x,y){
 };
 
 Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornered, spinSlash){
+	if (enemy.aiType === "NETWORK"){
+		JSRL.ui.showMessage("You bump into "+enemy.name);
+		return;
+	}
 	var damage = this.strength;
 	if (this.currentWeapon){
 		damage += this.currentWeapon.damageRoll.roll();
@@ -168,6 +172,14 @@ Player.prototype.landOn = function (x, y){
 };
 
 Player.prototype.doAction = function(){
+	//If we are on town, then go to the dungeon
+	if (JSRL.websocket.onTown){
+		JSRL.websocket.quit();
+		JSRL.dungeon.generateLevel(1);
+		JSRL.player.resetFOVMasks();
+		JSRL.player.resetMemoryMap();
+		return;
+	}
 	this.kineticCharge = 0;
 	var tile = JSRL.dungeon.getMapTile(this.position.x, this.position.y);
 	if (tile.downstairs){
@@ -271,6 +283,9 @@ Player.prototype.tryMoving = function (movedir){
 	} else {
 		this.kineticCharge=0;
 	}
+	
+	if (moved && JSRL.websocket.onTown)
+		JSRL.websocket.sendPlayerInfo();
 };
 
 function sameGeneralDirection(direction1, direction2){
