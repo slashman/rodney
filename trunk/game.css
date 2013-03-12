@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+.centerer {
+	text-align: center;
+}
+
+#game {
+	font-size: 16px;
+	background-color: #000;
+}
