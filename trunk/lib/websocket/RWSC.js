@@ -13,8 +13,7 @@ RWSC.prototype.createSocket = function(host) {
         this.socket = new MozWebSocket(host);
 }
 
-RWSC.prototype.init = function(callback) {
-    var host = "ws://" + window.location.host + ":12345/echo";
+RWSC.prototype.init = function(callback, host) {
     try {
         this.createSocket(host);
         this.socket.onopen = function(msg) {
