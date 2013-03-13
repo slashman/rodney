@@ -33,7 +33,7 @@ Player.prototype.hasSkill = function (skillId){
 
 Player.prototype.getLearnableSkills = function(){
 	var ret = new Array();
-	for (var i = 0; i < Skills.skills.length; i++){
+	nextSkill: for (var i = 0; i < Skills.skills.length; i++){
 		var skill = Skills.skills[i];
 		if (this.hasSkill(skill.skillId)){
 			//Already knows the skill
@@ -41,9 +41,9 @@ Player.prototype.getLearnableSkills = function(){
 		}
 		if (skill.requirements){
 			for (var j = 0; j < skill.requirements.length; j++){
-				if (!this.skills.contains(skill.requirements[j])){
+				if (!this.hasSkill(skill.requirements[j])){
 					// Doesnt know Obama
-					continue;
+					continue nextSkill;
 				}
 			}
 		}
@@ -72,7 +72,7 @@ Player.prototype.remember = function (x,y){
 	this.memoryMap[x][y] = true;
 };
 
-Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornered, spinSlash){
+Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornered, spinSlash, slashthru){
 	if (enemy.aiType === "NETWORK"){
 		JSRL.ui.showMessage("You bump into "+enemy.name);
 		return;
@@ -89,6 +89,8 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	} else if (spinSlash){
 		damage *= 2;
 		attackMessage = "You spin slashing at the "+enemy.name;
+	} else if (slashthru){
+		attackMessage = "You slash the "+enemy.name;
 	}
 	if (kineticChargeTransferred){
 		damage *= 2;
@@ -266,7 +268,10 @@ Player.prototype.tryMoving = function (movedir){
 		// Bump!
 		moved = false;
 	} else {
-		// Check if slashing through 
+		// Check if slashing through #SLASH #BACKSLASH
+		if (this.hasSkill("SLASH") || this.hasSkill("BACKSLASH")){
+			this.trySlash(movedir);
+		}
 		this.position.x = x;
 		this.position.y = y;
 		this.landOn(x, y);
@@ -286,6 +291,45 @@ Player.prototype.tryMoving = function (movedir){
 	
 	if (moved && JSRL.websocket.onTown)
 		JSRL.websocket.sendPlayerInfo();
+};
+
+var directionCycle = [
+                      {x: 1, y: 0},
+                      {x: 1, y: -1},
+                      {x: 0, y: -1},
+                      {x: -1, y: -1},
+                      {x: -1, y: 0},
+                      {x: -1, y: 1},
+                      {x: 0, y: 1},
+                      {x: 1, y: 1}
+                      ];
+
+Player.prototype.trySlash = function(movedir){
+	if (movedir.x === 0 && movedir.y === 0)
+		return;
+	var once = !this.hasSkill("BACKSLASH");
+	var index = 0;
+	while (true){
+		if (directionCycle[index].x === movedir.x && directionCycle[index].y === movedir.y){
+			break;
+		}
+		index++;
+	}
+	var index1 = index - 1;
+	if (index1 === -1)
+		index1 = directionCycle.length - 1;
+	var index2 = index + 1;
+	if (index2 === directionCycle.length)
+		index2 = 0;
+	var m1= JSRL.dungeon.getEnemy(this.position.x + directionCycle[index1].x, this.position.y + directionCycle[index1].y);
+	var m2= JSRL.dungeon.getEnemy(this.position.x + directionCycle[index2].x, this.position.y + directionCycle[index2].y);
+	if (m1){
+		this.attackEnemy(m1, false, false, false, true);
+	} 
+	if (!m1 || !once){
+		if (m2)
+			this.attackEnemy(m2, false, false, false, true);
+	}
 };
 
 function sameGeneralDirection(direction1, direction2){
