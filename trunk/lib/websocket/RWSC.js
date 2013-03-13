@@ -109,4 +109,38 @@ RWSC.prototype.randomKey = function(){
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
     return text;
-}
+};
+
+RWSC.prototype.getConnection = function(){
+	var http;
+	if (window.XMLHttpRequest)
+		http = new XMLHttpRequest();
+	else if (window.ActiveXObject)
+		http = new ActiveXObject("MICROSOFT.XMLHTTP");
+		
+	return http;
+};
+
+RWSC.prototype.doPost = function(url, params){
+	var conexion = this.getConnection();
+	conexion.open("POST", url, true);
+	conexion.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	conexion.onreadystatechange = function(){
+		if (conexion.readyState == 4 && conexion.status == 200){
+			var o = JSON.parse(conexion.responseText);
+			if (o.status == false){
+				alert(o.message);
+			}
+		}
+	}
+	conexion.send(params);
+};
+
+RWSC.prototype.saveScore = function(){
+	var query = "&sessionInfo=" + JSRL.player.sessionInfo +
+		"&name=" + JSRL.player.name +
+		"&score=" + JSRL.player.score + 
+		"&skillPath=" + JSRL.player.skillPath;
+		
+	this.doPost("classes/service/RodneyService.php", "operation=saveScore"+query);
+};
