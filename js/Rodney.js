@@ -1,6 +1,9 @@
 /*global ut */
 var Rodney = {};
 
+// var WS_HOST = "ws://localhost:12345/echo";
+var WS_HOST = "NEIN";
+
 Rodney.initGame = function () {
 	JSRL.ui = new UI();
 	Rodney.restartGame();
@@ -35,6 +38,10 @@ Rodney.doStartGame = function (onConnect){
 		if (onConnect)
 			onConnect();
 	};
-	
-	JSRL.websocket.init(callback);
+	if (WS_HOST === "NEIN"){
+		JSRL.dungeon.generateLevel(1);
+		if (onConnect)
+			onConnect();
+	}else
+		JSRL.websocket.init(callback, WS_HOST);
 };
