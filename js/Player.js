@@ -15,6 +15,9 @@ function Player(name) {
 	this.currentWeapon;
 	this.currentArmor;
 	this.currentAccesory;
+	this.sessionInfo = "";
+	this.skillPath = "";
+	this.score = 0;
 }
 
 Player.prototype.addSkill = function(skill){

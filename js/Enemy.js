@@ -58,6 +58,9 @@ Enemy.prototype.attackPlayer = function(){
 		JSRL.player.hp = 0;
 		JSRL.ui.showMessage("You are dead. Press SPACE to continue");
 		JSRL.player.dead = true;
+		
+		if (WS_HOST != "NEIN")
+			JSRL.websocket.saveScore();
 	}
 };
 
