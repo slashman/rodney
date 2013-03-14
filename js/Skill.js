@@ -273,5 +273,11 @@ Skills.skills =
 	 text1: 
 		 "Prevent weapons from damaging on combat\n"+
 		 "* Double lifetime for all weapons",
+ },
+ {
+	 skillId: "COUNTER",
+	 name: "Counterattack",
+	 text1: 
+		 "20% chance to gain a free attack after being hit",
  }
 ];
