@@ -343,6 +343,34 @@ Player.prototype.tryMoving = function (movedir){
 				// Bump!
 				moved = false;
 			}
+		} else if (this.hasSkill("WALLJUMP")){
+			if (movedir.x === 0 || movedir.y === 0){
+				moved = false;
+			} else {
+				var landingPosition1 = {x: movedir.x * -1 + x, y: movedir.y + y};
+				var xenemy = JSRL.dungeon.getEnemy(landingPosition1.x, landingPosition1.y);
+				var xtile = JSRL.dungeon.getMapTile(landingPosition1.x, landingPosition1.y);
+				if (!xenemy && !xtile.solid){
+					JSRL.ui.showMessage("You jump on the wall!");
+					this.position.x = landingPosition1.x;
+					this.position.y = landingPosition1.y;
+					this.landOn(landingPosition1.x, landingPosition1.y);
+					moved = true;
+				} else {
+					var landingPosition2 = {x: movedir.x + x, y: movedir.y * -1 + y};
+					xenemy = JSRL.dungeon.getEnemy(landingPosition2.x, landingPosition2.y);
+					xtile = JSRL.dungeon.getMapTile(landingPosition2.x, landingPosition2.y);
+					if (!xenemy && !xtile.solid){
+						JSRL.ui.showMessage("You jump on the wall!");
+						this.position.x = landingPosition2.x;
+						this.position.y = landingPosition2.y;
+						this.landOn(landingPosition2.x, landingPosition2.y);
+						moved = true;
+					} else {
+						moved = false;
+					}
+				}
+			}
 		} else {
 			// Bump!
 			moved = false;
