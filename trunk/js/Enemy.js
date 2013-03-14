@@ -53,6 +53,20 @@ Enemy.prototype.attackPlayer = function(){
 	if (JSRL.player.dead)
 		return;
 	JSRL.ui.showMessage("The "+this.name+" hits you.");
+	if (JSRL.player.hasSkill("COUNTER")){
+		if (chance(20)){
+			JSRL.ui.showMessage("You counter attack.");
+			var directionToEnemy = {
+				x: this.position.x - JSRL.player.position.x,
+				y: this.position.y - JSRL.player.position.y,
+			};
+			if (directionToEnemy.x > 1) directionToEnemy.x = 1;
+			if (directionToEnemy.x < -1) directionToEnemy.x = -1;
+			if (directionToEnemy.y > 1) directionToEnemy.y = 1;
+			if (directionToEnemy.y < -1) directionToEnemy.y = -1;
+			JSRL.player.tryMoving(directionToEnemy);
+		}
+	}
 	JSRL.player.damage(this.damageRoll.roll());
 	if (JSRL.player.hp <= 0){
 		JSRL.player.hp = 0;
