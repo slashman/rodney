@@ -112,8 +112,10 @@ UI.prototype.movePlayer = function(k){
 	else if (isDownRight(k)) { movedir.x = 1; movedir.y = 1;}
 	else if (isUpLeft(k)) { movedir.x = -1; movedir.y = -1;}
 	else if (isUpRight(k)) { movedir.x = 1; movedir.y = -1;}
-	if (movedir.x === 0 && movedir.y === 0) return;
-	JSRL.player.tryMoving(movedir);
+	if (movedir.x === 0 && movedir.y === 0) 
+		JSRL.player.standFast();
+	else
+		JSRL.player.tryMoving(movedir);
 };
 
 UI.prototype.getDisplayedTile = function (x,y){
@@ -130,8 +132,10 @@ UI.prototype.showStats = function (){
 		this.term.putString(JSRL.player.currentAccesory.getStatusDescription(), 1, 12, 255, 255, 255);
 	this.term.putString("Depth: "+JSRL.dungeon.currentDepth, 1, 14, 255, 255, 255);
 	this.term.putString("HP: "+JSRL.player.hp, 1, 15, 255, 255, 255);
-	this.term.putString("Charge: "+JSRL.player.kineticCharge, 1, 16, 255, 255, 255);
+	this.term.putString("Run: "+JSRL.player.kineticCharge, 1, 16, 255, 255, 255);
 	this.term.putString("Rage: "+JSRL.player.rageCounter, 1, 17, 255, 255, 255);
+	this.term.putString("Build: "+JSRL.player.buildUpCounter, 1, 18, 255, 255, 255);
+	
 
 };
 

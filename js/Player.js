@@ -89,12 +89,23 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 			rageBonus = Math.round(this.rageCounter / 2);
 		}
 	}
+	
+	var buildupBonus = 0;
+	if (this.hasSkill("BUILDUP")){
+		if (this.buildUpCounter > 0)
+			buildupBonus = Math.round(this.buildUpCounter);
+		if (buildupBonus > 4)
+			buildupBonus = 4;
+	}
+	
+	
 	var damage = this.strength;
 	damage += rageBonus;
 	if (this.currentWeapon){
 		damage += this.currentWeapon.damageRoll.roll();
 		this.currentWeapon.clash(damage);
 	}
+	
 	var attackMessage = "You hit the "+enemy.name;
 	if (cornered){
 		damage *= 2;
@@ -252,6 +263,15 @@ Player.prototype.dropItem = function (item){
 	
 };
 
+Player.prototype.standFast = function(){
+	if (this.hasSkill("BUILDUP")){
+		this.buildUpCounter++;
+		JSRL.ui.showMessage("You stand fast building up!");
+	} else {
+		JSRL.ui.showMessage("You stand alert");
+	}
+};
+
 Player.prototype.tryMoving = function (movedir){
 	var moved = false;
 	var x = this.position.x + movedir.x;
@@ -292,6 +312,7 @@ Player.prototype.tryMoving = function (movedir){
 		// Bump into enemy!
 		this.attackEnemy(enemy, kineticChargeTransferred, cornered, spinSlash);
 		this.lastAttackDir = movedir;
+		this.buildUpCounter = 0;
 		moved = false;
 	} else 	if (JSRL.dungeon.getMapTile(x, y).solid){
 		this.rageCounter = 0;
@@ -316,6 +337,7 @@ Player.prototype.tryMoving = function (movedir){
 			this.kineticCharge=0;
 		}
 		this.lastMovedir = movedir;
+		this.buildUpCounter = 0;
 	} else {
 		this.kineticCharge=0;
 	}
