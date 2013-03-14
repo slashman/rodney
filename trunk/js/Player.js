@@ -258,6 +258,21 @@ Player.prototype.tryMoving = function (movedir){
 	var y = this.position.y + movedir.y;
 	
 	var enemy = JSRL.dungeon.getEnemy(x, y);
+
+	//Check for enemies in jump range #ASSAULT
+	if (!enemy && this.hasSkill("ASSAULT") && this.kineticCharge > 1 && sameGeneralDirection(movedir, this.lastMovedir)){
+		var xx = x + movedir.x;
+		var yy = y + movedir.y;
+		var xenemy = JSRL.dungeon.getEnemy(xx, yy);
+		if (xenemy){
+			enemy = xenemy;
+			JSRL.ui.showMessage("You jump into the "+enemy.name);
+		}
+		this.position.x = x;
+		this.position.y = y;
+		this.landOn(x, y);
+		moved = true;
+	}
 	if (enemy){
 		var kineticChargeTransferred = false;
 		// Verify if kineticCharge is transferred #CHARGE
@@ -294,7 +309,7 @@ Player.prototype.tryMoving = function (movedir){
 		moved = true;
 	}
 	// Check for kineticCharge #CHARGE
-	if (this.hasSkill("CHARGE") && moved){
+	if (moved){
 		if (this.lastMovedir && sameGeneralDirection(movedir, this.lastMovedir)){
 			this.kineticCharge++;
 		} else {
