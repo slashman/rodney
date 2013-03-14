@@ -48,7 +48,8 @@ UI.prototype.enterName = function (k){
 		var callback = function(){
 			JSRL.ui.term.clear();
 			JSRL.ui.mode = 'IN_GAME';
-		}
+			JSRL.ui.selectAdvancement();
+		};
 		Rodney.doStartGame(callback);
 	} else if (k >= ut.KEY_A && k <= ut.KEY_Z){
 		if (this.inkeyBuffer.length < 10){
@@ -280,7 +281,7 @@ UI.prototype.selectAdvancement = function(){
 	this.mode = 'SELECT_ADVANCEMENT';
 	this.term.clear();
 	this.menuCursor = 0;
-	this.term.putString("Select a new skill", 20, 5, 255, 255, 0);
+	this.term.putString("Select a skill", 20, 5, 255, 255, 0);
 	for (var i = 0; i < this.availableAdvancements.length; i++){
 		this.term.putString(this.availableAdvancements[i].name, 10, 7+i, 255, 255, 255);
 	}
