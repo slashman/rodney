@@ -265,5 +265,13 @@ Skills.skills =
 "#########",
 ]
 		]
+ },
+ 
+ {
+	 skillId: "FINESSE",
+	 name: "Finesse",
+	 text1: 
+		 "Prevent weapons from damaging on combat\n"+
+		 "* Double lifetime for all weapons",
  }
 ];

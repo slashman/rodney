@@ -33,6 +33,11 @@ DamageableItem.prototype.getIntegrityLevel = function(){
 
 DamageableItem.prototype.clash = function(strength){
 	var previousIntegrityLevel = this.getIntegrityLevel();
+	if (this.type === "WEAPON"){
+		if (JSRL.player.hasSkill("FINESSE")){
+			strength /= 2;
+		}
+	}
 	this.integrity -= strength;
 	if (this.integrity <= 0)
 		this.integrity = 0;
