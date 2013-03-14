@@ -335,5 +335,11 @@ Skills.skills =
 	 name: "Rage",
 	 text1: 
 		 "Increase damage for consecutive attacks",
+ },
+ {
+	 skillId: "BUILDUP",
+	 name: "Build Up",
+	 text1: 
+		 "Stand fast to acumulate power and then unleash a strong blow",
  }
 ];
