@@ -80,7 +80,17 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 		JSRL.ui.showMessage("You bump into "+enemy.name);
 		return;
 	}
+	var rageBonus = 0;
+	if (this.hasSkill("RAGE")){
+		this.rageCounter++;
+		if (this.rageCounter > 5 && chance(30))
+			JSRL.ui.showMessage("You are furious!");
+		if (this.rageCounter > 3){
+			rageBonus = Math.round(this.rageCounter / 2);
+		}
+	}
 	var damage = this.strength;
+	damage += rageBonus;
 	if (this.currentWeapon){
 		damage += this.currentWeapon.damageRoll.roll();
 		this.currentWeapon.clash(damage);
@@ -186,6 +196,7 @@ Player.prototype.doAction = function(){
 		return;
 	}
 	this.kineticCharge = 0;
+	this.rageCounter = 0;
 	var tile = JSRL.dungeon.getMapTile(this.position.x, this.position.y);
 	if (tile.downstairs){
 		JSRL.dungeon.downstairs();
@@ -268,9 +279,11 @@ Player.prototype.tryMoving = function (movedir){
 		this.lastAttackDir = movedir;
 		moved = false;
 	} else 	if (JSRL.dungeon.getMapTile(x, y).solid){
+		this.rageCounter = 0;
 		// Bump!
 		moved = false;
 	} else {
+		this.rageCounter = 0;
 		// Check if slashing through #SLASH #BACKSLASH
 		if (this.hasSkill("SLASH") || this.hasSkill("BACKSLASH")){
 			this.trySlash(movedir);
