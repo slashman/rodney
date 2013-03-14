@@ -75,7 +75,7 @@ Player.prototype.remember = function (x,y){
 	this.memoryMap[x][y] = true;
 };
 
-Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornered, spinSlash, slashthru){
+Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornered, spinSlash, slashthru, attackDirection){
 	if (enemy.aiType === "NETWORK"){
 		JSRL.ui.showMessage("You bump into "+enemy.name);
 		return;
@@ -89,7 +89,8 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 			rageBonus = Math.round(this.rageCounter / 2);
 		}
 	}
-	
+	var attackMessage = "You hit the "+enemy.name;
+
 	var buildupBonus = 0;
 	if (this.hasSkill("BUILDUP")){
 		if (this.buildUpCounter > 0)
@@ -98,15 +99,27 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 			buildupBonus = 4;
 	}
 	
+	if (this.hasSkill("BASH") && !cornered){
+		if (chance(20)){
+			//Check if there's an enemy behind
+			var destinationPosition = {x: enemy.position.x + attackDirection.x * 2, y:enemy.position.y + attackDirection.y * 2};
+			var anotherEnemy = JSRL.dungeon.getEnemy(destinationPosition.x, destinationPosition.y);
+			if (!anotherEnemy){
+				JSRL.dungeon.tryMoveEnemyTo(enemy, destinationPosition);
+				attackMessage = "You push the "+enemy.name+" back";
+			}
+		}
+	}
 	
 	var damage = this.strength;
 	damage += rageBonus;
+	damage += buildupBonus;
+	
 	if (this.currentWeapon){
 		damage += this.currentWeapon.damageRoll.roll();
 		this.currentWeapon.clash(damage);
 	}
 	
-	var attackMessage = "You hit the "+enemy.name;
 	if (cornered){
 		damage *= 2;
 		attackMessage = "You corner the "+enemy.name;
@@ -310,7 +323,7 @@ Player.prototype.tryMoving = function (movedir){
 			spinSlash = this.lastAttackDir && oppositeDirection(movedir, this.lastAttackDir);
 		}
 		// Bump into enemy!
-		this.attackEnemy(enemy, kineticChargeTransferred, cornered, spinSlash);
+		this.attackEnemy(enemy, kineticChargeTransferred, cornered, spinSlash, false, movedir);
 		this.lastAttackDir = movedir;
 		this.buildUpCounter = 0;
 		moved = false;
@@ -377,11 +390,11 @@ Player.prototype.trySlash = function(movedir){
 	var m1= JSRL.dungeon.getEnemy(this.position.x + directionCycle[index1].x, this.position.y + directionCycle[index1].y);
 	var m2= JSRL.dungeon.getEnemy(this.position.x + directionCycle[index2].x, this.position.y + directionCycle[index2].y);
 	if (m1){
-		this.attackEnemy(m1, false, false, false, true);
+		this.attackEnemy(m1, false, false, false, true, directionCycle[index1]);
 	} 
 	if (!m1 || !once){
 		if (m2)
-			this.attackEnemy(m2, false, false, false, true);
+			this.attackEnemy(m2, false, false, false, true, directionCycle[index2]);
 	}
 };
 
