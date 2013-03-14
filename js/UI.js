@@ -1,6 +1,6 @@
 var MAP_WIDTH = 60;
 var MAP_HEIGHT = 60;
-var FPS = 20;
+var FPS = 10;
 
 
 function UI () {
