@@ -279,5 +279,11 @@ Skills.skills =
 	 name: "Counterattack",
 	 text1: 
 		 "20% chance to gain a free attack after being hit",
+ },
+ {
+	 skillId: "RAGE",
+	 name: "Rage",
+	 text1: 
+		 "Increase damage for consecutive attacks",
  }
 ];

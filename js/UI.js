@@ -131,6 +131,7 @@ UI.prototype.showStats = function (){
 	this.term.putString("Depth: "+JSRL.dungeon.currentDepth, 1, 14, 255, 255, 255);
 	this.term.putString("HP: "+JSRL.player.hp, 1, 15, 255, 255, 255);
 	this.term.putString("Charge: "+JSRL.player.kineticCharge, 1, 16, 255, 255, 255);
+	this.term.putString("Rage: "+JSRL.player.rageCounter, 1, 17, 255, 255, 255);
 
 };
 
