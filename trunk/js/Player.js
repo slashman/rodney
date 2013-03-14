@@ -293,7 +293,7 @@ Player.prototype.tryMoving = function (movedir){
 	var enemy = JSRL.dungeon.getEnemy(x, y);
 
 	//Check for enemies in jump range #ASSAULT
-	if (!enemy && this.hasSkill("ASSAULT") && this.kineticCharge > 1 && sameGeneralDirection(movedir, this.lastMovedir)){
+	if (!enemy && this.hasSkill("ASSAULT") && this.isRunning(movedir) ){
 		var xx = x + movedir.x;
 		var yy = y + movedir.y;
 		var xenemy = JSRL.dungeon.getEnemy(xx, yy);
@@ -310,7 +310,7 @@ Player.prototype.tryMoving = function (movedir){
 		var kineticChargeTransferred = false;
 		// Verify if kineticCharge is transferred #CHARGE
 		if (this.hasSkill("CHARGE"))
-			kineticChargeTransferred = this.kineticCharge > 1 && sameGeneralDirection(movedir, this.lastMovedir);
+			kineticChargeTransferred = this.isRunning(movedir);
 		// Check if there's a solid cell behind the enemy #CORNER
 		var cornered = false;
 		if (this.hasSkill("CORNER")){
@@ -329,8 +329,24 @@ Player.prototype.tryMoving = function (movedir){
 		moved = false;
 	} else 	if (JSRL.dungeon.getMapTile(x, y).solid){
 		this.rageCounter = 0;
-		// Bump!
-		moved = false;
+		if (this.hasSkill("BACKFLIP") && this.isRunning(movedir)){
+			var landingPosition = {x: movedir.x * -3 + this.position.x, y: movedir.y * -3 + this.position.y};
+			var xenemy = JSRL.dungeon.getEnemy(landingPosition.x, landingPosition.y);
+			var xtile = JSRL.dungeon.getMapTile(landingPosition.x, landingPosition.y);
+			if (!xenemy && !xtile.solid){
+				JSRL.ui.showMessage("You backflip!");
+				this.position.x = landingPosition.x;
+				this.position.y = landingPosition.y;
+				this.landOn(landingPosition.x, landingPosition.y);
+				moved = true;
+			} else {
+				// Bump!
+				moved = false;
+			}
+		} else {
+			// Bump!
+			moved = false;
+		}
 	} else {
 		this.rageCounter = 0;
 		// Check if slashing through #SLASH #BACKSLASH
@@ -406,3 +422,7 @@ function sameGeneralDirection(direction1, direction2){
 function oppositeDirection(direction1, direction2){
 	return direction1.x * -1 === direction2.x && direction1.y * -1 === direction2.y;  
 }
+
+Player.prototype.isRunning = function(movedir){
+	return this.kineticCharge > 1 && sameGeneralDirection(movedir, this.lastMovedir);
+};
