@@ -32,6 +32,15 @@
 <body onload="Rodney.initGame();">
 	<div class="centerer">
 		<div id="game">Enable JavaScript and reload the page.</div>
+		<div class="chat">
+			<div id="chatBox"></div>
+			
+			<div>
+				<textarea id="txtChatText"></textarea>
+				
+				<input type="button" value="Send" onclick="JSRL.websocket.sendMessage()" />
+			</div>
+		</div>
 	</div>
 	<div class="centerer">
 		A production of <a href = "http://interactive.slashware.net/" target = "_blank">Slashware Interactive</a>
