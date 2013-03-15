@@ -12,6 +12,10 @@ Item.prototype.getMenuDescription = function(){
 	return this.name;
 };
 
+Item.prototype.getFloorDescription = function(){
+	return this.name;
+};
+
 function LightSource(itemId, name, lightBonus, fuel){
 	Item.call(this, itemId, name, "ACCESORY");
 	this.isLightSource = true;
@@ -83,6 +87,10 @@ DamageableItem.prototype.clash = function(strength){
 
 DamageableItem.prototype.damage = function(){
 	
+};
+
+DamageableItem.prototype.getFloorDescription = function(){
+	return this.getIntegrityDescription() + this.name;
 };
 
 function Weapon(itemId, name, damageRoll, baseIntegrity, maxIntegrity){
