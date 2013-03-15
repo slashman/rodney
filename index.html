@@ -36,12 +36,15 @@
 			<div id="chatBox"></div>
 			
 			<div>
-				<textarea id="txtChatText"></textarea>
+				<textarea id="txtChatText" onkeydown="JSRL.websocket.messageKeydown(event)"></textarea>
 				
 				<input type="button" value="Send" onclick="JSRL.websocket.sendMessage()" />
 			</div>
 		</div>
 	</div>
+	<div class="centerer">
+        <input type="button" value="Return to Rodney" onclick="location.href='leadboard.php'" />
+    </div>
 	<div class="centerer">
 		A production of <a href = "http://interactive.slashware.net/" target = "_blank">Slashware Interactive</a>
 		Powered by <a href = "http://tapiov.net/unicodetiles.js/" target = "_blank">unicodetiles.js</a>

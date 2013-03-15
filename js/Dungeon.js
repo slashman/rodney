@@ -111,6 +111,7 @@ Dungeon.prototype.generateLevel= function(depth){
 Dungeon.prototype.downstairs = function(){
 	this.currentDepth++;
 	JSRL.ui.showMessage('You descend into level '+this.currentDepth);
+	JSRL.websocket.sendNewDepthMessage();
 	this.enemies = new Array();
 	this.generateLevel(this.currentDepth);
 	JSRL.player.resetFOVMasks();

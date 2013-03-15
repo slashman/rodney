@@ -1,7 +1,7 @@
 /*global ut */
 var Rodney = {};
 
-var WS_HOST = "ws://localhost:12345/echo";
+var WS_HOST = "ws://192.168.1.2:12345/echo";
 //var WS_HOST = "NEIN";
 
 Rodney.initGame = function () {
