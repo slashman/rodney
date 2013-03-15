@@ -404,6 +404,7 @@ Player.prototype.tryMoving = function (movedir){
 			var xtile = JSRL.dungeon.getMapTile(landingPosition.x, landingPosition.y);
 			if (!xenemy && !xtile.solid){
 				JSRL.ui.showMessage("You backflip!");
+				this.kineticCharge = 0;
 				this.position.x = landingPosition.x;
 				this.position.y = landingPosition.y;
 				this.landOn(landingPosition.x, landingPosition.y);
