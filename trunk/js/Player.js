@@ -89,7 +89,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 			rageBonus = Math.round(this.rageCounter / 2);
 		}
 	}
-	var attackMessage = "You hit the "+enemy.name;
+	var attackMessage = "You hit "+enemy.getTheDescription();
 
 	var buildupBonus = 0;
 	if (this.hasSkill("BUILDUP")){
@@ -106,7 +106,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 			var anotherEnemy = JSRL.dungeon.getEnemy(destinationPosition.x, destinationPosition.y);
 			if (!anotherEnemy){
 				JSRL.dungeon.tryMoveEnemyTo(enemy, destinationPosition);
-				attackMessage = "You push the "+enemy.name+" back";
+				attackMessage = "You push "+enemy.getTheDescription()+" back";
 			}
 		}
 	}
@@ -122,16 +122,16 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	
 	if (cornered){
 		damage *= 2;
-		attackMessage = "You corner the "+enemy.name;
+		attackMessage = "You corner "+enemy.getTheDescription();
 	} else if (spinSlash){
 		damage *= 2;
-		attackMessage = "You spin slashing at the "+enemy.name;
+		attackMessage = "You spin slashing at "+enemy.getTheDescription();
 	} else if (slashthru){
-		attackMessage = "You slash the "+enemy.name;
+		attackMessage = "You slash "+enemy.getTheDescription();
 	}
 	if (kineticChargeTransferred){
 		damage *= 2;
-		attackMessage = "You charge against the "+enemy.name;
+		attackMessage = "You charge against "+enemy.getTheDescription();
 		this.kineticCharge = 0;
 	} 
 	JSRL.ui.showMessage(attackMessage);
@@ -145,7 +145,14 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	
 	
 	if (enemy.hp <= 0){
-		JSRL.ui.showMessage("The "+enemy.name+ " dies");
+		if (enemy.name === "Rodney"){
+			JSRL.ui.showMessage("Rodney falls to his knees: Aaaarrgh!!!");
+			JSRL.dungeon.addItem(JSRL.itemFactory.createItem("YENDOR"), this.position);
+			JSRL.dungeon.changeTile(enemy.position, '>');
+			JSRL.ui.showRodneyScene();
+		} else {
+			JSRL.ui.showMessage(enemy.getTheDescription()+ " dies");
+		}
 		JSRL.dungeon.removeEnemy(enemy);
 	}
 };
@@ -220,7 +227,11 @@ Player.prototype.landOn = function (x, y){
 	}
 	var item = JSRL.dungeon.getItem(x, y);
 	if (item){
-		JSRL.ui.showMessage("There is a "+item.name+" here");
+		if (item.isUnique){
+			JSRL.ui.showMessage(item.name+" is here");
+		} else {
+			JSRL.ui.showMessage("There is a "+item.name+" here");
+		}
 	}
 };
 
@@ -256,9 +267,15 @@ Player.prototype.tryPick = function (item){
 	if (this.inventory.length < this.carryCapacity-1){
 		this.inventory.push(item);
 		JSRL.dungeon.removeItem(item);
-		JSRL.ui.showMessage("You pick up a "+item.name);
+		if (item.isUnique)
+			JSRL.ui.showMessage("You pick up "+item.name);
+		else
+			JSRL.ui.showMessage("You pick up a "+item.name);
 	} else {
-		JSRL.ui.showMessage("You can't pick up the "+item.name);
+		if (item.isUnique)
+			JSRL.ui.showMessage("You can't pick up "+item.name);
+		else
+			SRL.ui.showMessage("You can't pick up the "+item.name);
 	}
 };
 
@@ -271,7 +288,10 @@ Player.prototype.useItem = function (item){
 		JSRL.ui.showMessage("You wear the "+item.name);
 	} else if (item.type === 'ACCESORY'){
 		this.currentAccesory = item;
-		JSRL.ui.showMessage("You wear the "+item.name);
+		if (item.isUnique)
+			JSRL.ui.showMessage("You wear "+item.name);
+		else
+			JSRL.ui.showMessage("You wear the "+item.name);
 	} else if (item.use){
 		item.use();
 	} else {
@@ -282,7 +302,10 @@ Player.prototype.useItem = function (item){
 Player.prototype.dropItem = function (item){
 	var itemOnDungeon = JSRL.dungeon.getItem(this.position.x, this.position.y);
 	if (itemOnDungeon){
-		JSRL.ui.showMessage("You can't drop the "+item.name+" here");
+		if (item.isUnique)
+			JSRL.ui.showMessage("You can't drop "+item.name+" here");
+		else
+			JSRL.ui.showMessage("You can't drop the "+item.name+" here");
 	} else {
 		this.inventory.removeObject(item);
 		JSRL.dungeon.addItem(item, this.position);
@@ -313,7 +336,7 @@ Player.prototype.tryMoving = function (movedir){
 		var xenemy = JSRL.dungeon.getEnemy(xx, yy);
 		if (xenemy){
 			enemy = xenemy;
-			JSRL.ui.showMessage("You jump into the "+enemy.name);
+			JSRL.ui.showMessage("You jump into "+enemy.getTheDescription());
 		}
 		this.position.x = x;
 		this.position.y = y;

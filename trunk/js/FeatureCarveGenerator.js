@@ -12,7 +12,18 @@ FeatureCarveGenerator.prototype = new DungeonGenerator();
 FeatureCarveGenerator.prototype.constructor = FeatureCarveGenerator;
 
 FeatureCarveGenerator.prototype.createLevel = function (depth){
-	var map = this.generateLevel(9, '#', '.', '.', 60, 60);
+	var rodneyLevel = false;
+	if (depth > 25 && chance(80) && !JSRL.player.rodneyGenerated){
+		rodneyLevel = true;
+	}
+	var addExit = !rodneyLevel;
+	var map = this.generateLevel(9, '#', '.', '.', 60, 60, addExit);
+	if (rodneyLevel){
+		var rodney = JSRL.monsterFactory.createMonster("RODNEY");
+		rodney.isUnique = true;
+		JSRL.dungeon.addEnemy(rodney, this.getFreePlace());
+		JSRL.player.rodneyGenerated = true;
+	}
 	this.addCritters(depth);
 	this.addItems(depth);
 	return { entrancePosition: this.startingPosition, map: map };
@@ -30,8 +41,10 @@ FeatureCarveGenerator.prototype.addCritters = function(depth){
 FeatureCarveGenerator.prototype.addItems = function(depth){
 	var crits = rand(5,10);
 	for (var i = 0; i < crits; i++){
-		JSRL.dungeon.addItem(JSRL.itemFactory.createItem("DAGGER"), this.getFreePlace());
-		JSRL.dungeon.addItem(JSRL.itemFactory.createItem("LEATHER"), this.getFreePlace());
+		// JSRL.dungeon.addItem(JSRL.itemFactory.createItem("DAGGER"), this.getFreePlace());
+		// JSRL.dungeon.addItem(JSRL.itemFactory.createItem("LEATHER"), this.getFreePlace());
+		JSRL.dungeon.addItem(JSRL.itemFactory.createItem("TORCH"), this.getFreePlace());
+
 	}
 };
 
@@ -61,7 +74,7 @@ FeatureCarveGenerator.prototype.rollBack = function (){
 	};
 };
 
-FeatureCarveGenerator.prototype.generateLevel = function (numberOfRooms, solidCellTile, floorTile, corridorTile, xdim, ydim) {
+FeatureCarveGenerator.prototype.generateLevel = function (numberOfRooms, solidCellTile, floorTile, corridorTile, xdim, ydim, addExit) {
 	var pendingRooms = numberOfRooms;
 	this.preLevel = new Array(xdim);
 	this.mask = new Array(xdim);
@@ -169,23 +182,35 @@ FeatureCarveGenerator.prototype.generateLevel = function (numberOfRooms, solidCe
 		}
 	}		
 	ret = levelMap;
-	
-	var entrance = {x: 0, y: 0};
-	var exit = {x: 0, y: 0};
-	while (true){
-		entrance.x = rand(1,this.getLevelWidth()-2);
-		entrance.y = rand(1,this.getLevelHeight()-2);
-		exit.x = rand(1,this.getLevelWidth()-2);
-		exit.y = rand(1,this.getLevelHeight()-2);
-		if (distance(entrance.x, entrance.y, exit.x, exit.y) < xdim / 4)
-			continue;
-		if (!this.isExitPlaceable(entrance) ||
-			!this.isExitPlaceable(exit)){
-			continue;
+	if (addExit){
+		var entrance = {x: 0, y: 0};
+		var exit = {x: 0, y: 0};
+		while (true){
+			entrance.x = rand(1,this.getLevelWidth()-2);
+			entrance.y = rand(1,this.getLevelHeight()-2);
+			exit.x = rand(1,this.getLevelWidth()-2);
+			exit.y = rand(1,this.getLevelHeight()-2);
+			if (distance(entrance.x, entrance.y, exit.x, exit.y) < xdim / 4)
+				continue;
+			if (!this.isExitPlaceable(entrance) ||
+				!this.isExitPlaceable(exit)){
+				continue;
+			}
+			this.addEntrance(ret, entrance);
+			this.addExit(ret, exit);
+			break;
 		}
-		this.addEntrance(ret, entrance);
-		this.addExit(ret, exit);
-		break;
+	} else {
+		var entrance = {x: 0, y: 0};
+		while (true){
+			entrance.x = rand(1,this.getLevelWidth()-2);
+			entrance.y = rand(1,this.getLevelHeight()-2);
+			if (!this.isExitPlaceable(entrance)){
+				continue;
+			}
+			this.addEntrance(ret, entrance);
+			break;
+		}
 	}
 	
 	return ret;

@@ -199,6 +199,10 @@ UI.prototype.onKeyDown = function (k) {
 			JSRL.ui.mode = 'IN_GAME';
 		}
 		JSRL.ui.drawSelectItem();
+	} else if (JSRL.ui.mode === 'SCENE'){
+		if (k === ut.KEY_ENTER){
+			JSRL.ui.mode = 'IN_GAME';
+		}
 	}
 };
 
@@ -348,4 +352,30 @@ UI.prototype.showSkill = function(skill){
 	this.term.putString(skill.text1, 30, 4, 255, 255, 255);
 	if (skill.text2)
 		this.term.putString(skill.text2, 30, 14, 255, 255, 255);
+};
+
+
+UI.prototype.showRodneyScene = function(){
+	JSRL.ui.mode = 'SCENE';
+	var scene = [
+"Finally beaten, Rodney falls to his knees holding the Amulet of Yendor on",
+"his hands.                                                               ",
+"                                                                         ",
+"  - How! me, beaten by a mere mortal... I am a god!                      ",
+"                                                                         ",
+"But then, the evil grin on Rodney's face fades away; the fierce look on  ",
+"his eyes is replaced with a numb shadow.                                 ",
+"                                                                         ",
+"  - I... I have failed... the Amulet, must be destroyed!                 ",
+"                                                                         ",
+" - You must dive deeper into the dungeons of doom, only on its fiery     ",
+"   depths it can be unmade... go now!                                    ",
+"                                                                         ",
+"And then, the brave but careless Rodney passed away.                     "
+	             ];
+	this.term.clear();
+	for (var i = 0; i < scene.length; i++){
+		this.term.putString(scene[i], 2, i + 2, 255, 255, 255);
+	}
+	this.term.render();
 };
