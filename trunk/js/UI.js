@@ -167,17 +167,15 @@ UI.prototype.onKeyDown = function (k) {
 			JSRL.ui.menuCursor--;
 			if (JSRL.ui.menuCursor < 0)
 				JSRL.ui.menuCursor = 0;
+			JSRL.ui.showSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
 		} else if (isDown(k)){
 			JSRL.ui.menuCursor++;
 			if (JSRL.ui.menuCursor > JSRL.ui.availableAdvancements.length-1){
 				JSRL.ui.menuCursor = JSRL.ui.availableAdvancements.length-1;
 			}
+			JSRL.ui.showSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
 		} else if (k === ut.KEY_SPACE || k === ut.KEY_ENTER){
 			JSRL.player.addSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
-		}
-		JSRL.ui.drawSelectAdvancement();
-	} else if (JSRL.ui.mode === 'SKILL_INFO'){
-		if (k === ut.KEY_SPACE || k === ut.KEY_ENTER){
 			JSRL.ui.mode = 'IN_GAME';
 		}
 	} else if (JSRL.ui.mode === 'SELECT_ITEM'){
@@ -207,21 +205,32 @@ UI.prototype.tick = function () {
 	if (this.mode === 'IN_GAME'){
 		JSRL.player.updateFOV();
 		this.refresh();
-	} else if (this.mode === 'SKILL_INFO'){
-		var animationFrame = this.currentSkillAnimation.frames[this.currentSkillAnimation.frame];
-		for (var i = 0; i < animationFrame.length; i++){
-			this.term.putString(animationFrame[i], 4, 4+i, 255, 255, 255);
-		}
-		this.currentSkillAnimation.tickCounter++;
-		var delay = FPS;
-		if (this.currentSkillAnimation.frame === this.currentSkillAnimation.frames.length-1)
-			delay *= 4;
-		if (this.currentSkillAnimation.tickCounter > delay){
-			this.currentSkillAnimation.tickCounter = 0;
-			this.currentSkillAnimation.frame ++;
-			if (this.currentSkillAnimation.frame > this.currentSkillAnimation.frames.length-1){
-				this.currentSkillAnimation.frame = 0;
+	} else if (this.mode === 'SELECT_ADVANCEMENT'){
+		if (this.currentSkillAnimation && this.currentSkillAnimation.frames){
+			var animationFrame = this.currentSkillAnimation.frames[this.currentSkillAnimation.frame];
+			for (var i = 0; i < animationFrame.length; i++){
+				this.term.putString(animationFrame[i], 20, 4+i, 255, 255, 255);
 			}
+			this.currentSkillAnimation.tickCounter++;
+			var delay = FPS;
+			if (this.currentSkillAnimation.frame === this.currentSkillAnimation.frames.length-1)
+				delay *= 4;
+			if (this.currentSkillAnimation.tickCounter > delay){
+				this.currentSkillAnimation.tickCounter = 0;
+				this.currentSkillAnimation.frame ++;
+				if (this.currentSkillAnimation.frame > this.currentSkillAnimation.frames.length-1){
+					this.currentSkillAnimation.frame = 0;
+				}
+			}
+		}
+		this.term.putString("Select a skill", 2, 2, 255, 255, 0);
+		for (var i = 0; i < this.availableAdvancements.length; i++){
+			this.term.putString(this.availableAdvancements[i].name, 5, 4+i, 255, 255, 255);
+			if (i === this.menuCursor){
+				this.term.putString("(*)", 2, 4+i, 255, 0, 0);
+			} else {
+				this.term.putString("   ", 2, 4+i, 255, 0, 0);
+			};
 		}
 		this.term.render();
 	}
@@ -284,13 +293,8 @@ UI.prototype.selectAdvancement = function(){
 		return;
 	}
 	this.mode = 'SELECT_ADVANCEMENT';
-	this.term.clear();
 	this.menuCursor = 0;
-	this.term.putString("Select a skill", 20, 5, 255, 255, 0);
-	for (var i = 0; i < this.availableAdvancements.length; i++){
-		this.term.putString(this.availableAdvancements[i].name, 10, 7+i, 255, 255, 255);
-	}
-	this.drawSelectAdvancement();
+	this.term.clear();
 };
 
 UI.prototype.selectItem = function(){
@@ -322,17 +326,6 @@ UI.prototype.activateItemSelection = function(){
 	this.drawSelectItem();
 };
 
-UI.prototype.drawSelectAdvancement = function(){
-	for (var i = 0; i < this.availableAdvancements.length; i++){
-		if (i === this.menuCursor){
-			this.term.putString("(*)", 6, 7+i, 255, 0, 0);
-		} else {
-			this.term.putString("   ", 6, 7+i, 255, 0, 0);
-		};
-	};
-	this.term.render();
-};
-
 UI.prototype.drawSelectItem = function(){
 	for (var i = 0; i < JSRL.player.inventory.length; i++){
 		if (i === this.menuCursor){
@@ -344,17 +337,14 @@ UI.prototype.drawSelectItem = function(){
 	this.term.render();
 };
 
-UI.prototype.showLearnedSkill = function(skill){
-	this.mode = "SKILL_INFO";
+UI.prototype.showSkill = function(skill){
 	this.currentSkillAnimation = {
 		frame: 0,
 		tickCounter: 0,
 		frames: skill.animation
 	};
 	this.term.clear();
-	this.term.putString(skill.name, 2, 2, 255, 0, 0);
-	this.term.putString(skill.text1, 14, 4, 255, 255, 255);
+	this.term.putString(skill.text1, 30, 4, 255, 255, 255);
 	if (skill.text2)
-		this.term.putString(skill.text2, 14, 14, 255, 255, 255);
-	this.term.render();
+		this.term.putString(skill.text2, 30, 14, 255, 255, 255);
 };
