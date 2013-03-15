@@ -78,7 +78,7 @@ function isRight(k){
 }
 
 function isUpRight(k){
-	return k === ut.KEY_E || k === ut.KEY_NUMPAD8;
+	return k === ut.KEY_E || k === ut.KEY_NUMPAD9;
 }
 
 function isDownRight(k){
