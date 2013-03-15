@@ -30,14 +30,16 @@ function Tiles(){
 	this.addTile("XORN", new ut.Tile("x", 170, 0, 0));
 	this.addTile("YETI", new ut.Tile("Y", 255, 255, 255));
 	this.addTile("ZOMBIE", new ut.Tile("Z", 170, 55, 0));
-	
-	this.addTile("AT", new ut.Tile("@", 255, 255, 255));
+
+	this.addTile("RODNEY", new ut.Tile("☺", 0, 255, 0));
+
+	this.addTile("AT", new ut.Tile("@", 0, 0, 255));
 	
 	//Items
 	this.addTile("DAGGER", new ut.Tile(")", 255, 255, 255));
 	this.addTile("LEATHER", new ut.Tile("]", 255, 255, 255));
 	this.addTile("TORCH", new ut.Tile("/", 255, 255, 55));
-
+	this.addTile("YENDOR", new ut.Tile("\"", 255, 255, 55));
 	
 	//Terrain
 	this.addTerrainTile("#", new ut.Tile('#', 55, 55, 0), true, true,false);

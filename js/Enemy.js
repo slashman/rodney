@@ -52,7 +52,11 @@ Enemy.prototype.walk = function (direction){
 Enemy.prototype.attackPlayer = function(){
 	if (JSRL.player.dead)
 		return;
-	JSRL.ui.showMessage("The "+this.name+" hits you.");
+	if (this.isUnique){
+		JSRL.ui.showMessage(this.name+" hits you.");
+	} else {
+		JSRL.ui.showMessage("The "+this.name+" hits you.");
+	}
 	if (JSRL.player.hasSkill("COUNTER")){
 		if (chance(20)){
 			JSRL.ui.showMessage("You counter attack.");
@@ -70,7 +74,11 @@ Enemy.prototype.attackPlayer = function(){
 	JSRL.player.damage(this.damageRoll.roll());
 	if (JSRL.player.hp <= 0){
 		JSRL.player.hp = 0;
-		JSRL.ui.showMessage("You are dead. Press SPACE to continue");
+		if (this.name === "Rodney"){
+			JSRL.ui.showMessage("Rodney says: Begone forever thief!. Press SPACE to continue");
+		} else {
+			JSRL.ui.showMessage("You are dead. Press SPACE to continue");
+		}
 		JSRL.player.dead = true;
 		
 		if (WS_HOST != "NEIN")
@@ -86,5 +94,13 @@ Enemy.prototype.starePlayer = function(){
 		return {x: xDiff, y: yDiff};
 	} else {
 		return "NONE";
+	}
+};
+
+Enemy.prototype.getTheDescription = function(){
+	if (this.isUnique){
+		return this.name;
+	} else {
+		return "the "+this.name;
 	}
 };

@@ -3,7 +3,19 @@ function ItemFactory(){
 	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,5,0), 100, 50);
 	this.addArmorDefinition("LEATHER", "Leather armor", 2, 20, 20);
 	this.addLightsourceDefinition("TORCH", "Torch", 3, 200, 10);
+	this.addAccesoryDefinition("YENDOR", "The Amulet of Yendor", true, 0);
 }
+
+ItemFactory.prototype.addAccesoryDefinition = function (itemId, name, isUnique, generationChance){
+	this.itemDefinitions[itemId] = {
+			itemId: itemId,
+			tileId: itemId,
+			name: name,
+			generationChange: generationChance,
+			isUnique: isUnique,
+			type: "ACCESORY"
+		};
+};
 
 ItemFactory.prototype.addLightsourceDefinition = function (itemId, name, sightBonus, fuel, generationChance){
 	this.itemDefinitions[itemId] = {
@@ -49,6 +61,8 @@ ItemFactory.prototype.createItem = function(itemId){
 		return new Armor(definition.itemId, definition.name, definition.protectionValue, definition.baseIntegrity);
 	}else if (definition.type === "LIGHTSOURCE"){
 		return new LightSource(definition.itemId, definition.name, definition.sightBonus, definition.fuel);
+	}else if (definition.type === "ACCESORY"){
+		return new Accesory(definition.itemId, definition.name, definition.isUnique);
 	}
 };
 

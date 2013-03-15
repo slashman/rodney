@@ -37,7 +37,13 @@ LightSource.prototype.getMenuDescription = function(){
 	return this.fuel === 0 ? this.name + "(Spent)" : this.name + " ("+this.fuel+")";
 };
 
+function Accesory(itemId, name, isUnique){
+	Item.call(this, itemId, name, "ACCESORY");
+	this.isUnique = isUnique;
+}
 
+Accesory.prototype = new Item();
+Accesory.prototype.constructor = Accesory;
 
 function DamageableItem(itemId, name, type, baseIntegrity){
 	Item.call(this, itemId, name, type);

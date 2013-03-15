@@ -28,6 +28,7 @@ function MonsterFactory(){
 	this.addMonsterDefinition("YETI", "Yeti", new Roll(4,8,0), 12, 21, new Roll(2,6,0));
 	this.addMonsterDefinition("ZOMBIE", "Zombie", new Roll(2,8,0), 5, 14, new Roll(1,8,0));
 	
+	this.addMonsterDefinition("RODNEY", "Rodney", new Roll(60,3,0), -1, -1, new Roll(3,3,3));
 	
 	
 }
