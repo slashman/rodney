@@ -4,26 +4,17 @@
 * assault: jump into enemies while running
 * buildUp: Acumulate power and unleash a huge blow
 * bash: Push enemies backward, hit walls.
-mirage: increase evasion moving back and forth
-*backflip: Jump backward by running into walls
-*walljump: Bounce in a wall to move through enemies
-block attacks: Gain a chance to shrug off physical attacks completely
-*sweep: Hit three squares in front of you
-slashthru: Step on an enemy after killing him and hit surrounding enemy
+* backflip: Jump backward by running into walls
+* walljump: Bounce in a wall to move through enemies
+* sweep: Hit three squares in front of you
 breakfree: push enemies away when surrounded
 revenge: return a blow after being hit thrice
-pierce?
-stun?
-sacrifice?
-
-show skill animation inside skill selection screen
-Add light sources
-Add evasion
-Add plate to open door
-Potions / Scrolls
-Player customization
-Blood
+* Show skill animation inside skill selection screen
+* Add light sources
+Potions
+Scrolls
+* Blood
 Enemy abilities
-Polymorphing
-
+Autoequip and drop spent weapons/armor
+1/2 Add final enemy
 Add virtual keyboard
