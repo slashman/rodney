@@ -22,7 +22,6 @@ function Player(name) {
 
 Player.prototype.addSkill = function(skill){
 	JSRL.ui.showMessage('You learn '+skill.name);
-	JSRL.ui.showLearnedSkill(skill);
 	this.skills.push(skill.skillId);
 };
 
