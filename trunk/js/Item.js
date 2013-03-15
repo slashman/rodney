@@ -45,9 +45,9 @@ function Accesory(itemId, name, isUnique){
 Accesory.prototype = new Item();
 Accesory.prototype.constructor = Accesory;
 
-function DamageableItem(itemId, name, type, baseIntegrity){
+function DamageableItem(itemId, name, type, baseIntegrity, maxIntegrity){
 	Item.call(this, itemId, name, type);
-	this.maxIntegrity = baseIntegrity;
+	this.maxIntegrity = maxIntegrity;
 	this.integrity = baseIntegrity;
 }
 
@@ -85,13 +85,16 @@ DamageableItem.prototype.damage = function(){
 	
 };
 
-function Weapon(itemId, name, damageRoll, baseIntegrity){
-	DamageableItem.call(this, itemId, name, "WEAPON", baseIntegrity);
+function Weapon(itemId, name, damageRoll, baseIntegrity, maxIntegrity){
+	DamageableItem.call(this, itemId, name, "WEAPON", baseIntegrity, maxIntegrity);
 	this.damageRoll = damageRoll;
+	this.damageRoll.base += INTEGRITY_DAMAGE_ROLL_MODIFIERS[this.getIntegrityLevel()];
 }
 
 Weapon.prototype = new DamageableItem();
 Weapon.prototype.constructor = Weapon;
+
+var INTEGRITY_DAMAGE_ROLL_MODIFIERS = [-3, -2, -1, 0, 1];
 
 Weapon.prototype.damage = function(){
 	this.damageRoll.base --;
@@ -107,13 +110,16 @@ Weapon.prototype.getMenuDescription = function(){
 	return this.getIntegrityDescription() +this.name + " [" + this.damageRoll.getDescription() + "]";
 };
 
-function Armor(itemId, name, protectionValue, baseIntegrity){
-	DamageableItem.call(this, itemId, name, "ARMOR", baseIntegrity);
+function Armor(itemId, name, protectionValue, baseIntegrity, maxIntegrity){
+	DamageableItem.call(this, itemId, name, "ARMOR", baseIntegrity, maxIntegrity);
 	this.protectionValue = protectionValue;
+	this.protectionValue += INTEGRITY_PV_MODIFIERS[this.getIntegrityLevel()];
+
 }
 
 Armor.prototype = new DamageableItem();
 Armor.prototype.constructor = Armor;
+var INTEGRITY_PV_MODIFIERS = [-3, -2, -1, 0, 1];
 
 Armor.prototype.damage = function(){
 	this.protectionValue --;

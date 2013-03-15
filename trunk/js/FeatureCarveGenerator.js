@@ -41,8 +41,8 @@ FeatureCarveGenerator.prototype.addCritters = function(depth){
 FeatureCarveGenerator.prototype.addItems = function(depth){
 	var crits = rand(5,10);
 	for (var i = 0; i < crits; i++){
-		// JSRL.dungeon.addItem(JSRL.itemFactory.createItem("DAGGER"), this.getFreePlace());
-		// JSRL.dungeon.addItem(JSRL.itemFactory.createItem("LEATHER"), this.getFreePlace());
+		JSRL.dungeon.addItem(JSRL.itemFactory.createItem("DAGGER"), this.getFreePlace());
+		JSRL.dungeon.addItem(JSRL.itemFactory.createItem("LEATHER"), this.getFreePlace());
 		JSRL.dungeon.addItem(JSRL.itemFactory.createItem("TORCH"), this.getFreePlace());
 
 	}
