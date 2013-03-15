@@ -41,6 +41,8 @@ function Tiles(){
 	//Terrain
 	this.addTerrainTile("#", new ut.Tile('#', 55, 55, 0), true, true,false);
 	this.addTerrainTile(".",  new ut.Tile('.', 0, 55, 0), false, false,false);
+	this.addTerrainTile("*", new ut.Tile('#', 170, 0, 0), true, true,false);
+	this.addTerrainTile(",",  new ut.Tile('.', 170, 0, 0), false, false,false);
 	this.addTerrainTile(">", new ut.Tile('>', 170, 0, 0), false, false, true);
 }
 
@@ -50,6 +52,7 @@ Tiles.prototype.addTile = function(tileId, tile){
 
 Tiles.prototype.addTerrainTile = function(tileId, utTile, solid, opaque, downstairs){
 	this.terrainTiles[tileId] = {
+		tileId: tileId,
 		solid: solid,
 		opaque: opaque,
 		downstairs: downstairs,

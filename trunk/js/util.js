@@ -56,3 +56,7 @@ String.prototype.replaceAt=function(index, character) {
 var DIRECTIONS = ["UP", "DOWN", "LEFT", "RIGHT"];
 
 var ALL_DIRECTIONS = ["UP", "DOWN", "LEFT", "RIGHT","UPLEFT", "DOWNLEFT", "UPRIGHT", "DOWNRIGHT"];
+
+function sumPositions(p1, p2){
+	return {x: p1.x+ p2.x, y: p1.y+p2.y};
+}

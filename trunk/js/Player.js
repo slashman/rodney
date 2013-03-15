@@ -136,6 +136,13 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	JSRL.ui.showMessage(attackMessage);
 	enemy.hp -= damage;
 	
+	var character = JSRL.tiles.getTile(enemy.tileId).getChar();
+	var splashSize = 2;
+	if (character === character.toLowerCase())
+		splashSize = 1;
+	JSRL.dungeon.splashBlood(sumPositions(enemy.position, attackDirection), splashSize);
+	
+	
 	if (enemy.hp <= 0){
 		JSRL.ui.showMessage("The "+enemy.name+ " dies");
 		JSRL.dungeon.removeEnemy(enemy);
@@ -194,6 +201,8 @@ Player.prototype.damage = function(damage){
 		damage = 0;
 	if (damage === 0){
 		JSRL.ui.showMessage("You shrug off the attack");
+	} else {
+		JSRL.dungeon.splashBlood(this.position, 1);
 	}
 	this.hp -= damage;
 };
@@ -412,9 +421,12 @@ Player.prototype.tryMoving = function (movedir){
 		if (this.hasSkill("SLASH") || this.hasSkill("BACKSLASH")){
 			this.trySlash(movedir);
 		}
+		var addBlood = JSRL.dungeon.hasBlood(this.position) && chance(30);
 		this.position.x = x;
 		this.position.y = y;
 		this.landOn(x, y);
+		if (addBlood)
+			JSRL.dungeon.addBlood(this.position);
 		moved = true;
 	}
 	// Check for kineticCharge #CHARGE
