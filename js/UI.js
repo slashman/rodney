@@ -300,6 +300,7 @@ UI.prototype.selectAdvancement = function(){
 	this.mode = 'SELECT_ADVANCEMENT';
 	this.menuCursor = 0;
 	this.term.clear();
+	this.showSkill(this.availableAdvancements[this.menuCursor]);
 };
 
 UI.prototype.selectItem = function(){
