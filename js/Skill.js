@@ -3,15 +3,10 @@ Skills.skills =
 [
  {
 	 skillId: "CHARGE",
-	 name: "Charge Forward",
+	 name: "Charge",
 	 text1: 
-		 "Run in a straight line for two steps and then jump into an enemy. \n"+
-		"* Enemy evasion is reduced to a third \n"+
-		"* Evasion breaking is double \n"+
-		"* Damage is triplicated.",
+		 "Run into enemies for double damage",
 	text2:
-		"To perform a chance you need to engage into Brave tactics.\n"+
-		"When charging you will see the 'Charge' indicator on the status line.\n"+
 		"You can charge into any of the three positions ahead.",
 	animation: 
 		[
@@ -61,9 +56,7 @@ Skills.skills =
 	 skillId: "ASSAULT",
 	 name: "Assault",
 	 text1: 
-		 "Jump into enemies while running.\n"+
-		"* Ensure first attack while charging\n"+
-		"* Increase charge damage",
+		 "Jump into enemies while running.",
 	animation: 
 		[
 [
@@ -110,11 +103,9 @@ Skills.skills =
  },
  {
 	 skillId: "CORNER",
-	 name: "Wall Pincer",
+	 name: "Corner",
 	 text1: 
-		 "Attack an enemy with a solid object behind him\n"+
-		 "* Enemy evasion is reduced to a half\n"+
-		 "* Damage is doubled\n",
+		 "Attack an enemy against a wall for 2x damage",
 	animation: 
 		[
 [
@@ -154,10 +145,8 @@ Skills.skills =
  {
 	 skillId: "SPIN",
 	 name: "Spin Slash",
-	 text1: 
-		 "When surrounded, attack enemies in opposite directions\n"+
-		 "* Enemy evasion is reduced to a half\n"+
-		 "* Damage is doubled\n",
+	 text1: "Attack enemies in opposite directions",
+	 text2: "Increased damage.",
 	animation: 
 		[
 [
@@ -320,9 +309,8 @@ Skills.skills =
  {
 	 skillId: "FINESSE",
 	 name: "Finesse",
-	 text1: 
-		 "Prevent weapons from damaging on combat\n"+
-		 "* Double lifetime for all weapons",
+	 text1: "Prevent weapons from damaging on combat",
+	 text2: "Double lifetime for all weapons",
  },
  {
 	 skillId: "COUNTER",
@@ -340,13 +328,13 @@ Skills.skills =
 	 skillId: "BUILDUP",
 	 name: "Build Up",
 	 text1: 
-		 "Stand fast to acumulate power and then unleash a strong blow",
+		 "Stand fast to power up and unleash a strong blow",
  },
  {
 	 skillId: "BASH",
 	 name: "Bash",
 	 text1: 
-		 "Push enemies aside.",
+		 "Push enemies back.",
 	animation: 
 		[
 [
