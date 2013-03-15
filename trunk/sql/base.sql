@@ -3,3 +3,6 @@ CREATE DATABASE rodneydb DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general
 CREATE TABLE rod_session(
     sessionInfo TEXT NOT NULL
 )ENGINE=innodb;
+
+ALTER TABLE rod_session ADD COLUMN sessionDate DATETIME NOT NULL;
+ALTER TABLE rod_session ADD COLUMN score INT NOT NULL;

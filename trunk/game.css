@@ -23,6 +23,7 @@
 	height: 300px;
 	text-align: left;
 	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 #txtChatText{

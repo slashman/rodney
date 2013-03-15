@@ -240,7 +240,7 @@ Player.prototype.landOn = function (x, y){
 Player.prototype.doAction = function(){
 	//If we are on town, then go to the dungeon
 	if (JSRL.websocket.onTown){
-		JSRL.websocket.quit();
+		JSRL.websocket.quit(false);
 		JSRL.dungeon.generateLevel(1);
 		JSRL.player.resetFOVMasks();
 		JSRL.player.resetMemoryMap();
