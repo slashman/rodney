@@ -277,7 +277,7 @@ Player.prototype.tryPick = function (item){
 		if (item.isUnique)
 			JSRL.ui.showMessage("You can't pick up "+item.name);
 		else
-			SRL.ui.showMessage("You can't pick up the "+item.name);
+			JSRL.ui.showMessage("You can't pick up the "+item.name);
 	}
 };
 
