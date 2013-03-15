@@ -308,6 +308,12 @@ Player.prototype.dropItem = function (item){
 			JSRL.ui.showMessage("You can't drop the "+item.name+" here");
 	} else {
 		this.inventory.removeObject(item);
+		if (item === this.currentWeapon)
+			this.currentWeapon = false;
+		if (item === this.currentArmor)
+			this.currentArmor = false;
+		if (item === this.currentAccesory)
+			this.currentAccesory = false;
 		JSRL.dungeon.addItem(item, this.position);
 	}
 	
