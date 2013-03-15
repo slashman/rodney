@@ -232,7 +232,7 @@ Player.prototype.landOn = function (x, y){
 		if (item.isUnique){
 			JSRL.ui.showMessage(item.name+" is here");
 		} else {
-			JSRL.ui.showMessage("There is a "+item.name+" here");
+			JSRL.ui.showMessage("There is a "+item.getFloorDescription()+" here");
 		}
 	}
 };
