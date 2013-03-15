@@ -126,7 +126,7 @@ RWSC.prototype.sendMessage = function(){
 };
 
 RWSC.prototype.sendNewDepthMessage = function(){
-	var jsonMsg = {type: "chat", msg: JSRL.player.name+" descend into level "+JSRL.dungeon.currentDepth, key: this.key}
+	var jsonMsg = {type: "chat", msg: JSRL.player.name+" descends into level "+JSRL.dungeon.currentDepth, key: this.key}
 	this.send(JSON.stringify(jsonMsg));
 };
 
