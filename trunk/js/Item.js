@@ -12,6 +12,33 @@ Item.prototype.getMenuDescription = function(){
 	return this.name;
 };
 
+function LightSource(itemId, name, lightBonus, fuel){
+	Item.call(this, itemId, name, "ACCESORY");
+	this.isLightSource = true;
+	this.lightBonus = lightBonus;
+	this.fuel = fuel;
+}
+
+LightSource.prototype = new Item();
+LightSource.prototype.constructor = LightSource;
+LightSource.prototype.spend = function(){
+	this.fuel--;
+	if (this.fuel <= 0){
+		this.fuel = 0;
+		this.lightBonus = 0;
+	}
+};
+
+LightSource.prototype.getStatusDescription = function(){
+	return this.fuel === 0 ? this.name + "(Spent)" : this.name + " ("+this.fuel+")";
+};
+
+LightSource.prototype.getMenuDescription = function(){
+	return this.fuel === 0 ? this.name + "(Spent)" : this.name + " ("+this.fuel+")";
+};
+
+
+
 function DamageableItem(itemId, name, type, baseIntegrity){
 	Item.call(this, itemId, name, type);
 	this.maxIntegrity = baseIntegrity;
@@ -59,7 +86,6 @@ function Weapon(itemId, name, damageRoll, baseIntegrity){
 
 Weapon.prototype = new DamageableItem();
 Weapon.prototype.constructor = Weapon;
-
 
 Weapon.prototype.damage = function(){
 	this.damageRoll.base --;

@@ -4,6 +4,7 @@ function Player(name) {
 	this.name = name;
 	this.hp = 200;
 	this.strength = 1;
+	this.sightRange = 4;
 	this.kineticCharge=0;
 	this.level = 0;
 	this.carryCapacity = 10;
@@ -163,9 +164,14 @@ Player.prototype.updateFOV = function(){
 		this.shootRay(a);
 };
 
+Player.prototype.getSightRange = function(){
+	return this.sightRange + (this.currentAccesory && this.currentAccesory.lightBonus ? this.currentAccesory.lightBonus : 0);
+};
+
 Player.prototype.shootRay = function (a) {
 	var step = 0.3333;
 	var maxdist = JSRL.ui.term.cy / step;
+	maxdist = this.getSightRange() / step < maxdist ? this.getSightRange() / step : maxdist;
 	var dx = Math.cos(a) * step;
 	var dy = -Math.sin(a) * step;
 	var xx = this.position.x, yy = this.position.y;
@@ -497,3 +503,9 @@ function oppositeDirection(direction1, direction2){
 Player.prototype.isRunning = function(movedir){
 	return this.kineticCharge > 1 && sameGeneralDirection(movedir, this.lastMovedir);
 };
+
+Player.prototype.newTurn = function(){
+	if (this.currentAccesory && this.currentAccesory.isLightSource){
+		this.currentAccesory.spend();
+	}
+}

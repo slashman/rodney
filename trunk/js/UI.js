@@ -94,6 +94,7 @@ function isDownLeft(k){
 }
 
 UI.prototype.movePlayer = function(k){
+	JSRL.player.newTurn();
 	if (k === ut.KEY_SPACE){
 		JSRL.player.doAction();
 		return;
