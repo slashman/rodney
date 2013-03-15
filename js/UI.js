@@ -136,7 +136,7 @@ UI.prototype.showStats = function (){
 	this.term.putString("Run: "+JSRL.player.kineticCharge, 1, 16, 255, 255, 255);
 	this.term.putString("Rage: "+JSRL.player.rageCounter, 1, 17, 255, 255, 255);
 	this.term.putString("Build: "+JSRL.player.buildUpCounter, 1, 18, 255, 255, 255);
-	
+	this.term.putString("Press Space for action (Pick, Stairs, Inventory)", 1, 22, 255, 255, 255);
 
 };
 
