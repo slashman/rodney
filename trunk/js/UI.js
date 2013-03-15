@@ -8,13 +8,86 @@ function UI () {
 	this.lastMessage = '';
 	this.inkeyBuffer = '';
 	this.mode = 'TITLE';
+	this.inputEnabled = true;
 	this.term = new ut.Viewport(document.getElementById("game"), 80, 25, "canvas");
 	this.eng = new ut.Engine(this.term, this.getDisplayedTile, MAP_WIDTH, MAP_HEIGHT);
 	this.eng.setShaderFunc(TorchFilter.doLighting);
 	this.messageRepeatCounter = 0;
-	ut.initInput(this.onKeyDown);
+	
+	//ut.initInput(this.onKeyDown);
+	if (document.addEventListener)
+		document.addEventListener("keydown",this.onKeyDown);
+	else if (document.attachEvent)
+		document.attachEvent("onkeydown", this.onKeyDown);
 	window.setInterval(tick, 1000 / FPS);
 }
+
+
+UI.prototype.onKeyDown = function (keyboardEvent) {
+	if (window.event)
+		keyboardEvent = window.event;
+	if (!JSRL.ui.inputEnabled){
+		return;
+	}
+	var key = keyboardEvent.keyCode;
+	if (JSRL.ui.mode === 'TITLE'){
+		JSRL.ui.enterName(key);
+		JSRL.ui.term.render();
+	}  else if (JSRL.ui.mode === 'IN_GAME'){
+		if (JSRL.player.dead){
+			if (keyCodeToChar[key] === "Space"){
+				JSRL.ui.mode = 'TITLE';
+				Rodney.restartGame();
+			}
+		} else {
+			JSRL.ui.movePlayer(key);
+			JSRL.dungeon.dungeonTurn();
+			JSRL.ui.tick();
+		}
+	} else if (JSRL.ui.mode === 'SELECT_ADVANCEMENT'){
+		if (isUp(key)){
+			JSRL.ui.menuCursor--;
+			if (JSRL.ui.menuCursor < 0)
+				JSRL.ui.menuCursor = 0;
+			JSRL.ui.showSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
+		} else if (isDown(key)){
+			JSRL.ui.menuCursor++;
+			if (JSRL.ui.menuCursor > JSRL.ui.availableAdvancements.length-1){
+				JSRL.ui.menuCursor = JSRL.ui.availableAdvancements.length-1;
+			}
+			JSRL.ui.showSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
+		} else if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter"){
+			JSRL.player.addSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
+			JSRL.ui.mode = 'IN_GAME';
+		}
+	} else if (JSRL.ui.mode === 'SELECT_ITEM'){
+		if (isUp(key)){
+			JSRL.ui.menuCursor--;
+			if (JSRL.ui.menuCursor < 0)
+				JSRL.ui.menuCursor = 0;
+		} else if (isDown(key)){
+			JSRL.ui.menuCursor++;
+			if (JSRL.ui.menuCursor > JSRL.player.inventory.length-1){
+				JSRL.ui.menuCursor = JSRL.player.inventory.length-1;
+			}
+		} else if (keyCodeToChar[key] === "Space"){
+			JSRL.player.useItem(JSRL.player.inventory[JSRL.ui.menuCursor]);
+			JSRL.ui.mode = 'IN_GAME';
+		} else if (keyCodeToChar[key] === "D"){
+			JSRL.player.dropItem(JSRL.player.inventory[JSRL.ui.menuCursor]);
+			JSRL.ui.mode = 'IN_GAME';
+		} else if (keyCodeToChar[key] === "Escape"){
+			JSRL.ui.mode = 'IN_GAME';
+		}
+		JSRL.ui.drawSelectItem();
+	} else if (JSRL.ui.mode === 'SCENE'){
+		if (keyCodeToChar[key] === "Enter"){
+			JSRL.ui.mode = 'IN_GAME';
+		}
+	}
+};
+
+
 
 UI.prototype.showMessage = function (msg){
 	
@@ -42,77 +115,77 @@ UI.prototype.showMessage = function (msg){
 	
 };
 
-UI.prototype.enterName = function (k){
+UI.prototype.enterName = function (key){
 	this.term.putString("          ", 35, 20, 255, 255, 255);
-	if (k === ut.KEY_ENTER){
+	if (keyCodeToChar[key] === "Enter"){
 		var callback = function(){
 			JSRL.ui.term.clear();
 			JSRL.ui.mode = 'IN_GAME';
 			JSRL.ui.selectAdvancement();
 		};
 		Rodney.doStartGame(callback);
-	} else if (k >= ut.KEY_A && k <= ut.KEY_Z){
+	} else if (key >= keyCharToCode["A"] && key <= keyCharToCode["Z"]){
 		if (this.inkeyBuffer.length < 10){
-			this.inkeyBuffer += String.fromCharCode(k);
+			this.inkeyBuffer += String.fromCharCode(key);
 		}
-	} else if (k === ut.KEY_BACKSPACE){
+	} else if (keyCodeToChar[key] === "Backspace"){
 		this.inkeyBuffer = this.inkeyBuffer.substring(0, this.inkeyBuffer.length-1);
 	}
 	this.term.putString(this.inkeyBuffer, 35, 20, 255, 255, 255);
 };
 
-function isUp(k){
-	return k === ut.KEY_NUMPAD8 || k === ut.KEY_UP || k === ut.KEY_K || k === ut.KEY_W;
+function isUp(key){
+	return keyCodeToChar[key] === "Numpad 8" || keyCodeToChar[key] === "Up" || keyCodeToChar[key] === "K" || keyCodeToChar[key] === "W";
 }
 
-function isDown(k){
-	return k === ut.KEY_NUMPAD2 || k === ut.KEY_DOWN || k === ut.KEY_J || k === ut.KEY_X;
+function isDown(key){
+	return keyCodeToChar[key] === "Numpad 2" || keyCodeToChar[key] === "Down" || keyCodeToChar[key] === "J" || keyCodeToChar[key] === "X";
 }
 
-function isLeft(k){
-	return k === ut.KEY_NUMPAD4 || k === ut.KEY_LEFT || k === ut.KEY_H || k === ut.KEY_A;
+function isLeft(key){
+	return keyCodeToChar[key] === "Numpad 4" || keyCodeToChar[key] === "Left" || keyCodeToChar[key] === "H" || keyCodeToChar[key] === "A";
 }
 
-function isRight(k){
-	return k === ut.KEY_NUMPAD6 || k === ut.KEY_RIGHT || k === ut.KEY_L || k === ut.KEY_D;
+function isRight(key){
+	return keyCodeToChar[key] === "Numpad 6" || keyCodeToChar[key] === "Right" || keyCodeToChar[key] === "L" || keyCodeToChar[key] === "D";
 }
 
-function isUpRight(k){
-	return k === ut.KEY_E || k === ut.KEY_NUMPAD9;
+function isUpRight(key){
+	return keyCodeToChar[key] === "Numpad 9" || keyCodeToChar[key] === "E";
 }
 
-function isDownRight(k){
-	return k === ut.KEY_C || k === ut.KEY_NUMPAD3;
+function isDownRight(key){
+	return keyCodeToChar[key] === "Numpad 3" || keyCodeToChar[key] === "C";
 }
 
-function isUpLeft(k){
-	return k === ut.KEY_Q || k === ut.KEY_NUMPAD7;
+function isUpLeft(key){
+	return keyCodeToChar[key] === "Numpad 7" || keyCodeToChar[key] === "Q";
 }
 
-function isDownLeft(k){
-	return k === ut.KEY_Z || k === ut.KEY_NUMPAD1;
+function isDownLeft(key){
+	return keyCodeToChar[key] === "Numpad 1" || keyCodeToChar[key] === "Z";
 }
 
-UI.prototype.movePlayer = function(k){
+UI.prototype.movePlayer = function(key){
 	JSRL.player.newTurn();
-	if (k === ut.KEY_SPACE){
+	if (keyCodeToChar[key] === "Space"){
 		JSRL.player.doAction();
 		return;
 	}
-	if (k === ut.KEY_I){
+	if (keyCodeToChar[key] === "I"){
 		this.selectItem();
 		return;
 	}
 		
 	var movedir = { x: 0, y: 0 }; // Movement vector
-	if (isLeft(k)) movedir.x = -1;
-	else if (isRight(k)) movedir.x = 1;
-	else if (isUp(k)) movedir.y = -1;
-	else if (isDown(k)) movedir.y = 1;
-	else if (isDownLeft(k)) { movedir.x = -1; movedir.y = 1;}
-	else if (isDownRight(k)) { movedir.x = 1; movedir.y = 1;}
-	else if (isUpLeft(k)) { movedir.x = -1; movedir.y = -1;}
-	else if (isUpRight(k)) { movedir.x = 1; movedir.y = -1;}
+	if (isLeft(key)) movedir.x = -1;
+	else if (isRight(key)) movedir.x = 1;
+	else if (isUp(key)) movedir.y = -1;
+	else if (isDown(key)) movedir.y = 1;
+	else if (isDownLeft(key)) { movedir.x = -1; movedir.y = 1;}
+	else if (isDownRight(key)) { movedir.x = 1; movedir.y = 1;}
+	else if (isUpLeft(key)) { movedir.x = -1; movedir.y = -1;}
+	else if (isUpRight(key)) { movedir.x = 1; movedir.y = -1;}
 	if (movedir.x === 0 && movedir.y === 0) 
 		JSRL.player.standFast();
 	else
@@ -148,63 +221,6 @@ UI.prototype.refresh = function(){
 	this.term.render(); // Render
 };
 
-UI.prototype.onKeyDown = function (k) {
-	if (JSRL.ui.mode === 'TITLE'){
-		JSRL.ui.enterName(k);
-		JSRL.ui.term.render();
-	}  else if (JSRL.ui.mode === 'IN_GAME'){
-		if (JSRL.player.dead){
-			if (k === ut.KEY_SPACE){
-				JSRL.ui.mode = 'TITLE';
-				Rodney.restartGame();
-			}
-		} else {
-			JSRL.ui.movePlayer(k);
-			JSRL.dungeon.dungeonTurn();
-			JSRL.ui.tick();
-		}
-	} else if (JSRL.ui.mode === 'SELECT_ADVANCEMENT'){
-		if (isUp(k)){
-			JSRL.ui.menuCursor--;
-			if (JSRL.ui.menuCursor < 0)
-				JSRL.ui.menuCursor = 0;
-			JSRL.ui.showSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
-		} else if (isDown(k)){
-			JSRL.ui.menuCursor++;
-			if (JSRL.ui.menuCursor > JSRL.ui.availableAdvancements.length-1){
-				JSRL.ui.menuCursor = JSRL.ui.availableAdvancements.length-1;
-			}
-			JSRL.ui.showSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
-		} else if (k === ut.KEY_SPACE || k === ut.KEY_ENTER){
-			JSRL.player.addSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
-			JSRL.ui.mode = 'IN_GAME';
-		}
-	} else if (JSRL.ui.mode === 'SELECT_ITEM'){
-		if (isUp(k)){
-			JSRL.ui.menuCursor--;
-			if (JSRL.ui.menuCursor < 0)
-				JSRL.ui.menuCursor = 0;
-		} else if (isDown(k)){
-			JSRL.ui.menuCursor++;
-			if (JSRL.ui.menuCursor > JSRL.player.inventory.length-1){
-				JSRL.ui.menuCursor = JSRL.player.inventory.length-1;
-			}
-		} else if (k === ut.KEY_SPACE){
-			JSRL.player.useItem(JSRL.player.inventory[JSRL.ui.menuCursor]);
-			JSRL.ui.mode = 'IN_GAME';
-		} else if (k === ut.KEY_D){
-			JSRL.player.dropItem(JSRL.player.inventory[JSRL.ui.menuCursor]);
-			JSRL.ui.mode = 'IN_GAME';
-		} else if (k === ut.KEY_ESCAPE){
-			JSRL.ui.mode = 'IN_GAME';
-		}
-		JSRL.ui.drawSelectItem();
-	} else if (JSRL.ui.mode === 'SCENE'){
-		if (k === ut.KEY_ENTER){
-			JSRL.ui.mode = 'IN_GAME';
-		}
-	}
-};
 
 UI.prototype.tick = function () {
 	if (this.mode === 'IN_GAME'){
