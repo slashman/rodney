@@ -56,7 +56,7 @@ ItemFactory.prototype.addArmorDefinition = function (itemId, name, protectionVal
 ItemFactory.prototype.createItem = function(itemId){
 	var definition = this.itemDefinitions[itemId];
 	if (definition.type === "WEAPON"){
-		return new Weapon(definition.itemId, definition.name, definition.damageRoll, definition.baseIntegrity);
+		return new Weapon(definition.itemId, definition.name, definition.damageRoll.clone(), definition.baseIntegrity);
 	}else if (definition.type === "ARMOR"){
 		return new Armor(definition.itemId, definition.name, definition.protectionValue, definition.baseIntegrity);
 	}else if (definition.type === "LIGHTSOURCE"){
