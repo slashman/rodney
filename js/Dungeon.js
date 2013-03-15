@@ -202,3 +202,35 @@ Dungeon.prototype.createTownLevel = function(){
 	JSRL.player.position = position;
 	this.map = map;
 };
+
+Dungeon.prototype.splashBlood = function(position, splashSize){
+	this.addBlood(position);
+	if (splashSize > 1){
+		if (chance(30)) this.addBlood({x: position.x + 1, y: position.y +1});
+		if (chance(30)) this.addBlood({x: position.x - 1, y: position.y +1});
+		if (chance(30)) this.addBlood({x: position.x + 0, y: position.y +1});
+		if (chance(30)) this.addBlood({x: position.x + 1, y: position.y -1});
+		if (chance(30)) this.addBlood({x: position.x - 1, y: position.y -1});
+		if (chance(30)) this.addBlood({x: position.x + 0, y: position.y -1});
+		if (chance(30)) this.addBlood({x: position.x + 1, y: position.y +0});
+		if (chance(30)) this.addBlood({x: position.x - 1, y: position.y +0});
+	}
+
+};
+
+Dungeon.prototype.addBlood = function(position){
+	var tile = this.getMapTile(position.x, position.y);
+	if (tile.tileId === ".")
+		this.changeTile(position, ',');
+	else if (tile.tileId === "#")
+		this.changeTile(position, '*');
+};
+
+Dungeon.prototype.hasBlood = function(position){
+	var tile = this.getMapTile(position.x, position.y);
+	return tile.tileId === "," || tile.tileId === "*";
+};
+
+Dungeon.prototype.changeTile = function (position, tile){
+	this.map[position.y] = this.map[position.y].replaceAt(position.x, tile);
+};
