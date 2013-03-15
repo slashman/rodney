@@ -6,6 +6,8 @@ function Player(name) {
 	this.strength = 1;
 	this.sightRange = 4;
 	this.kineticCharge=0;
+	this.rageCounter=0;
+	this.buildUpCounter = 0;
 	this.level = 0;
 	this.carryCapacity = 10;
 	this.resetMemoryMap();
