@@ -5,5 +5,5 @@ function JSRL(){
 	this.dungeon;
 	this.dungeonGenerator;
 	this.tiles = new Tiles();
-	this.websocket = new RWSC();
+	this.websocket;
 }
