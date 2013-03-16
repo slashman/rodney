@@ -68,11 +68,11 @@ function Tiles(){
 	//Terrain
 	this.addTerrainTile("#", new ut.Tile('#', 55, 55, 0), true, true,false);
 	this.addTerrainTile(".",  new ut.Tile('.', 0, 55, 0), false, false,false);
-	this.addTerrainTile("*", new ut.Tile('#', 170, 0, 0), true, true,false);
-	this.addTerrainTile(",",  new ut.Tile('.', 170, 0, 0), false, false,false);
+	this.addTerrainTile("*", new ut.Tile('#', 255, 0, 0), true, true,false);
+	this.addTerrainTile(",",  new ut.Tile('.', 255, 0, 0), false, false,false);
 	this.addTerrainTile(">", new ut.Tile('>', 170, 0, 0), false, false, true);
 	
-	this.addTerrainTile(",", new ut.Tile('.', 0, 170, 0), false, false, false);
+	this.addTerrainTile("^", new ut.Tile('.', 0, 170, 0), false, false, false);
 	this.addTerrainTile("t", new ut.Tile('T', 170, 55, 0), true, false, false);
 	this.addTerrainTile("-", new ut.Tile('*', 170, 55, 0), true, true, false);
 	this.addTerrainTile("w", new ut.Tile('~', 0, 0, 255), true, false, false);
