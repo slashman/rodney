@@ -133,6 +133,12 @@ Enemy.prototype.attackPlayer = function(){
 				JSRL.ui.showMessage("The Vampire bits you... you feel fragile!");
 			}
 		break;
+		case "WRAITH":
+			if (chance(50)){
+				JSRL.player.reduceMaxHP();
+				JSRL.ui.showMessage("The Wraith mesmerizes you... you feel fragile!");
+			}
+		break;
 	}
 	if (!(this.monsterId === "FLOATING_EYE" 
 		|| this.monsterId === "NYMPH"
