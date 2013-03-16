@@ -7,7 +7,7 @@ Skills.skills =
 	 text1: 
 		 "Run into enemies for double damage",
 	text2:
-		"You can charge into any of the three positions ahead.",
+		"You can charge into the three positions ahead.",
 	animation: 
 		[
 [
@@ -493,5 +493,25 @@ Skills.skills =
 "#########",
 ]
 		]
- }
+ },
+ {
+	 skillId: "ENDURANCE",
+	 name: "Endurance",
+	 text1:  "Increase Max HP by 50",
+ },
+ {
+	 skillId: "DESTRUCTION",
+	 name: "Destruction",
+	 text1:  "Increase Strength by 3",
+ },
+ {
+	 skillId: "DARK_SIGHT",
+	 name: "Dark Sight",
+	 text1:  "Allows you to see in the dark",
+ }, 
+ {
+	 skillId: "PACKER",
+	 name: "Packer",
+	 text1:  "Carry capacity + 5",
+ } 
 ];

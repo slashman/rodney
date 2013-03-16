@@ -26,6 +26,18 @@ function Player(name) {
 
 Player.prototype.addSkill = function(skill){
 	JSRL.ui.showMessage('You learn '+skill.name);
+	if (skill.skillId === "ENDURANCE"){
+		this.maxhp += 50;
+		this.hp += 50;
+		if (this.hp > this.maxhp)
+			this.hp = this.maxhp;
+	} else if (skill.skillId === "DESTRUCTION"){
+		this.strength += 5;
+	} else if (skill.skillId === "DARK_SIGHT"){
+		this.sightRange += 4;
+	} else if (skill.skillId === "PACKER"){
+		this.carryCapacity += 5;
+	} 
 	this.skills.push(skill.skillId);
 };
 
