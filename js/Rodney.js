@@ -1,7 +1,7 @@
 /*global ut */
 var Rodney = {};
 
-var WS_HOST = "ws://192.168.1.2:12345/echo";
+var WS_HOST = "ws://216.119.144.155:12345/echo";
 //var WS_HOST = "NEIN";
 
 Rodney.initGame = function () {
@@ -24,7 +24,8 @@ Rodney.doStartGame = function (onConnect){
 	JSRL.websocket = new RWSC();
 	var callback = function(status){
 		if (JSRL.websocket.started) return;
-		
+		if (abortConnection)
+			return;
 		if (status == 1){
 			JSRL.websocket.onTown = true;
 			JSRL.dungeon.createTownLevel();
@@ -42,6 +43,17 @@ Rodney.doStartGame = function (onConnect){
 		JSRL.dungeon.generateLevel(1);
 		if (onConnect)
 			onConnect();
-	}else
+	}else {
 		JSRL.websocket.init(callback, WS_HOST);
+		//setTimeout(checkConnectionTimeout, 10*10000);
+	}
 };
+
+var abortConnection = false;
+function checkConnectionTimeout(){
+	if (JSRL.websocket.onTown){
+		return;
+	}
+	abortConnection = true;
+	JSRL.dungeon.generateLevel(1);
+}
