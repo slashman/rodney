@@ -193,8 +193,12 @@ UI.prototype.movePlayer = function(key){
 	else if (isUpRight(key)) { movedir.x = 1; movedir.y = -1;}
 	if (movedir.x === 0 && movedir.y === 0) 
 		JSRL.player.standFast();
-	else
+	else {
+		if (JSRL.player.confusionCounter > 0 && chance(50))
+			movedir = randomDirection();
 		JSRL.player.tryMoving(movedir);
+	}
+		
 };
 
 UI.prototype.getDisplayedTile = function (x,y){

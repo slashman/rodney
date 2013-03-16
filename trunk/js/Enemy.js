@@ -115,6 +115,12 @@ Enemy.prototype.attackPlayer = function(){
 				JSRL.ui.showMessage("The Rust Monster licks you");
 			} 
 		break;
+		case "UMBER_HULK":
+			if (chance(40) && JSRL.player.confusionCounter === 0){
+				JSRL.player.confuse();
+				JSRL.ui.showMessage("The Umber Hulk gazes at you. You are confused!");
+			}
+		break;
 	}
 	if (!(this.monsterId === "FLOATING_EYE" 
 		|| this.monsterId === "NYMPH"
