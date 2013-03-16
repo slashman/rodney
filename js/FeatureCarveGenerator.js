@@ -13,16 +13,39 @@ FeatureCarveGenerator.prototype.constructor = FeatureCarveGenerator;
 
 FeatureCarveGenerator.prototype.createLevel = function (depth){
 	var rodneyLevel = false;
+	var rbLevel = false;
 	if (depth > 25 && chance(80) && !JSRL.player.rodneyGenerated){
 		rodneyLevel = true;
+	} 
+	//
+	
+	//
+	if (!rodneyLevel && chance(80) && depth > 28 && JSRL.player.rodneyGenerated){
+		rbLevel = true;
 	}
-	var addExit = !rodneyLevel;
+		
+	var addExit = true;
+	if (rodneyLevel || rbLevel)
+		addExit = false;
 	var map = this.generateLevel(9, '#', '.', '.', 60, 60, addExit);
 	if (rodneyLevel){
 		var rodney = JSRL.monsterFactory.createMonster("RODNEY");
 		rodney.isUnique = true;
 		JSRL.dungeon.addEnemy(rodney, this.getFreePlace());
 		JSRL.player.rodneyGenerated = true;
+	}else if (rbLevel){
+		var rodney = JSRL.monsterFactory.createMonster("ARNOLD");
+		rodney.isUnique = true;
+		JSRL.dungeon.addEnemy(rodney, this.getFreePlace());
+		rodney = JSRL.monsterFactory.createMonster("TOY");
+		rodney.isUnique = true;
+		JSRL.dungeon.addEnemy(rodney, this.getFreePlace());
+		rodney = JSRL.monsterFactory.createMonster("LANE");
+		rodney.isUnique = true;
+		JSRL.dungeon.addEnemy(rodney, this.getFreePlace());
+		rodney = JSRL.monsterFactory.createMonster("MANGO");
+		rodney.isUnique = true;
+		JSRL.dungeon.addEnemy(rodney, this.getFreePlace());
 	}
 	this.addCritters(depth);
 	this.addItems(depth);

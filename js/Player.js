@@ -155,6 +155,22 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 			JSRL.dungeon.addItem(JSRL.itemFactory.createItem("YENDOR"), this.position);
 			JSRL.dungeon.changeTile(enemy.position, '>');
 			JSRL.ui.showRodneyScene();
+		} else if (enemy.monsterId === "ARNOLD"){
+			JSRL.ui.showMessage("How dare you, puny @ sign... How dare you!");
+			this.deadArnold = true;
+			this.checkEndgame();
+		} else if (enemy.monsterId === "TOY"){
+			JSRL.ui.showMessage("Never would I had thought, that my fate would be decided by one of my creations");
+			this.deadToy = true;
+			this.checkEndgame();
+		} else if (enemy.monsterId === "LANE"){
+			JSRL.ui.showMessage("Never underestimate the power of human will!");
+			this.deadLane = true;
+			this.checkEndgame();
+		} else if (enemy.monsterId === "MANGO"){
+			JSRL.ui.showMessage("Good job, little pal :)");
+			this.deadMango = true;
+			this.checkEndgame();
 		} else {
 			JSRL.ui.showMessage(enemy.getTheDescription()+ " dies");
 		}
@@ -574,3 +590,9 @@ Player.prototype.recoverHP = function(hp){
 	if (this.hp > this.maxhp)
 		this.hp = this.maxhp;
 };
+
+Player.prototype.checkEndgame = function(){
+	if (this.deadArnold && this.deadToy && this.deadLane &&this.deadMango){
+		JSRL.ui.endGame();
+	}	
+}
