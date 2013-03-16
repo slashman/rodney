@@ -400,8 +400,7 @@ UI.prototype.showSkill = function(skill){
 	};
 	this.term.clear();
 	this.term.putString(skill.text1, 30, 4, 255, 255, 255);
-	if (skill.text2)
-		this.term.putString(skill.text2, 20, 11, 255, 255, 255);
+	if (skill.text2) this.term.putString(skill.text2, 30, 6, 255, 255, 255);
 };
 
 
