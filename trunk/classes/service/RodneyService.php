@@ -1,5 +1,5 @@
 <?
-    set_include_path("/var/www/rodney/:./");
+    set_include_path("/home5/slashwar/public_html/rodney/:./");
     require 'classes/service/RodneyRestfullService.php';
     require 'classes/manager/RodneyManager.php';
     
