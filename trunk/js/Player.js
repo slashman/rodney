@@ -244,6 +244,7 @@ Player.prototype.doAction = function(){
 		JSRL.dungeon.generateLevel(1);
 		JSRL.player.resetFOVMasks();
 		JSRL.player.resetMemoryMap();
+		JSRL.websocket.abandonTown();
 		return;
 	}
 	this.kineticCharge = 0;
