@@ -230,12 +230,16 @@ UI.prototype.showStats = function (){
 		this.term.putString(JSRL.player.currentArmor.getStatusDescription(), 1, 11, 255, 255, 255);
 	if (JSRL.player.currentAccesory)
 		this.term.putString(JSRL.player.currentAccesory.getStatusDescription(), 1, 12, 255, 255, 255);
-	this.term.putString("Depth: "+JSRL.dungeon.currentDepth, 1, 14, 255, 255, 255);
-	this.term.putString("HP: "+JSRL.player.hp+"/"+JSRL.player.maxhp, 1, 15, 255, 255, 255);
-	this.term.putString("Run: "+JSRL.player.kineticCharge, 1, 16, 255, 255, 255);
-	this.term.putString("Rage: "+JSRL.player.rageCounter, 1, 17, 255, 255, 255);
-	this.term.putString("Build: "+JSRL.player.buildUpCounter, 1, 18, 255, 255, 255);
-	this.term.putString("Strength: "+JSRL.player.strength, 1, 19, 255, 255, 255);
+	this.term.putString("Level    "+JSRL.dungeon.currentDepth, 1, 14, 255, 255, 255);
+	this.term.putString("HP       "+JSRL.player.hp+"/"+JSRL.player.maxhp, 1, 15, 255, 255, 255);
+	this.term.putString("Strength "+JSRL.player.strength, 1, 16, 255, 255, 255);
+	
+	if (JSRL.player.kineticCharge>0)
+		this.term.putString("Running", 1, 17, 255, 255, 255);
+	
+	//this.term.putString("Rage: "+JSRL.player.rageCounter, 1, 17, 255, 255, 255);
+	//this.term.putString("Build: "+JSRL.player.buildUpCounter, 1, 18, 255, 255, 255);
+	
 	this.term.putString("Press Space for action (Pick, Stairs, Inventory)", 1, 22, 255, 255, 255);
 
 };
