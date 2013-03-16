@@ -23,28 +23,35 @@ Dungeon.prototype.getDisplayedTile = function (x, y) {
 	} catch(err) {
 		return ut.NULLTILE; 
 	}
-	
+	var ret;
 	if (JSRL.player.isSeeing(x,y)){
 		// Enemies
 		var enemy = this.getEnemy(x,y); 
 		if (enemy){
 			if (enemy.monsterId === "MIMIC" && !enemy.wasHit)
-				return JSRL.tiles.getTerrainTile(">").utTile;
+				ret = JSRL.tiles.getTerrainTile(">").utTile;
 			if (enemy.monsterId != "INVISIBLE_STALKER")
-				return JSRL.tiles.getTile(enemy.tileId);
-			
+				ret = JSRL.tiles.getTile(enemy.tileId);
+		} else {
+			// Items
+			var item = this.getItem(x,y); 
+			if (item){
+				ret = JSRL.tiles.getTile(item.itemId);
+			} else {
+				// Terrain
+				ret = JSRL.tiles.getTerrainTile(t).utTile;
+			}
 		}
-		// Items
-		var item = this.getItem(x,y); 
-		if (item){
-			return JSRL.tiles.getTile(item.itemId);
-		}
-		// Terrain
-		return JSRL.tiles.getTerrainTile(t).utTile;
 	} else if (JSRL.player.remembers(x,y)){
-		return JSRL.tiles.getMemoryTile(t);
+		ret = JSRL.tiles.getMemoryTile(t);
 	} else 
-		return ut.NULLTILE;
+		ret = ut.NULLTILE;
+	if (!ret){
+		console.log("Invalid tile at "+x+","+y)
+		return NULLTILE;
+
+	}
+	return ret;
 };
 
 Dungeon.prototype.addEnemy = function (enemy, place){
