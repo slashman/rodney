@@ -84,8 +84,24 @@ Enemy.prototype.attackPlayer = function(){
 				JSRL.ui.showMessage("The violet fungi engulfs you!");
 			}
 		break;
+		case "NYMPH":
+			if (chance(65)){
+				if(JSRL.player.inventory.length === 0){
+					JSRL.ui.showMessage("The nymph steals a kiss from you!");
+				} else {
+					var item = randomElementOf(JSRL.player.inventory);
+					JSRL.ui.showMessage("The nymph steals a "+item.name+" from you!");
+					JSRL.player.inventory.removeObject(item);
+				}
+				if (chance(80)){
+					JSRL.ui.showMessage("The nymph vanishes");
+					JSRL.dungeon.removeEnemy(this);
+					return;
+				}
+			}
+		break;
 	}
-	if (!(this.monsterId === "FLOATING_EYE")){
+	if (!(this.monsterId === "FLOATING_EYE" || this.monsterId === "NYMPH")){
 		JSRL.player.damage(this.damageRoll.roll());
 		if (this.isUnique){
 			JSRL.ui.showMessage(this.name+" hits you.");
