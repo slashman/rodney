@@ -61,6 +61,13 @@ Dungeon.prototype.getEnemy = function (x, y){
 	return false;
 };
 
+Dungeon.prototype.isFree = function (position){
+	var x = position.x;
+	var y = position.y;
+	return !this.getEnemy(x, y) && !this.getMapTile(x, y).solid;
+};
+
+
 Dungeon.prototype.getItem = function (x, y){
 	for (var i = 0; i < this.items.length; i++){
 		if (this.items[i].position.x === x && this.items[i].position.y === y)
