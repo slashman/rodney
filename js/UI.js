@@ -13,7 +13,7 @@ function UI () {
 	this.eng = new ut.Engine(this.term, this.getDisplayedTile, MAP_WIDTH, MAP_HEIGHT);
 	this.eng.setShaderFunc(TorchFilter.doLighting);
 	this.messageRepeatCounter = 0;
-	
+	this.textBox = new TextBox(10, 78, {x: 1, y: 1});
 	//ut.initInput(this.onKeyDown);
 	if (document.addEventListener)
 		document.addEventListener("keydown",this.onKeyDown);
@@ -239,7 +239,9 @@ UI.prototype.refresh = function(){
 	this.eng.update(JSRL.player.position.x, JSRL.player.position.y);
 	this.term.put(JSRL.tiles.AT, this.term.cx, this.term.cy);
 	this.showStats();
-	this.term.putString(this.currentMessage, 1, 1, 255, 0, 0);
+	//this.term.putString(this.currentMessage, 1, 1, 255, 0, 0);
+	this.textBox.setText(this.currentMessage);
+	this.textBox.draw();
 	this.term.render(); // Render
 };
 
