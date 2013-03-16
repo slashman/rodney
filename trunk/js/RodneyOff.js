@@ -2,8 +2,8 @@
 var Rodney = {};
 
 //var WS_HOST = "ws://192.168.1.2:12345/echo";
-var WS_HOST = "ws://216.119.144.155:12345/echo";
-//var WS_HOST = "NEIN";
+//var WS_HOST = "ws://216.119.144.155:12345/echo";
+var WS_HOST = "NEIN";
 
 Rodney.initGame = function () {
 	JSRL.ui = new UI();
