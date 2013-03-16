@@ -60,18 +60,17 @@ Player.prototype.getLearnableSkills = function(){
 
 Player.prototype.resetFOVMasks = function(){
 	// Init FOV masks
-	var w = JSRL.dungeon.getWidth();
-	var h = JSRL.dungeon.getHeight();
+	var w = 200;
+	var h = 200;
 	
 	//var h = JSRL.ui.term.h;
 	//var w = JSRL.ui.term.w;
-	this.maskBuffer = new Array(h);
-	for (var j = 0; j < h; ++j)
-		this.maskBuffer[j] = new Array(w);
-	this.maskOrigin = { x: 0, y: 0 };
+	this.maskBuffer = new Array(w);
+	for (var j = 0; j < w; ++j)
+		this.maskBuffer[j] = new Array(h);
 };
 
-Player.prototype.remembers = function (x, y){
+Player.prototype.remembers = function (	x, y){
 	if (!this.memoryMap[x])
 		return false;
 	return this.memoryMap[x][y];
@@ -185,10 +184,7 @@ Player.prototype.updateFOV = function(){
 	// Clear the mask buffer
 	for (var j = 0; j < JSRL.dungeon.getHeight(); ++j)
 		for (var i = 0; i < JSRL.dungeon.getWidth(); ++i)
-			this.maskBuffer[j][i] = false;
-	// Update buffer info
-	this.maskOrigin.x = this.position.x - JSRL.ui.term.cx;
-	this.maskOrigin.y = this.position.y - JSRL.ui.term.cy;
+			this.maskBuffer[i][j] = false;
 	// Populate the mask buffer with fresh data
 	var step = Math.PI * 2.0 / 1080;
 	for (var a = 0; a < Math.PI * 2; a += step)
@@ -210,7 +206,7 @@ Player.prototype.shootRay = function (a) {
 		var testx = Math.round(xx);
 		var testy = Math.round(yy);
 		// Mark the tile visible
-		this.maskBuffer[testy - this.maskOrigin.y][testx - this.maskOrigin.x] = true;
+		this.maskBuffer[testx][testy] = true;
 		this.remember(testx, testy);
 		// If wall is encountered, terminate ray
 		try { 
@@ -226,7 +222,8 @@ Player.prototype.shootRay = function (a) {
 };
 
 Player.prototype.isSeeing = function (x,y){
-	return this.maskBuffer[y - this.maskOrigin.y][x - this.maskOrigin.x];
+	//return this.maskBuffer[y - this.maskOrigin.y][x - this.maskOrigin.x];
+	return this.maskBuffer[x][y];
 };
 
 Player.prototype.damage = function(damage){
@@ -596,4 +593,4 @@ Player.prototype.checkEndgame = function(){
 	if (this.deadArnold && this.deadToy && this.deadLane &&this.deadMango){
 		JSRL.ui.endGame();
 	}	
-}
+};
