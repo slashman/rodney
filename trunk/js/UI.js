@@ -148,7 +148,7 @@ UI.prototype.enterName = function (key){
 	} else if (keyCodeToChar[key] === "Backspace"){
 		this.inkeyBuffer = this.inkeyBuffer.substring(0, this.inkeyBuffer.length-1);
 	}
-	this.term.putString(this.inkeyBuffer, 35, 20, 255, 255, 255);
+	this.term.putString(this.inkeyBuffer, 25, 23, 255, 255, 255);
 };
 
 function isUp(key){
@@ -299,8 +299,35 @@ UI.prototype.reset = function(){
 UI.prototype.showTitleScreen = function(){
 	this.mode = 'TITLE';
 	this.term.clear();
-	this.term.putString("R O D N E Y", 20, 5, 255, 255, 0);
-	this.term.putString("Please enter your name:", 10, 20, 255, 255, 255);
+	this.term.putString("- = RODNEY = -", 32, 1, 255, 0, 0);
+	this.term.putString("Slashware Interactive - 2013 7DRL Challenge", 15, 2, 255, 0, 0);
+	this.term.putString("Rogue's name?", 10, 23, 255, 0, 0);
+	
+	var scene = [
+"Twenty years ago, the brave adventurer 'Rodney' descended into the Dungeons",
+"of Doom, seeking fame and fortune.                                       ",
+"                                                                         ",
+"Alas, as with most adventurers foolish enough to take that venture,     ",
+"nothing was ever heard from him again.                                   ",
+"                                                                         ",
+"  -'He had more bravery than brains' said Roseline, his lonely widow.    ",
+"                                                                         ",
+"Years went by, and everybody forgot good old Rodney. Until that sad day. ",
+"                                                                         ",
+"The whole world was covered in darkness as civilizations fell one by one ",
+"prey to a dark army of monsters, rising from the Northern Mountains.     ",
+"                                                                         ",
+"And there was only one thing the minions would say when captured         ",
+"                                                                         ",
+" - 'To our master Rodney we serve and we'll gladly die for him!'         ",
+"                                                                         ",
+"The time has come, to challenge the Dungeons again.                      ",
+	             ];
+	for (var i = 0; i < scene.length; i++){
+		this.term.putString(scene[i], 2, i + 4, 255, 255, 255);
+	}
+	
+	
 	this.term.render();
 };
 
