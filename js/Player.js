@@ -3,7 +3,7 @@
 function Player(name) {
 	this.name = name;
 	this.hp = 200;
-	this.strength = 1;
+	this.strength = 7;
 	this.sightRange = 4;
 	this.kineticCharge=0;
 	this.rageCounter=0;
@@ -541,4 +541,9 @@ Player.prototype.newTurn = function(){
 	if (this.currentAccesory && this.currentAccesory.isLightSource){
 		this.currentAccesory.spend();
 	}
-}
+};
+
+Player.prototype.reduceStrength = function(){
+	if (this.strength > 1)
+		this.strength--;
+};
