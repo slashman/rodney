@@ -168,6 +168,11 @@ function isDownLeft(key){
 
 UI.prototype.movePlayer = function(key){
 	JSRL.player.newTurn();
+	if (JSRL.player.paralysisCounter > 0){
+		this.showMessage("You can't move!");
+		return;
+	}
+	
 	if (keyCodeToChar[key] === "Space"){
 		JSRL.player.doAction();
 		return;

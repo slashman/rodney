@@ -8,6 +8,7 @@ function Player(name) {
 	this.kineticCharge=0;
 	this.rageCounter=0;
 	this.buildUpCounter = 0;
+	this.paralysisCounter = 0;
 	this.level = 0;
 	this.carryCapacity = 10;
 	this.resetMemoryMap();
@@ -541,9 +542,15 @@ Player.prototype.newTurn = function(){
 	if (this.currentAccesory && this.currentAccesory.isLightSource){
 		this.currentAccesory.spend();
 	}
+	if (this.paralysisCounter > 0)
+		this.paralysisCounter--;
 };
 
 Player.prototype.reduceStrength = function(){
 	if (this.strength > 1)
 		this.strength--;
+};
+
+Player.prototype.paralize = function(){
+	this.paralysisCounter = rand(3,6);
 };
