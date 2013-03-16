@@ -2,9 +2,9 @@
 
 function Player(name) {
 	this.name = name;
-	this.hp = 200;
-	this.maxhp = 200;
-	this.strength = 7;
+	this.hp = 100;
+	this.maxhp = 100;
+	this.strength = 5;
 	this.sightRange = 4;
 	this.kineticCharge=0;
 	this.rageCounter=0;
@@ -13,9 +13,7 @@ function Player(name) {
 	this.confusionCounter = 0;
 	this.level = 0;
 	this.carryCapacity = 10;
-	this.resetMemoryMap();
 	this.dead = false;
-	//this.resetFOVMasks();
 	this.skills = new Array();
 	this.inventory = new Array();
 	this.currentWeapon;
@@ -266,8 +264,6 @@ Player.prototype.doAction = function(){
 	if (JSRL.websocket.onTown){
 		JSRL.websocket.quit(false);
 		JSRL.dungeon.generateLevel(1);
-		JSRL.player.resetFOVMasks();
-		JSRL.player.resetMemoryMap();
 		JSRL.websocket.abandonTown();
 		return;
 	}

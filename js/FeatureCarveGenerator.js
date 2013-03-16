@@ -65,11 +65,6 @@ FeatureCarveGenerator.prototype.addItems = function(depth){
 	var crits = rand(5,10);
 	for (var i = 0; i < crits; i++){
 		JSRL.dungeon.addItem(JSRL.itemFactory.getAnItem(), this.getFreePlace());
-		/*JSRL.dungeon.addItem(JSRL.itemFactory.createItem("GAIN_STRENGTH_POTION"), this.getFreePlace());
-		JSRL.dungeon.addItem(JSRL.itemFactory.createItem("HEALTH_POTION"), this.getFreePlace());
-
-		JSRL.dungeon.addItem(JSRL.itemFactory.createItem("TORCH"), this.getFreePlace());*/
-
 	}
 };
 
