@@ -1,13 +1,33 @@
 function ItemFactory(){
 	this.itemDefinitions = {};
-	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,5,0), 100, 50);
-	this.addArmorDefinition("LEATHER", "Leather armor", 4, 150, 20);
-	this.addArmorDefinition("CHAIN", "Chain Mail", 4, 150, 20);
-	this.addLightsourceDefinition("TORCH", "Torch", 3, 200, 10);
+	this.thresholds = new Array();
+	this.generationChanceTotal = 0;
+	
+	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,6,0), 200, 30);
+	this.addWeaponDefinition("STAFF", "Staff", new Roll(2,3,0), 100, 30);
+	this.addWeaponDefinition("LONG_SWORD", "Long Sword", new Roll(3,4,0), 300, 15);
+	this.addWeaponDefinition("MACE", "Mace", new Roll(2,4,0), 300, 15);
+	this.addWeaponDefinition("SPEAR", "Spear", new Roll(1,8,0), 200, 5);
+	this.addWeaponDefinition("CLAYMORE", "Claymore", new Roll(4,4,0), 400, 5);
+	
+	
+	this.addArmorDefinition("LEATHER", "Leather armor", 4, 150, 30);
+	this.addArmorDefinition("STUDDED", "Studded leather armor", 6, 150, 20);
+	this.addArmorDefinition("RING", "Ring mail", 6, 200, 15);
+	this.addArmorDefinition("SCALE", "Scale mail", 7, 200, 10);
+	this.addArmorDefinition("CHAIN", "Chain mail", 8, 300, 10);
+	this.addArmorDefinition("SPLINT", "Splint mail", 9, 300, 5);
+	this.addArmorDefinition("BANDED", "Banded mail", 9, 400, 5);
+	this.addArmorDefinition("PLATE", "Plate mail", 10, 600, 5);
+	
+	this.addLightsourceDefinition("TORCH", "Torch", 3, 200, 80);
+	this.addLightsourceDefinition("LANTERN", "Lantern", 5, 300, 20);
+	
+	this.addPotionDefinition("HEALTH_POTION", "Healing Potion", 80);
+	this.addPotionDefinition("EXTRA_HEALTH_POTION", "Extra Healing Potion", 15);
+	this.addPotionDefinition("GAIN_STRENGTH_POTION", "Strength Potion", 5);
+	
 	this.addAccesoryDefinition("YENDOR", "The Amulet of Yendor", true, 0);
-	this.addPotionDefinition("HEALTH_POTION", "Healing Potion", 0);
-	this.addPotionDefinition("EXTRA_HEALTH_POTION", "Extra Healing Potion", 0);
-	this.addPotionDefinition("GAIN_STRENGTH_POTION", "Strength Potion", 0);
 }
 
 ItemFactory.prototype.addPotionDefinition = function (itemId, name, generationChance){
@@ -18,6 +38,12 @@ ItemFactory.prototype.addPotionDefinition = function (itemId, name, generationCh
 			generationChange: generationChance,
 			type: "POTION"
 		};
+	this.pushThreshold(itemId, generationChance);
+};
+
+ItemFactory.prototype.pushThreshold = function(itemId, generationChance){
+	this.generationChanceTotal += generationChance;
+	this.thresholds.push({threshold: this.generationChanceTotal, itemId: itemId});
 };
 
 ItemFactory.prototype.addAccesoryDefinition = function (itemId, name, isUnique, generationChance){
@@ -29,6 +55,7 @@ ItemFactory.prototype.addAccesoryDefinition = function (itemId, name, isUnique, 
 			isUnique: isUnique,
 			type: "ACCESORY"
 		};
+	this.pushThreshold(itemId, generationChance);
 };
 
 ItemFactory.prototype.addLightsourceDefinition = function (itemId, name, sightBonus, fuel, generationChance){
@@ -41,6 +68,7 @@ ItemFactory.prototype.addLightsourceDefinition = function (itemId, name, sightBo
 			generationChange: generationChance,
 			type: "LIGHTSOURCE"
 		};
+	this.pushThreshold(itemId, generationChance);
 };
 
 ItemFactory.prototype.addWeaponDefinition = function (itemId, name, damageRoll, baseIntegrity, generationChance){
@@ -53,6 +81,7 @@ ItemFactory.prototype.addWeaponDefinition = function (itemId, name, damageRoll, 
 		generationChange: generationChance,
 		type: "WEAPON"
 	};
+	this.pushThreshold(itemId, generationChance);
 };
 
 ItemFactory.prototype.addArmorDefinition = function (itemId, name, protectionValue, baseIntegrity, generationChance){
@@ -65,6 +94,7 @@ ItemFactory.prototype.addArmorDefinition = function (itemId, name, protectionVal
 		generationChange: generationChance,
 		type: "ARMOR"
 	};
+	this.pushThreshold(itemId, generationChance);
 };
 
 ItemFactory.prototype.createItem = function(itemId){
@@ -84,3 +114,10 @@ ItemFactory.prototype.createItem = function(itemId){
 	}
 };
 
+ItemFactory.prototype.getAnItem = function(){
+	var number = rand(0, this.generationChanceTotal);
+	for (var i = 0; i < this.thresholds.length; i++){
+		if (number < this.thresholds[i].threshold)
+			return this.createItem(this.thresholds[i].itemId);
+	}
+};

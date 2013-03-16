@@ -37,9 +37,24 @@ function Tiles(){
 	
 	//Items
 	this.addTile("DAGGER", new ut.Tile(")", 255, 255, 255));
+	this.addTile("STAFF", new ut.Tile("/", 255, 255, 55));
+	this.addTile("LONG_SWORD", new ut.Tile(")", 255, 255, 255));
+	this.addTile("MACE", new ut.Tile(")", 255, 255, 255));
+	this.addTile("SPEAR", new ut.Tile(")", 255, 255, 255));
+	this.addTile("CLAYMORE", new ut.Tile(")", 255, 255, 255));
+	
 	this.addTile("LEATHER", new ut.Tile("]", 255, 255, 55));
-	this.addTile("CHAIN", new ut.Tile("]", 255, 255, 255));
+	this.addTile("STUDDED", new ut.Tile("]", 255, 255, 55));
+	this.addTile("RING", new ut.Tile("]", 170, 170, 170));
+	this.addTile("SCALE", new ut.Tile("]", 170, 255, 170));
+	this.addTile("CHAIN", new ut.Tile("]", 170, 170, 170));
+	this.addTile("SPLINT", new ut.Tile("]", 55, 255, 255));
+	this.addTile("BANDED", new ut.Tile("]", 255, 55, 255));
+	this.addTile("PLATE", new ut.Tile("]", 255, 255, 255));
+	
 	this.addTile("TORCH", new ut.Tile("/", 255, 255, 55));
+	this.addTile("LANTERN", new ut.Tile("/", 255, 170, 170));
+	
 	this.addTile("HEALTH_POTION", new ut.Tile("!", 255, 0, 0));
 	this.addTile("EXTRA_HEALTH_POTION", new ut.Tile("!", 0, 255, 0));
 	this.addTile("GAIN_STRENGTH_POTION", new ut.Tile("!", 0, 0, 255));
