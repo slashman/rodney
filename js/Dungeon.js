@@ -134,6 +134,7 @@ Dungeon.prototype.generateLevel= function(depth){
 	this.map = generationResults.map;
 	JSRL.player.resetFOVMasks();
 	JSRL.player.resetMemoryMap();
+	JSRL.player.updateFOV();
 };
 
 Dungeon.prototype.downstairs = function(){

@@ -215,6 +215,7 @@ UI.prototype.movePlayer = function(key){
 			movedir = randomDirection();
 		JSRL.player.tryMoving(movedir);
 	}
+	JSRL.player.updateFOV();
 		
 };
 
@@ -257,7 +258,6 @@ UI.prototype.refresh = function(){
 
 UI.prototype.tick = function () {
 	if (this.mode === 'IN_GAME'){
-		JSRL.player.updateFOV();
 		this.refresh();
 	} else if (this.mode === 'SELECT_ADVANCEMENT'){
 		if (this.currentSkillAnimation && this.currentSkillAnimation.frames){
