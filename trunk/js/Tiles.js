@@ -41,6 +41,8 @@ function Tiles(){
 	this.addTile("CHAIN", new ut.Tile("]", 255, 255, 255));
 	this.addTile("TORCH", new ut.Tile("/", 255, 255, 55));
 	this.addTile("HEALTH_POTION", new ut.Tile("!", 255, 0, 0));
+	this.addTile("EXTRA_HEALTH_POTION", new ut.Tile("!", 0, 255, 0));
+	this.addTile("GAIN_STRENGTH_POTION", new ut.Tile("!", 0, 0, 255));
 	this.addTile("YENDOR", new ut.Tile("\"", 255, 255, 55));
 	
 	//Terrain
