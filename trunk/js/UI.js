@@ -1,5 +1,5 @@
-var MAP_WIDTH = 60;
-var MAP_HEIGHT = 60;
+var MAP_WIDTH = 100;
+var MAP_HEIGHT = 100;
 var FPS = 10;
 
 
