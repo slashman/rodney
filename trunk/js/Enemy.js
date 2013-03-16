@@ -73,7 +73,7 @@ Enemy.prototype.attackPlayer = function(){
 			}
 		break;
 		case "VIOLET_FUNGI":
-			if (chance(80) && JSRL.player.paralysisCounter === 0){
+			if (chance(20) && JSRL.player.paralysisCounter === 0){
 				JSRL.player.paralize();
 				JSRL.ui.showMessage("The violet fungi engulfs you!");
 			}
