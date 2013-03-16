@@ -16,8 +16,10 @@ Enemy.prototype.enemyAI = function (){
     	return;
 	} else {
 		var destinationPosition = {x: directionToPlayer.x + this.position.x, y: directionToPlayer.y + this.position.y};
-		if (this.monsterId === "BAT" && chance(80)){
+		if ( this.monsterId === "BAT" && chance(80)){
 	    	this.walk(randomDirection());
+		} else if ( this.monsterId === "FLOATING_EYE" && chance(20)){
+			this.walk(randomDirection());
 		} else if (JSRL.dungeon.getMapTile(destinationPosition.x, destinationPosition.y).solid){
 	    	this.walk(randomDirection());
 		} else {
@@ -47,17 +49,6 @@ Enemy.prototype.attackPlayer = function(){
 	if (directionToEnemy.y > 1) directionToEnemy.y = 1;
 	if (directionToEnemy.y < -1) directionToEnemy.y = -1;
 	var attackDirection = {x: directionToEnemy.x * -1, y: directionToEnemy.y * -1};
-	if (this.isUnique){
-		JSRL.ui.showMessage(this.name+" hits you.");
-	} else {
-		JSRL.ui.showMessage("The "+this.name+" hits you.");
-	}
-	if (JSRL.player.hasSkill("COUNTER")){
-		if (chance(20)){
-			JSRL.ui.showMessage("You counter attack.");
-			JSRL.player.tryMoving(directionToEnemy);
-		}
-	}
 	switch (this.monsterId){
 		case "GIANT_ANT":
 			if (chance(65)){
@@ -75,8 +66,28 @@ Enemy.prototype.attackPlayer = function(){
 
 			}
 		break;
-	} 
-	JSRL.player.damage(this.damageRoll.roll());
+		case "FLOATING_EYE":
+			if (chance(65) && JSRL.player.paralysisCounter === 0){
+				JSRL.player.paralize();
+				JSRL.ui.showMessage("The floating eye hypnotizes you with his gaze!");
+			}
+		break;
+	}
+	if (!(this.monsterId === "FLOATING_EYE")){
+		JSRL.player.damage(this.damageRoll.roll());
+		if (this.isUnique){
+			JSRL.ui.showMessage(this.name+" hits you.");
+		} else {
+			JSRL.ui.showMessage("The "+this.name+" hits you.");
+		}
+		if (JSRL.player.hasSkill("COUNTER")){
+			if (chance(20)){
+				JSRL.ui.showMessage("You counter attack.");
+				JSRL.player.tryMoving(directionToEnemy);
+			}
+		}
+	}
+	
 	if (JSRL.player.hp <= 0){
 		JSRL.player.hp = 0;
 		if (this.name === "Rodney"){
