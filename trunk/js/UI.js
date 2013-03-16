@@ -76,13 +76,25 @@ UI.prototype.onKeyDown = function (keyboardEvent) {
 		} else if (keyCodeToChar[key] === "D"){
 			JSRL.player.dropItem(JSRL.player.inventory[JSRL.ui.menuCursor]);
 			JSRL.ui.mode = 'IN_GAME';
-		} else if (keyCodeToChar[key] === "Escape"){
+		} else if (keyCodeToChar[key] === "Esc"){
 			JSRL.ui.mode = 'IN_GAME';
 		}
 		JSRL.ui.drawSelectItem();
 	} else if (JSRL.ui.mode === 'SCENE'){
-		if (keyCodeToChar[key] === "Enter"){
+		if (keyCodeToChar[key] === "Space"){
 			JSRL.ui.mode = 'IN_GAME';
+		}
+	} else if (JSRL.ui.mode === 'END_SCENE'){
+		if (keyCodeToChar[key] === "Space"){
+			JSRL.player.dead = true;
+			
+			if (WS_HOST != "NEIN"){
+				JSRL.websocket.playerDie();
+				JSRL.websocket.saveScore();
+			}
+			JSRL.ui.mode = 'TITLE';
+			Rodney.restartGame();
+			
 		}
 	}
 };
@@ -393,12 +405,34 @@ UI.prototype.showRodneyScene = function(){
 "But then, the evil grin on Rodney's face fades away; the fierce look on  ",
 "his eyes is replaced with a numb shadow.                                 ",
 "                                                                         ",
-"  - I... I have failed... the Amulet, must be destroyed!                 ",
+"  - It's over... but it can't be helped... the amulet will bring this    ",
+"    world into ultimate destruction!                                     ",
 "                                                                         ",
-" - You must dive deeper into the dungeons of doom, only on its fiery     ",
-"   depths it can be unmade... go now!                                    ",
+"The only way to destroy it is to vanquish its forgers. Good luck!        ",
 "                                                                         ",
-"And then, the brave but careless Rodney passed away.                     "
+"And with this, the brave but careless Rodney passed away.                ",
+"                                                                         ",
+"                                            [space to continue]         "
+	             ];
+	this.term.clear();
+	for (var i = 0; i < scene.length; i++){
+		this.term.putString(scene[i], 2, i + 2, 255, 255, 255);
+	}
+	this.term.render();
+};
+
+UI.prototype.endGame = function(){
+	JSRL.ui.mode = 'END_SCENE';
+	var scene = [
+"And so it was that the brave adventurer vanquished the evil Rogue Band,  ",
+"and brought peace and happiness again to the land...                     ",
+"                                                                         ",
+" ... but are they really gone for good?                                  ",
+"                                                                         ",
+"            THE END                                                      ",
+"                                                                         ",
+"                                               [space to restart]        ",
+"                                                                         ",
 	             ];
 	this.term.clear();
 	for (var i = 0; i < scene.length; i++){

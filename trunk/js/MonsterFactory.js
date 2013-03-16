@@ -30,6 +30,11 @@ function MonsterFactory(){
 	
 	this.addMonsterDefinition("RODNEY", "Rodney", new Roll(60,3,0), -1, -1, new Roll(3,3,3));
 	
+	this.addMonsterDefinition("ARNOLD", "Arnold", new Roll(3,3,0), -1, -1, new Roll(3,3,3));
+	this.addMonsterDefinition("TOY", "The Sudopoet", new Roll(3,3,0), -1, -1, new Roll(3,3,3));
+	this.addMonsterDefinition("LANE", "Jon Lane", new Roll(3,3,0), -1, -1, new Roll(3,3,3));
+	this.addMonsterDefinition("MANGO", "Captain Mango", new Roll(3,3,0), -1, -1, new Roll(3,3,3));
+	
 	
 }
 

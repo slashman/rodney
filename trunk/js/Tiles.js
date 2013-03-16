@@ -35,6 +35,11 @@ function Tiles(){
 
 	this.addTile("AT", new ut.Tile("@", 0, 0, 255));
 	
+	this.addTile("ARNOLD", new ut.Tile("@", 255, 0, 0));
+	this.addTile("TOY", new ut.Tile("@", 0, 255, 0));
+	this.addTile("LANE", new ut.Tile("@", 0, 0, 255));
+	this.addTile("MANGO", new ut.Tile("@", 255, 0, 255));
+	
 	//Items
 	this.addTile("DAGGER", new ut.Tile(")", 255, 255, 255));
 	this.addTile("STAFF", new ut.Tile("/", 255, 255, 55));
