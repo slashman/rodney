@@ -192,7 +192,7 @@ UI.prototype.movePlayer = function(key){
 		return;
 	}
 	
-	if (keyCodeToChar[key] === "Space"){
+	if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Ctrl"){
 		JSRL.player.doAction();
 		return;
 	}
