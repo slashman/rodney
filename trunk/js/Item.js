@@ -49,6 +49,20 @@ function Accesory(itemId, name, isUnique){
 Accesory.prototype = new Item();
 Accesory.prototype.constructor = Accesory;
 
+function Potion(itemId, name){
+	Item.call(this, itemId, name, "SPENDABLE");
+}
+
+Potion.prototype = new Item();
+Potion.prototype.constructor = Potion;
+
+Potion.prototype.use = function(){
+	if (this.itemId === "HEALTH_POTION"){
+		JSRL.ui.showMessage("You drink the healing potion");
+		JSRL.player.recoverHP(rand(50,70));
+	}
+};
+
 function DamageableItem(itemId, name, type, baseIntegrity, maxIntegrity){
 	Item.call(this, itemId, name, type);
 	this.maxIntegrity = maxIntegrity;

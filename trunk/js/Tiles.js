@@ -40,6 +40,7 @@ function Tiles(){
 	this.addTile("LEATHER", new ut.Tile("]", 255, 255, 55));
 	this.addTile("CHAIN", new ut.Tile("]", 255, 255, 255));
 	this.addTile("TORCH", new ut.Tile("/", 255, 255, 55));
+	this.addTile("HEALTH_POTION", new ut.Tile("!", 255, 0, 0));
 	this.addTile("YENDOR", new ut.Tile("\"", 255, 255, 55));
 	
 	//Terrain
