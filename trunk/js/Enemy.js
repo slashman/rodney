@@ -100,8 +100,19 @@ Enemy.prototype.attackPlayer = function(){
 				}
 			}
 		break;
+		case "RUST_MONSTER":
+			if (JSRL.player.currentArmor && chance(65) && JSRL.player.currentArmor.itemId != "LEATHER"){
+				JSRL.player.currentArmor.clash(40);;
+				JSRL.ui.showMessage("The Rust Monster eats your "+JSRL.player.currentArmor.name);
+			} else {
+				JSRL.ui.showMessage("The Rust Monster licks you");
+			} 
+		break;
 	}
-	if (!(this.monsterId === "FLOATING_EYE" || this.monsterId === "NYMPH")){
+	if (!(this.monsterId === "FLOATING_EYE" 
+		|| this.monsterId === "NYMPH"
+		|| this.monsterId === "RUST_MONSTER"
+			)){
 		JSRL.player.damage(this.damageRoll.roll());
 		if (this.isUnique){
 			JSRL.ui.showMessage(this.name+" hits you.");

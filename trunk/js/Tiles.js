@@ -37,7 +37,8 @@ function Tiles(){
 	
 	//Items
 	this.addTile("DAGGER", new ut.Tile(")", 255, 255, 255));
-	this.addTile("LEATHER", new ut.Tile("]", 255, 255, 255));
+	this.addTile("LEATHER", new ut.Tile("]", 255, 255, 55));
+	this.addTile("CHAIN", new ut.Tile("]", 255, 255, 255));
 	this.addTile("TORCH", new ut.Tile("/", 255, 255, 55));
 	this.addTile("YENDOR", new ut.Tile("\"", 255, 255, 55));
 	
