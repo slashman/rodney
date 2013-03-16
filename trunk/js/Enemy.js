@@ -2,6 +2,7 @@ function Enemy(monsterId, name, hp, tileId, damageRoll){
 	this.monsterId = monsterId;
 	this.name = name;
 	this.hp = hp;
+	this.maxhp = hp;
 	this.tileId = tileId;
 	this.damageRoll = damageRoll;
 	this.aiType = "SIMPLE";
@@ -12,6 +13,12 @@ Enemy.prototype.enemyAI = function (){
 	if (this.aiType === "NETWORK") return; 
 	if (this.monsterId === "MIMIC" && !this.wasHit)
 		return;
+	if (this.monsterId === "TROLL" && chance(50)){
+		if (this.hp < this.maxhp){
+			JSRL.ui.showMessage("The troll regenerates");
+			this.hp++;
+		}
+	}
 	
 	var directionToPlayer = this.starePlayer();
 	if (directionToPlayer == "NONE"){
