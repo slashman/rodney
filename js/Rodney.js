@@ -46,15 +46,16 @@ Rodney.doStartGame = function (onConnect){
 			onConnect();
 	}else {
 		JSRL.websocket.init(callback, WS_HOST);
-		//setTimeout(checkConnectionTimeout, 10*10000);
+		setTimeout(new function(){
+			if (JSRL.websocket.onTown){
+				return;
+			}
+			abortConnection = true;
+			JSRL.dungeon.generateLevel(1);
+			if (onConnect)
+				onConnect();
+		}, 10*1000);
 	}
 };
 
 var abortConnection = false;
-function checkConnectionTimeout(){
-	if (JSRL.websocket.onTown){
-		return;
-	}
-	abortConnection = true;
-	JSRL.dungeon.generateLevel(1);
-}
