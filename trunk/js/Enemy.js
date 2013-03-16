@@ -1,4 +1,5 @@
-function Enemy(name, hp, tileId, damageRoll){
+function Enemy(monsterId, name, hp, tileId, damageRoll){
+	this.monsterId = monsterId;
 	this.name = name;
 	this.hp = hp;
 	this.tileId = tileId;
@@ -69,6 +70,12 @@ Enemy.prototype.attackPlayer = function(){
 			if (directionToEnemy.y > 1) directionToEnemy.y = 1;
 			if (directionToEnemy.y < -1) directionToEnemy.y = -1;
 			JSRL.player.tryMoving(directionToEnemy);
+		}
+	}
+	if (this.monsterId = "GIANT_ANT"){
+		if (chance(65)){
+			JSRL.player.reduceStrength();
+			JSRL.ui.showMessage("You feel weaker!");
 		}
 	}
 	JSRL.player.damage(this.damageRoll.roll());

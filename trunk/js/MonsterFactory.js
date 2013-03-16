@@ -57,6 +57,7 @@ MonsterFactory.prototype.createMonster = function(monsterId){
 	var definition = this.monsterDefinitions[monsterId];
 	var hp = definition.hpRoll.roll();
 	return new Enemy(
+		monsterId,
 		definition.name,
 		hp,
 		definition.tileId,
