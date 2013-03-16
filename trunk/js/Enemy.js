@@ -20,6 +20,8 @@ Enemy.prototype.enemyAI = function (){
 	    	this.walk(randomDirection());
 		} else if ( this.monsterId === "FLOATING_EYE" && chance(20)){
 			this.walk(randomDirection());
+		} else if ( this.monsterId === "INVISIBLE_STALKER" && chance(50)){
+			this.walk(randomDirection());
 		} else if (JSRL.dungeon.getMapTile(destinationPosition.x, destinationPosition.y).solid){
 	    	this.walk(randomDirection());
 		} else {
