@@ -34,6 +34,7 @@ RWSC.prototype.init = function(callback, host) {
         	
         	switch (o.type){
         		case "createEnemy":
+        			if (!JSRL.websocket.onTown) return;
         			if (o.key == JSRL.websocket.key) return;
         			for (var i=0,len=JSRL.websocket.npcs.length;i<len;i++){
         				if (JSRL.websocket.npcs[i].key == o.key){
