@@ -1,6 +1,6 @@
 <?
-    $mysqlHost = "127.0.0.1:3306";
-    $mysqlUser = "root";
-    $mysqlPass = "mysql";
-    $mysqlData = "rodneydb";
+    $mysqlHost = "localhost:3306";
+    $mysqlUser = "slashwar_ye";
+    $mysqlPass = "ye_password";
+    $mysqlData = "slashwar_ye";
 ?>
