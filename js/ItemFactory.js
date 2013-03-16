@@ -5,7 +5,18 @@ function ItemFactory(){
 	this.addArmorDefinition("CHAIN", "Chain Mail", 4, 150, 20);
 	this.addLightsourceDefinition("TORCH", "Torch", 3, 200, 10);
 	this.addAccesoryDefinition("YENDOR", "The Amulet of Yendor", true, 0);
+	this.addPotionDefinition("HEALTH_POTION", "Health Potion", 0);
 }
+
+ItemFactory.prototype.addPotionDefinition = function (itemId, name, generationChance){
+	this.itemDefinitions[itemId] = {
+			itemId: itemId,
+			tileId: itemId,
+			name: name,
+			generationChange: generationChance,
+			type: "POTION"
+		};
+};
 
 ItemFactory.prototype.addAccesoryDefinition = function (itemId, name, isUnique, generationChance){
 	this.itemDefinitions[itemId] = {
@@ -66,6 +77,8 @@ ItemFactory.prototype.createItem = function(itemId){
 		return new LightSource(definition.itemId, definition.name, definition.sightBonus, definition.fuel);
 	}else if (definition.type === "ACCESORY"){
 		return new Accesory(definition.itemId, definition.name, definition.isUnique);
+	}else if (definition.type === "POTION"){
+		return new Potion(definition.itemId, definition.name);
 	}
 };
 

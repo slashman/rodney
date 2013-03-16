@@ -568,3 +568,9 @@ Player.prototype.reduceMaxHP = function(){
 	if (this.hp > this.maxhp)
 		this.hp = this.maxhp;
 };
+
+Player.prototype.recoverHP = function(hp){
+	this.hp += hp;
+	if (this.hp > this.maxhp)
+		this.hp = this.maxhp;
+};
