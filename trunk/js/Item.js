@@ -81,7 +81,7 @@ function DamageableItem(itemId, name, type, baseIntegrity, maxIntegrity){
 DamageableItem.prototype = new Item();
 DamageableItem.prototype.constructor = DamageableItem;
 
-var INTEGRITY_DESCRIPTIONS = ["Ruined ", "Badly Worn ", "Worn ", "", "Pristine "];
+var INTEGRITY_DESCRIPTIONS = ["Ruined ", "Badly Worn ", "Worn ", "", "Excellent "];
 
 DamageableItem.prototype.getIntegrityDescription = function(){
 	return INTEGRITY_DESCRIPTIONS[this.getIntegrityLevel()];	
