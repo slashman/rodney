@@ -19,6 +19,12 @@ Enemy.prototype.enemyAI = function (){
 			this.hp++;
 		}
 	}
+	if (this.monsterId === "VAMPIRE" && chance(80)){
+		if (this.hp < this.maxhp){
+			JSRL.ui.showMessage("The Vampire regenerates");
+			this.hp++;
+		}
+	}
 	
 	var directionToPlayer = this.starePlayer();
 	if (directionToPlayer == "NONE"){
@@ -119,6 +125,12 @@ Enemy.prototype.attackPlayer = function(){
 			if (chance(40) && JSRL.player.confusionCounter === 0){
 				JSRL.player.confuse();
 				JSRL.ui.showMessage("The Umber Hulk gazes at you. You are confused!");
+			}
+		break;
+		case "VAMPIRE":
+			if (chance(30)){
+				JSRL.player.reduceMaxHP();
+				JSRL.ui.showMessage("The Vampire bits you... you feel fragile!");
 			}
 		break;
 	}

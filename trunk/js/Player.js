@@ -3,6 +3,7 @@
 function Player(name) {
 	this.name = name;
 	this.hp = 200;
+	this.maxhp = 200;
 	this.strength = 7;
 	this.sightRange = 4;
 	this.kineticCharge=0;
@@ -560,4 +561,10 @@ Player.prototype.paralize = function(){
 
 Player.prototype.confuse = function(){
 	this.confusionCounter = rand(15,20);
+};
+
+Player.prototype.reduceMaxHP = function(){
+	this.maxhp -= rand(3, 5);
+	if (this.hp > this.maxhp)
+		this.hp = this.maxhp;
 };
