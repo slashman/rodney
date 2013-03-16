@@ -9,6 +9,7 @@ function Player(name) {
 	this.rageCounter=0;
 	this.buildUpCounter = 0;
 	this.paralysisCounter = 0;
+	this.confusionCounter = 0;
 	this.level = 0;
 	this.carryCapacity = 10;
 	this.resetMemoryMap();
@@ -544,6 +545,8 @@ Player.prototype.newTurn = function(){
 	}
 	if (this.paralysisCounter > 0)
 		this.paralysisCounter--;
+	if (this.confusionCounter > 0)
+		this.confusionCounter--;
 };
 
 Player.prototype.reduceStrength = function(){
@@ -553,4 +556,8 @@ Player.prototype.reduceStrength = function(){
 
 Player.prototype.paralize = function(){
 	this.paralysisCounter = rand(3,6);
+};
+
+Player.prototype.confuse = function(){
+	this.confusionCounter = rand(15,20);
 };
