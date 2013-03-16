@@ -38,6 +38,15 @@ Enemy.prototype.walk = function (direction){
 Enemy.prototype.attackPlayer = function(){
 	if (JSRL.player.dead)
 		return;
+	var directionToEnemy = {
+			x: this.position.x - JSRL.player.position.x,
+			y: this.position.y - JSRL.player.position.y,
+		};
+	if (directionToEnemy.x > 1) directionToEnemy.x = 1;
+	if (directionToEnemy.x < -1) directionToEnemy.x = -1;
+	if (directionToEnemy.y > 1) directionToEnemy.y = 1;
+	if (directionToEnemy.y < -1) directionToEnemy.y = -1;
+	var attackDirection = {x: directionToEnemy.x * -1, y: directionToEnemy.y * -1};
 	if (this.isUnique){
 		JSRL.ui.showMessage(this.name+" hits you.");
 	} else {
@@ -46,23 +55,27 @@ Enemy.prototype.attackPlayer = function(){
 	if (JSRL.player.hasSkill("COUNTER")){
 		if (chance(20)){
 			JSRL.ui.showMessage("You counter attack.");
-			var directionToEnemy = {
-				x: this.position.x - JSRL.player.position.x,
-				y: this.position.y - JSRL.player.position.y,
-			};
-			if (directionToEnemy.x > 1) directionToEnemy.x = 1;
-			if (directionToEnemy.x < -1) directionToEnemy.x = -1;
-			if (directionToEnemy.y > 1) directionToEnemy.y = 1;
-			if (directionToEnemy.y < -1) directionToEnemy.y = -1;
 			JSRL.player.tryMoving(directionToEnemy);
 		}
 	}
-	if (this.monsterId === "GIANT_ANT"){
-		if (chance(65)){
-			JSRL.player.reduceStrength();
-			JSRL.ui.showMessage("You feel weaker!");
-		}
-	}
+	switch (this.monsterId){
+		case "GIANT_ANT":
+			if (chance(65)){
+				JSRL.player.reduceStrength();
+				JSRL.ui.showMessage("You feel weaker!");
+			}
+		break;
+		case "DRAGON":
+			var destinationPosition = {x: JSRL.player.position.x + attackDirection.x * 2, y:JSRL.player.position.y + attackDirection.y * 2};
+			if (JSRL.dungeon.isFree(destinationPosition)){
+				attackMessage = "The "+this.getTheDescription()+" pushes you back!";
+				JSRL.player.position.x = destinationPosition.x;
+				JSRL.player.position.y = destinationPosition.y;
+				JSRL.player.landOn(destinationPosition.x, destinationPosition.y);
+
+			}
+		break;
+	} 
 	JSRL.player.damage(this.damageRoll.roll());
 	if (JSRL.player.hp <= 0){
 		JSRL.player.hp = 0;
