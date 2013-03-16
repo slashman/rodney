@@ -93,7 +93,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 		}
 	}
 	var attackMessage = "You hit "+enemy.getTheDescription();
-
+	enemy.wasHit = true;
 	var buildupBonus = 0;
 	if (this.hasSkill("BUILDUP")){
 		if (this.buildUpCounter > 0)

@@ -28,8 +28,11 @@ Dungeon.prototype.getDisplayedTile = function (x, y) {
 		// Enemies
 		var enemy = this.getEnemy(x,y); 
 		if (enemy){
+			if (enemy.monsterId === "MIMIC" && !enemy.wasHit)
+				return JSRL.tiles.getTerrainTile(">").utTile;
 			if (enemy.monsterId != "INVISIBLE_STALKER")
 				return JSRL.tiles.getTile(enemy.tileId);
+			
 		}
 		// Items
 		var item = this.getItem(x,y); 

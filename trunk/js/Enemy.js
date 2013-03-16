@@ -5,10 +5,14 @@ function Enemy(monsterId, name, hp, tileId, damageRoll){
 	this.tileId = tileId;
 	this.damageRoll = damageRoll;
 	this.aiType = "SIMPLE";
+	this.wasHit = false;
 }
 
 Enemy.prototype.enemyAI = function (){
 	if (this.aiType === "NETWORK") return; 
+	if (this.monsterId === "MIMIC" && !this.wasHit)
+		return;
+	
 	var directionToPlayer = this.starePlayer();
 	if (directionToPlayer == "NONE"){
 		//Wander aimlessly 
