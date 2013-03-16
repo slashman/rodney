@@ -72,6 +72,12 @@ Enemy.prototype.attackPlayer = function(){
 				JSRL.ui.showMessage("The floating eye hypnotizes you with his gaze!");
 			}
 		break;
+		case "VIOLET_FUNGI":
+			if (chance(80) && JSRL.player.paralysisCounter === 0){
+				JSRL.player.paralize();
+				JSRL.ui.showMessage("The violet fungi engulfs you!");
+			}
+		break;
 	}
 	if (!(this.monsterId === "FLOATING_EYE")){
 		JSRL.player.damage(this.damageRoll.roll());
