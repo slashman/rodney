@@ -71,6 +71,11 @@ function Tiles(){
 	this.addTerrainTile("*", new ut.Tile('#', 170, 0, 0), true, true,false);
 	this.addTerrainTile(",",  new ut.Tile('.', 170, 0, 0), false, false,false);
 	this.addTerrainTile(">", new ut.Tile('>', 170, 0, 0), false, false, true);
+	
+	this.addTerrainTile(",", new ut.Tile('.', 0, 170, 0), false, false, false);
+	this.addTerrainTile("t", new ut.Tile('T', 170, 55, 0), true, false, false);
+	this.addTerrainTile("*", new ut.Tile('*', 170, 55, 0), true, true, false);
+	this.addTerrainTile("w", new ut.Tile('~', 0, 0, 255), true, false, false);
 }
 
 Tiles.prototype.addTile = function(tileId, tile){
@@ -86,9 +91,9 @@ Tiles.prototype.addTerrainTile = function(tileId, utTile, solid, opaque, downsta
 		utTile: utTile
 	};
 
-	// Add memory tile, shade of Red
+	// Add memory tile, shade of Grey
 	var memoryTile = utTile.clone();
-	memoryTile.setColor(utTile.getColorJSON().g, 0, 0);
+	memoryTile.setColor(170, 170, 170);
 	this.addTile("MEM_"+tileId, memoryTile);	
 };
 

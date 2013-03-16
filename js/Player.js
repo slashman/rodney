@@ -15,7 +15,7 @@ function Player(name) {
 	this.carryCapacity = 10;
 	this.resetMemoryMap();
 	this.dead = false;
-	this.resetFOVMasks();
+	//this.resetFOVMasks();
 	this.skills = new Array();
 	this.inventory = new Array();
 	this.currentWeapon;
@@ -62,9 +62,14 @@ Player.prototype.getLearnableSkills = function(){
 
 Player.prototype.resetFOVMasks = function(){
 	// Init FOV masks
-	this.maskBuffer = new Array(JSRL.ui.term.h);
-	for (var j = 0; j < JSRL.ui.term.h; ++j)
-		this.maskBuffer[j] = new Array(JSRL.ui.term.w);
+	var w = JSRL.dungeon.getWidth();
+	var h = JSRL.dungeon.getHeight();
+	
+	//var h = JSRL.ui.term.h;
+	//var w = JSRL.ui.term.w;
+	this.maskBuffer = new Array(h);
+	for (var j = 0; j < h; ++j)
+		this.maskBuffer[j] = new Array(w);
 	this.maskOrigin = { x: 0, y: 0 };
 };
 
@@ -180,8 +185,8 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 
 Player.prototype.updateFOV = function(){
 	// Clear the mask buffer
-	for (var j = 0; j < JSRL.ui.term.h; ++j)
-		for (var i = 0; i < JSRL.ui.term.w; ++i)
+	for (var j = 0; j < JSRL.dungeon.getHeight(); ++j)
+		for (var i = 0; i < JSRL.dungeon.getWidth(); ++i)
 			this.maskBuffer[j][i] = false;
 	// Update buffer info
 	this.maskOrigin.x = this.position.x - JSRL.ui.term.cx;
