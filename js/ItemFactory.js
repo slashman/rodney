@@ -2,6 +2,7 @@ function ItemFactory(){
 	this.itemDefinitions = {};
 	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,5,0), 100, 50);
 	this.addArmorDefinition("LEATHER", "Leather armor", 4, 150, 20);
+	this.addArmorDefinition("CHAIN", "Chain Mail", 4, 150, 20);
 	this.addLightsourceDefinition("TORCH", "Torch", 3, 200, 10);
 	this.addAccesoryDefinition("YENDOR", "The Amulet of Yendor", true, 0);
 }
