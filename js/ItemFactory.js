@@ -5,7 +5,9 @@ function ItemFactory(){
 	this.addArmorDefinition("CHAIN", "Chain Mail", 4, 150, 20);
 	this.addLightsourceDefinition("TORCH", "Torch", 3, 200, 10);
 	this.addAccesoryDefinition("YENDOR", "The Amulet of Yendor", true, 0);
-	this.addPotionDefinition("HEALTH_POTION", "Health Potion", 0);
+	this.addPotionDefinition("HEALTH_POTION", "Healing Potion", 0);
+	this.addPotionDefinition("EXTRA_HEALTH_POTION", "Extra Healing Potion", 0);
+	this.addPotionDefinition("GAIN_STRENGTH_POTION", "Strength Potion", 0);
 }
 
 ItemFactory.prototype.addPotionDefinition = function (itemId, name, generationChance){
