@@ -81,8 +81,10 @@ Enemy.prototype.attackPlayer = function(){
 		}
 		JSRL.player.dead = true;
 		
-		if (WS_HOST != "NEIN")
+		if (WS_HOST != "NEIN"){
+			JSRL.websocket.playerDie();
 			JSRL.websocket.saveScore();
+		}
 	}
 };
 
