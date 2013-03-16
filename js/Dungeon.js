@@ -191,7 +191,7 @@ Dungeon.prototype.createTownLevel = function(){
 		
 		try{
 			var tile = map[position.y][position.x];
-			if (tile != "#")
+			if (tile === "^")
 				search = false;
 		}catch (err){
 			search = true;
@@ -200,6 +200,8 @@ Dungeon.prototype.createTownLevel = function(){
 	
 	JSRL.player.position = position;
 	this.map = map;
+	JSRL.player.resetFOVMasks();
+	JSRL.player.resetMemoryMap();
 };
 
 Dungeon.prototype.splashBlood = function(position, splashSize){
