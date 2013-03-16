@@ -15,25 +15,10 @@ Enemy.prototype.enemyAI = function (){
     	this.walk(randomDirection());
     	return;
 	} else {
-		var distanceToPlayer = distance(this.position, JSRL.player.position);
-		//Decide if will attack the player or walk to him
-		if (this.rangedAttacks != null && chance(50)){
-			//Will try to attack the player
-			if (this.playerInRange()){
-				//Try
-				for (var i = 0; i < this.rangedAttacks.length; i++){
-					var ra = rangedAttacks[i];
-					if (distanceToPlayer <= ra.range)
-						if (chance(ra.frequency)){
-							this.fire(ra, directionToPlayer);
-							return;
-						}
-				}
-			}
-		}
-		// Couldnt attack the player, move to him
 		var destinationPosition = {x: directionToPlayer.x + this.position.x, y: directionToPlayer.y + this.position.y};
-		if (JSRL.dungeon.getMapTile(destinationPosition.x, destinationPosition.y).solid){
+		if (this.monsterId === "BAT" && chance(80)){
+	    	this.walk(randomDirection());
+		} else if (JSRL.dungeon.getMapTile(destinationPosition.x, destinationPosition.y).solid){
 	    	this.walk(randomDirection());
 		} else {
 			this.walk(directionToPlayer);
@@ -72,7 +57,7 @@ Enemy.prototype.attackPlayer = function(){
 			JSRL.player.tryMoving(directionToEnemy);
 		}
 	}
-	if (this.monsterId = "GIANT_ANT"){
+	if (this.monsterId === "GIANT_ANT"){
 		if (chance(65)){
 			JSRL.player.reduceStrength();
 			JSRL.ui.showMessage("You feel weaker!");
