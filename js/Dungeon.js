@@ -56,7 +56,7 @@ Dungeon.prototype.getDisplayedTile = function (x, y) {
 		ret = ut.NULLTILE;
 	if (!ret){
 		console.log("Invalid tile at "+x+","+y);
-		return NULLTILE;
+		return ut.NULLTILE;
 
 	}
 	return ret;
