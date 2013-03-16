@@ -3,7 +3,7 @@ function MonsterFactory(){
 	this.levelMaps = {};
 	this.addMonsterDefinition("GIANT_ANT", "Giant Ant", new Roll(2,8,0), 3,12, new Roll(1,6,0));
 	this.addMonsterDefinition("BAT", "Bat", new Roll(1,8,0), 1, 8, new Roll(1,2,0));
-	this.addMonsterDefinition("CENTAUR", "Centaur", new Roll(4,8,0), 8, 17, new Roll(1,8,4));
+	this.addMonsterDefinition("CENTAUR", "Centaur", new Roll(4,8,0), 8, 17, new Roll(2,8,2));
 	this.addMonsterDefinition("DRAGON", "Dragon", new Roll(10,8,0), 22, 50, new Roll(4,10,5));
 	this.addMonsterDefinition("FLOATING_EYE", "Floating Eye", new Roll(1,8,0), 2, 11, new Roll(0,0,0));
 	this.addMonsterDefinition("VIOLET_FUNGI", "Violet Fungi", new Roll(8,8,0), 15, 24, new Roll(1,6,0));

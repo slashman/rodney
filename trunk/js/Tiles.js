@@ -29,7 +29,7 @@ function Tiles(){
 	this.addTile("WRAITH", new ut.Tile("w", 55, 55, 55));
 	this.addTile("XORN", new ut.Tile("x", 170, 0, 0));
 	this.addTile("YETI", new ut.Tile("Y", 255, 255, 255));
-	this.addTile("ZOMBIE", new ut.Tile("Z", 170, 55, 0));
+	this.addTile("ZOMBIE", new ut.Tile("z", 170, 55, 0));
 
 	this.addTile("RODNEY", new ut.Tile("☺", 0, 255, 0));
 
@@ -74,7 +74,7 @@ function Tiles(){
 	
 	this.addTerrainTile(",", new ut.Tile('.', 0, 170, 0), false, false, false);
 	this.addTerrainTile("t", new ut.Tile('T', 170, 55, 0), true, false, false);
-	this.addTerrainTile("*", new ut.Tile('*', 170, 55, 0), true, true, false);
+	this.addTerrainTile("-", new ut.Tile('*', 170, 55, 0), true, true, false);
 	this.addTerrainTile("w", new ut.Tile('~', 0, 0, 255), true, false, false);
 }
 
@@ -93,7 +93,7 @@ Tiles.prototype.addTerrainTile = function(tileId, utTile, solid, opaque, downsta
 
 	// Add memory tile, shade of Grey
 	var memoryTile = utTile.clone();
-	memoryTile.setColor(170, 170, 170);
+	memoryTile.setColor(55, 0, 0);
 	this.addTile("MEM_"+tileId, memoryTile);	
 };
 

@@ -30,7 +30,6 @@ Rodney.doStartGame = function (onConnect){
 		if (status == 1){
 			JSRL.websocket.onTown = true;
 			JSRL.dungeon.createTownLevel();
-			JSRL.player.resetFOVMasks();
 			JSRL.websocket.sendPlayerInfo();
 		}else if (status == 3)	
 			JSRL.dungeon.generateLevel(1);
@@ -43,6 +42,7 @@ Rodney.doStartGame = function (onConnect){
 	};
 	if (WS_HOST === "NEIN"){
 		JSRL.dungeon.generateLevel(1);
+		
 		if (onConnect)
 			onConnect();
 	}else {
