@@ -133,7 +133,6 @@ UI.prototype.showMessage = function (msg){
 };
 
 UI.prototype.enterName = function (key){
-	this.term.putString("          ", 35, 20, 255, 255, 255);
 	if (keyCodeToChar[key] === "Enter"){
 		var callback = function(){
 			JSRL.ui.term.clear();
@@ -148,7 +147,10 @@ UI.prototype.enterName = function (key){
 	} else if (keyCodeToChar[key] === "Backspace"){
 		this.inkeyBuffer = this.inkeyBuffer.substring(0, this.inkeyBuffer.length-1);
 	}
+	this.term.putString("          ", 25, 23, 255, 255, 255);
+	this.term.render();
 	this.term.putString(this.inkeyBuffer, 25, 23, 255, 255, 255);
+			
 };
 
 function isUp(key){
@@ -321,12 +323,11 @@ UI.prototype.showTitleScreen = function(){
 "                                                                         ",
 " - 'To our master Rodney we serve and we'll gladly die for him!'         ",
 "                                                                         ",
-"The time has come, to challenge the Dungeons again.                      ",
+"The time has come, to challenge the Dungeons again.                      "
 	             ];
 	for (var i = 0; i < scene.length; i++){
 		this.term.putString(scene[i], 2, i + 4, 255, 255, 255);
 	}
-	
 	
 	this.term.render();
 };
