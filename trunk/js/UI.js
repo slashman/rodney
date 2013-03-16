@@ -22,11 +22,15 @@ function UI () {
 	window.setInterval(tick, 1000 / FPS);
 }
 
-
+var keyLock = false;
 UI.prototype.onKeyDown = function (keyboardEvent) {
+	if (keyLock)
+		return;
+	keyLock = true;
 	if (window.event)
 		keyboardEvent = window.event;
 	if (!JSRL.ui.inputEnabled){
+		keyLock = false;
 		return;
 	}
 	var key = keyboardEvent.keyCode;
@@ -97,6 +101,7 @@ UI.prototype.onKeyDown = function (keyboardEvent) {
 			
 		}
 	}
+	keyLock = false;
 };
 
 
