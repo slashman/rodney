@@ -63,13 +63,13 @@ Dungeon.prototype.getDisplayedTile = function (x, y) {
 };
 
 Dungeon.prototype.addEnemy = function (enemy, place){
-	this.enemies.push(enemy);
 	enemy.position = {x: place.x, y: place.y};
+	this.enemies.push(enemy);
 };
 
 Dungeon.prototype.addItem = function (item, place){
-	this.items.push(item);
 	item.position = {x: place.x, y: place.y};
+	this.items.push(item);
 };
 
 Dungeon.prototype.getEnemy = function (x, y){
