@@ -1,21 +1,21 @@
 function MonsterFactory(){
 	this.monsterDefinitions = {};
 	this.levelMaps = {};
-	this.addMonsterDefinition("GIANT_ANT", "Giant Ant", new Roll(2,8,0), 3,12, new Roll(1,6,0));
+	this.addMonsterDefinition("GIANT_ANT", "Giant Ant", new Roll(2,8,2), 3,12, new Roll(1,6,1));
 	this.addMonsterDefinition("BAT", "Bat", new Roll(1,8,0), 1, 8, new Roll(1,2,0));
 	this.addMonsterDefinition("CENTAUR", "Centaur", new Roll(4,8,0), 8, 17, new Roll(2,8,2));
 	this.addMonsterDefinition("DRAGON", "Dragon", new Roll(10,8,0), 22, 50, new Roll(4,10,5));
 	this.addMonsterDefinition("FLOATING_EYE", "Floating Eye", new Roll(1,8,0), 2, 11, new Roll(0,0,0));
 	this.addMonsterDefinition("VIOLET_FUNGI", "Violet Fungi", new Roll(8,8,0), 15, 24, new Roll(1,6,0));
-	this.addMonsterDefinition("GNOME", "Gnome", new Roll(1,8,0), 6, 15, new Roll(1,6,0));
-	this.addMonsterDefinition("HOBGOBLIN", "Hobgoblin", new Roll(1,8,0), 1, 10, new Roll(1,8,0));
+	this.addMonsterDefinition("GNOME", "Gnome", new Roll(1,8,2), 6, 15, new Roll(1,6,1));
+	this.addMonsterDefinition("HOBGOBLIN", "Hobgoblin", new Roll(1,8,1), 1, 10, new Roll(1,8,2));
 	this.addMonsterDefinition("INVISIBLE_STALKER", "Invisible Stalker", new Roll(8,8,0), 16, 25, new Roll(4,4,0));
-	this.addMonsterDefinition("JACKAL", "Jackal", new Roll(1,8,0), 1, 7, new Roll(1,2,0));
-	this.addMonsterDefinition("KOBOLD", "Kobold", new Roll(1,8,0), 1, 6, new Roll(1,4,0));
+	this.addMonsterDefinition("JACKAL", "Jackal", new Roll(1,8,2), 1, 7, new Roll(1,2,0));
+	this.addMonsterDefinition("KOBOLD", "Kobold", new Roll(1,8,1), 1, 6, new Roll(1,4,0));
 	this.addMonsterDefinition("LEPRECHAUN", "Leprechaun", new Roll(3,8,0), 7, 16, new Roll(1,1,0));
 	this.addMonsterDefinition("MIMIC", "Mimic", new Roll(7,8,0), 19, 50, new Roll(3,4,0));
 	this.addMonsterDefinition("NYMPH", "Nymph", new Roll(3,8,0), 11, 20, new Roll(0,0,0));
-	this.addMonsterDefinition("ORC", "Orc", new Roll(1,6,0), 4, 13, new Roll(1,8,0));
+	this.addMonsterDefinition("ORC", "Orc", new Roll(1,6,2), 4, 13, new Roll(1,8,1));
 	this.addMonsterDefinition("PURPLE_WORM", "Purple Worm", new Roll(15,8,0), 21, 50, new Roll(2,12,4));
 	this.addMonsterDefinition("QUASIT", "Quasit", new Roll(3,8,0), 10, 19, new Roll(2,4,0));
 	this.addMonsterDefinition("RUST_MONSTER", "Rust Monster", new Roll(5,8,0), 9, 18, new Roll(0,0,0));
