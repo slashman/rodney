@@ -10,15 +10,14 @@ function ItemFactory(){
 	this.addWeaponDefinition("SPEAR", "Spear", new Roll(1,8,0), 200, 5);
 	this.addWeaponDefinition("CLAYMORE", "Claymore", new Roll(4,4,0), 400, 5);
 	
-	
-	this.addArmorDefinition("LEATHER", "Leather armor", 4, 150, 30);
-	this.addArmorDefinition("STUDDED", "Studded leather armor", 6, 150, 20);
-	this.addArmorDefinition("RING", "Ring mail", 6, 200, 15);
-	this.addArmorDefinition("SCALE", "Scale mail", 7, 200, 10);
-	this.addArmorDefinition("CHAIN", "Chain mail", 8, 300, 10);
-	this.addArmorDefinition("SPLINT", "Splint mail", 9, 300, 5);
-	this.addArmorDefinition("BANDED", "Banded mail", 9, 400, 5);
-	this.addArmorDefinition("PLATE", "Plate mail", 10, 600, 5);
+	this.addArmorDefinition("LEATHER", "Leather armor", 2, 75, 30);
+	this.addArmorDefinition("STUDDED", "Studded leather armor", 4, 75, 20);
+	this.addArmorDefinition("RING", "Ring mail", 4, 100, 15);
+	this.addArmorDefinition("SCALE", "Scale mail", 5, 100, 10);
+	this.addArmorDefinition("CHAIN", "Chain mail", 6, 300, 10);
+	this.addArmorDefinition("SPLINT", "Splint mail", 7, 300, 5);
+	this.addArmorDefinition("BANDED", "Banded mail", 7, 200, 5);
+	this.addArmorDefinition("PLATE", "Plate mail", 8, 500, 5);
 	
 	this.addLightsourceDefinition("TORCH", "Torch", 3, 200, 80);
 	this.addLightsourceDefinition("LANTERN", "Lantern", 5, 300, 20);
