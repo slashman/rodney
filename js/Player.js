@@ -434,7 +434,7 @@ Player.prototype.tryMoving = function (movedir){
 		this.lastAttackDir = movedir;
 		this.buildUpCounter = 0;
 		moved = false;
-	} else 	if (JSRL.dungeon.getMapTile(x, y).solid){
+	} else 	if (JSRL.dungeon.getMapTile(x, y) == null || JSRL.dungeon.getMapTile(x, y).solid){
 		this.rageCounter = 0;
 		if (this.hasSkill("BACKFLIP") && this.isRunning(movedir)){
 			var landingPosition = {x: movedir.x * -3 + this.position.x, y: movedir.y * -3 + this.position.y};
