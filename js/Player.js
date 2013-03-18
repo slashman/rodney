@@ -314,6 +314,7 @@ Player.prototype.tryPick = function (item){
 };
 
 Player.prototype.useItem = function (item){
+	mixpanel.track("Use Item", {"item": item.name});
 	if (item.type === 'WEAPON'){
 		this.currentWeapon = item;
 		JSRL.ui.showMessage("You wield the "+item.name);
