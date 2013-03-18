@@ -25,6 +25,7 @@ function Player(name) {
 }
 
 Player.prototype.addSkill = function(skill){
+	mixpanel.track("Add skill", {"skill": skill.name, "depth": JSRL.dungeon.currentDepth});
 	JSRL.ui.showMessage('You learn '+skill.name);
 	if (skill.skillId === "ENDURANCE"){
 		this.maxhp += 50;
@@ -164,6 +165,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	
 	
 	if (enemy.hp <= 0){
+		mixpanel.track("Kill Enemy", {"enemy": enemy.name, "depth": JSRL.dungeon.currentDepth});
 		if (enemy.name === "Rodney"){
 			JSRL.ui.showMessage("Rodney falls to his knees: Aaaarrgh!!!");
 			JSRL.dungeon.addItem(JSRL.itemFactory.createItem("YENDOR"), this.position);
@@ -603,6 +605,7 @@ Player.prototype.recoverHP = function(hp){
 
 Player.prototype.checkEndgame = function(){
 	if (this.deadArnold && this.deadToy && this.deadLane &&this.deadMango){
+		mixpanel.track("Win Game", {"depth": JSRL.dungeon.currentDepth});
 		JSRL.ui.endGame();
 	}	
 };
