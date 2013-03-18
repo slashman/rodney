@@ -159,6 +159,7 @@ Enemy.prototype.attackPlayer = function(){
 	}
 	
 	if (JSRL.player.hp <= 0){
+		mixpanel.track("Game Over", {"enemy": this.name, "depth": JSRL.dungeon.currentDepth});
 		JSRL.player.hp = 0;
 		if (this.name === "Rodney"){
 			JSRL.ui.showMessage("Rodney says: Begone forever thief!. Press SPACE to continue");

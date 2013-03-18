@@ -11,6 +11,7 @@ Rodney.initGame = function () {
 };
 
 Rodney.restartGame = function (){
+	mixpanel.track("New Game");
 	JSRL.ui.reset();
 };
 
@@ -28,6 +29,7 @@ Rodney.doStartGame = function (onConnect){
 		if (abortConnection)
 			return;
 		if (status == 1){
+			mixpanel.track("Enter Town");
 			JSRL.websocket.onTown = true;
 			JSRL.dungeon.createTownLevel();
 			JSRL.websocket.sendPlayerInfo();
