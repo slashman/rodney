@@ -355,6 +355,7 @@ Player.prototype.dropItem = function (item){
 };
 
 Player.prototype.standFast = function(){
+	this.kineticCharge = 0;
 	if (this.hasSkill("BUILDUP")){
 		this.buildUpCounter++;
 		JSRL.ui.showMessage("You stand fast building up!");
