@@ -115,8 +115,7 @@ RWSC.prototype.abandonTown = function(){
 	var msg = {
 		type: "userLogout",
 		pId: 'pId_x'
-	}
-	
+	};
 	this.send(encodeURI(JSON.stringify(msg)));
 };
 
@@ -124,8 +123,8 @@ RWSC.prototype.playerDie = function(){
 	var msg = {
 		type: "chat",
 		pId: 'pId_x',
-		msg: JSRL.player.name+" die at level "+JSRL.dungeon.currentDepth
-	}
+		msg: JSRL.player.name+" dies at level "+JSRL.dungeon.currentDepth
+	};
 	
 	this.send(encodeURI(JSON.stringify(msg)));
 };
@@ -143,7 +142,7 @@ RWSC.prototype.sendMessage = function(){
 	if (chatBox.innerHTML.trim() != "") br = "<br />";
 	
 	chatText.value  = "";
-	if (msg == "") return;
+	if (!msg || msg == "") return;
 	
 	chatBox.innerHTML += br + "you >> " + msg;
 	chatBox.scrollTop = chatBox.scrollHeight;
