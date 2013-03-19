@@ -12,7 +12,7 @@ function Player(name) {
 	this.paralysisCounter = 0;
 	this.confusionCounter = 0;
 	this.level = 0;
-	this.carryCapacity = 10;
+	this.carryCapacity = 13;
 	this.dead = false;
 	this.skills = new Array();
 	this.inventory = new Array();
