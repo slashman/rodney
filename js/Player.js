@@ -166,6 +166,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	
 	if (enemy.hp <= 0){
 		mixpanel.track("Kill Enemy", {"enemy": enemy.name, "depth": JSRL.dungeon.currentDepth});
+		this.score += enemy.scorePrize;
 		if (enemy.name === "Rodney"){
 			JSRL.ui.showMessage("Rodney falls to his knees: Aaaarrgh!!!");
 			JSRL.dungeon.addItem(JSRL.itemFactory.createItem("YENDOR"), this.position);

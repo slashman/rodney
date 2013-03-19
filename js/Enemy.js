@@ -3,6 +3,7 @@ function Enemy(monsterId, name, hp, tileId, damageRoll){
 	this.name = name;
 	this.hp = hp;
 	this.maxhp = hp;
+	this.scorePrize = hp;
 	this.tileId = tileId;
 	this.damageRoll = damageRoll;
 	this.aiType = "SIMPLE";
@@ -159,7 +160,7 @@ Enemy.prototype.attackPlayer = function(){
 	}
 	
 	if (JSRL.player.hp <= 0){
-		mixpanel.track("Game Over", {"enemy": this.name, "depth": JSRL.dungeon.currentDepth});
+		mixpanel.track("Game Over", {"enemy": this.name, "depth": JSRL.dungeon.currentDepth, "score": JSRL.player.score});
 		JSRL.player.hp = 0;
 		if (this.name === "Rodney"){
 			JSRL.ui.showMessage("Rodney says: Begone forever thief!. Press SPACE to continue");
