@@ -5,7 +5,7 @@ function Player(name) {
 	this.hp = 100;
 	this.maxhp = 100;
 	this.strength = 5;
-	this.sightRange = 4;
+	this.sightRange = 2;
 	this.kineticCharge=0;
 	this.rageCounter=0;
 	this.buildUpCounter = 0;
@@ -18,7 +18,9 @@ function Player(name) {
 	this.inventory = new Array();
 	this.currentWeapon;
 	this.currentArmor;
-	this.currentAccesory;
+	var torch = JSRL.itemFactory.createItem("TORCH");
+	this.inventory.push(torch);
+	this.currentAccesory = torch;
 	this.sessionInfo = "";
 	this.skillPath = "";
 	this.score = 0;

@@ -358,6 +358,8 @@ TorchFilter.doLighting = function (tile, x, y, time) {
 	var d = distance(JSRL.player.position.x, JSRL.player.position.y, x, y);
 	// No shading if the tile is too far away from the player's "torch"
 	if (d >= TorchFilter.MAX_DIST) return tile;
+	// No shading if the player has no torch
+	if (!JSRL.player.currentAccesory || !JSRL.player.currentAccesory.lightBonus) return tile;
 	// We will create a new instance of ut.Tile because the tile
 	// passed in might be (and in this case is) a reference to
 	// a shared "constant" tile and we don't want the shader to
