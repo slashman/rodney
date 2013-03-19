@@ -156,6 +156,8 @@ Armor.prototype.damage = function(){
 	this.protectionValue --;
 	if (this.protectionValue <= 1)
 		this.protectionValue =  0;
+	if (this.integrity === 0)
+		this.protectionValue =  0;
 };
 
 Armor.prototype.getStatusDescription = function(){
