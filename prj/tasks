@@ -7,14 +7,15 @@
 * backflip: Jump backward by running into walls
 * walljump: Bounce in a wall to move through enemies
 * sweep: Hit three squares in front of you
-breakfree: push enemies away when surrounded
-revenge: return a blow after being hit thrice
 * Show skill animation inside skill selection screen
 * Add light sources
-Potions
-Scrolls
+* Potions
 * Blood
-Enemy abilities
+* Enemy abilities
+* Add final enemy
+
+breakfree: push enemies away when surrounded
+revenge: return a blow after being hit thrice
+Scrolls
 Autoequip and drop spent weapons/armor
-1/2 Add final enemy
 Add virtual keyboard
