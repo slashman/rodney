@@ -7,6 +7,7 @@ function UI () {
 	this.currentMessage = '';
 	this.lastMessage = '';
 	this.inkeyBuffer = '';
+	this.pressedKey = null;
 	this.mode = 'TITLE';
 	this.inputEnabled = true;
 	this.term = new ut.Viewport(document.getElementById("game"), 80, 25, "canvas");
@@ -20,6 +21,7 @@ function UI () {
 	else if (document.attachEvent)
 		document.attachEvent("onkeydown", this.onKeyDown);
 	window.setInterval(tick, 1000 / FPS);
+	window.setInterval(this.pollKeyboard, 100);
 }
 
 var keyLock = false;
@@ -29,11 +31,19 @@ UI.prototype.onKeyDown = function (keyboardEvent) {
 	keyLock = true;
 	if (window.event)
 		keyboardEvent = window.event;
+	
 	if (!JSRL.ui.inputEnabled){
 		keyLock = false;
 		return;
 	}
-	var key = keyboardEvent.keyCode;
+	JSRL.ui.pressedKey = keyboardEvent.keyCode; 
+};
+
+UI.prototype.pollKeyboard = function (keyboardEvent) {
+	if (JSRL.ui.pressedKey == null)
+		return;
+	var key = JSRL.ui.pressedKey;
+	JSRL.ui.pressedKey = null; 
 	if (JSRL.ui.mode === 'TITLE'){
 		JSRL.ui.enterName(key);
 		JSRL.ui.term.render();
