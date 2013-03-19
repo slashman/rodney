@@ -461,7 +461,7 @@ Player.prototype.tryMoving = function (movedir){
 				var landingPosition1 = {x: movedir.x * -1 + x, y: movedir.y + y};
 				var xenemy = JSRL.dungeon.getEnemy(landingPosition1.x, landingPosition1.y);
 				var xtile = JSRL.dungeon.getMapTile(landingPosition1.x, landingPosition1.y);
-				if (!xenemy && !xtile.solid){
+				if (!xenemy && xtile && !xtile.solid){
 					JSRL.ui.showMessage("You jump on the wall!");
 					this.position.x = landingPosition1.x;
 					this.position.y = landingPosition1.y;
