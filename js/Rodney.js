@@ -16,10 +16,10 @@ Rodney.restartGame = function (){
 };
 
 Rodney.doStartGame = function (onConnect){
+	JSRL.itemFactory = new ItemFactory();
 	JSRL.player = new Player(JSRL.ui.inkeyBuffer);
 	JSRL.dungeonGenerator = new FeatureCarveGenerator();
 	JSRL.monsterFactory = new MonsterFactory();
-	JSRL.itemFactory = new ItemFactory();
 	JSRL.dungeon = new Dungeon();
 	
 	//Attempt to connect to the websocket server
