@@ -391,7 +391,7 @@ Player.prototype.tryMoving = function (movedir){
 	if (enemy){
 		var kineticChargeTransferred = false;
 		// Verify if kineticCharge is transferred #CHARGE
-		if (this.hasSkill("CHARGE"))
+		if (this.hasSkill("CHARGE") && this.currentWeapon)
 			kineticChargeTransferred = this.isRunning(movedir);
 		// Check if there's a solid cell behind the enemy #CORNER
 		var cornered = false;
@@ -401,7 +401,7 @@ Player.prototype.tryMoving = function (movedir){
 		}
 		// Check if spinslashing #SPIN
 		var spinSlash = false;
-		if (this.hasSkill("SPIN")){
+		if (this.hasSkill("SPIN") && this.currentWeapon){
 			spinSlash = this.lastAttackDir && oppositeDirection(movedir, this.lastAttackDir);
 		}
 		// Bump into enemy!
@@ -493,7 +493,7 @@ Player.prototype.tryMoving = function (movedir){
 	} else {
 		this.rageCounter = 0;
 		// Check if slashing through #SLASH #BACKSLASH
-		if (this.hasSkill("SLASH") || this.hasSkill("BACKSLASH")){
+		if (this.currentWeapon && this.hasSkill("SLASH") || this.hasSkill("BACKSLASH")){
 			this.trySlash(movedir);
 		}
 		var addBlood = JSRL.dungeon.hasBlood(this.position) && chance(30);
