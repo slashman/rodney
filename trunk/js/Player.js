@@ -4,7 +4,7 @@ function Player(name) {
 	this.name = name;
 	this.hp = 100;
 	this.maxhp = 100;
-	this.strength = 5;
+	this.strength = 3;
 	this.sightRange = 2;
 	this.kineticCharge=0;
 	this.rageCounter=0;
