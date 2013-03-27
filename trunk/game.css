@@ -3,6 +3,7 @@
 body{
 	color: white;
 	background-color: black;
+	font-family: Arial, Helvetica, sans-serif;	
 }
 
 .centerer {
@@ -18,7 +19,7 @@ body{
 .chat{
 	background-color: white;
 	color: black;
-	font-family: Verdana Arial sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	display: inline-block;
 	width: 200px;
 	height: 400px;
