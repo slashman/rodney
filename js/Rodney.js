@@ -32,6 +32,7 @@ Rodney.doStartGame = function (onConnect){
 			mixpanel.track("Enter Town");
 			JSRL.websocket.onTown = true;
 			JSRL.dungeon.createTownLevel();
+			JSRL.ui.showMessage("You are in the entrance to the Dungeons of Doom, look for another adventurers or press space to enter.");
 			JSRL.websocket.sendPlayerInfo();
 		}else if (status == 3)	
 			JSRL.dungeon.generateLevel(1);
