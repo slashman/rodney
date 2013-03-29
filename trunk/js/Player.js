@@ -430,9 +430,6 @@ Player.prototype.tryMoving = function (movedir){
 				landingPosition1 = {x: x - movedir.x, y: y};
 				landingPosition2 = {x: x, y: y - movedir.y};
 			}
-			console.log(x+","+y);
-			console.log(landingPosition1);
-			console.log(landingPosition2);
 			var xenemy = JSRL.dungeon.getEnemy(landingPosition1.x, landingPosition1.y);
 			if (xenemy){
 				this.attackEnemy(xenemy, false, false, false, false, movedir);

@@ -17,9 +17,7 @@ FeatureCarveGenerator.prototype.createLevel = function (depth){
 	if (depth > 25 && chance(80) && !JSRL.player.rodneyGenerated){
 		rodneyLevel = true;
 	} 
-	//
 	
-	//
 	if (!rodneyLevel && chance(80) && depth > 28 && JSRL.player.rodneyGenerated){
 		rbLevel = true;
 	}
@@ -27,29 +25,30 @@ FeatureCarveGenerator.prototype.createLevel = function (depth){
 	var addExit = true;
 	if (rodneyLevel || rbLevel)
 		addExit = false;
-	var map = this.generateLevel(9, '#', '.', '.', 60, 60, addExit);
+	JSRL.dungeon.map = this.generateLevel(9, '#', '.', '.', 60, 60, addExit);
+
 	if (rodneyLevel){
 		var rodney = JSRL.monsterFactory.createMonster("RODNEY");
 		rodney.isUnique = true;
-		JSRL.dungeon.addEnemy(rodney, this.getFreePlace());
+		JSRL.dungeon.addEnemy(rodney, JSRL.dungeon.getFreePlace());
 		JSRL.player.rodneyGenerated = true;
 	}else if (rbLevel){
 		var rodney = JSRL.monsterFactory.createMonster("ARNOLD");
 		rodney.isUnique = true;
-		JSRL.dungeon.addEnemy(rodney, this.getFreePlace());
+		JSRL.dungeon.addEnemy(rodney, JSRL.dungeon.getFreePlace());
 		rodney = JSRL.monsterFactory.createMonster("TOY");
 		rodney.isUnique = true;
-		JSRL.dungeon.addEnemy(rodney, this.getFreePlace());
+		JSRL.dungeon.addEnemy(rodney, JSRL.dungeon.getFreePlace());
 		rodney = JSRL.monsterFactory.createMonster("LANE");
 		rodney.isUnique = true;
-		JSRL.dungeon.addEnemy(rodney, this.getFreePlace());
+		JSRL.dungeon.addEnemy(rodney, JSRL.dungeon.getFreePlace());
 		rodney = JSRL.monsterFactory.createMonster("MANGO");
 		rodney.isUnique = true;
-		JSRL.dungeon.addEnemy(rodney, this.getFreePlace());
+		JSRL.dungeon.addEnemy(rodney, JSRL.dungeon.getFreePlace());
 	}
 	this.addCritters(depth);
 	this.addItems(depth);
-	return { entrancePosition: this.startingPosition, map: map };
+	return { entrancePosition: this.startingPosition};
 };
 
 FeatureCarveGenerator.prototype.addCritters = function(depth){
@@ -57,28 +56,16 @@ FeatureCarveGenerator.prototype.addCritters = function(depth){
 	var ecosystem = JSRL.monsterFactory.getEcosystem(depth);
 	for (var i = 0; i < crits; i++){
 		var enemyId = randomElementOf(ecosystem);
-		JSRL.dungeon.addEnemy(JSRL.monsterFactory.createMonster(enemyId), this.getFreePlace());
+		JSRL.dungeon.addEnemy(JSRL.monsterFactory.createMonster(enemyId), JSRL.dungeon.getFreePlace());
 	}
 };
 
 FeatureCarveGenerator.prototype.addItems = function(depth){
 	var crits = rand(5,10);
 	for (var i = 0; i < crits; i++){
-		JSRL.dungeon.addItem(JSRL.itemFactory.getAnItem(), this.getFreePlace());
+		JSRL.dungeon.addItem(JSRL.itemFactory.getAnItem(), JSRL.dungeon.getFreePlace());
 	}
 };
-
-FeatureCarveGenerator.prototype.getFreePlace = function(){
-	while(true){
-		var place = {x: 0, y:0};
-		place.x = rand(1,this.getLevelWidth()-2);
-		place.y = rand(1,this.getLevelHeight()-2);
-		if (this.isExitPlaceable(place)){
-			return place;
-		}
-	}
-};
-
 
 FeatureCarveGenerator.prototype.save = function(){
 	for (var i = 0; i < this.mask.length; i++){
