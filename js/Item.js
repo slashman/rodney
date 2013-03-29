@@ -30,6 +30,7 @@ LightSource.prototype.spend = function(){
 	if (this.fuel <= 0){
 		this.fuel = 0;
 		this.lightBonus = 0;
+		JSRL.player.dropItem(this);
 	}
 };
 
@@ -105,6 +106,10 @@ DamageableItem.prototype.clash = function(strength){
 	if (integrityLevel < previousIntegrityLevel && integrityLevel <= 3){
 		JSRL.ui.showMessage("Your "+this.name+" is damaged");
 		this.damage();
+	}
+	if (this.integrity === 0){
+		// Drop ruined items
+		JSRL.player.dropItem(this);
 	}
 };
 
