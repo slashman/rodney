@@ -236,19 +236,19 @@ UI.prototype.getDisplayedTile = function (x,y){
 };
 
 UI.prototype.showStats = function (){
-	this.term.putString(JSRL.player.name, 1, 9, 255, 0, 0);
+	this.term.putString(JSRL.player.name, 1, 4, 255, 0, 0);
 	if (JSRL.player.currentWeapon)
-		this.term.putString(JSRL.player.currentWeapon.getStatusDescription(), 1, 10, 255, 255, 255);
+		this.term.putString(JSRL.player.currentWeapon.getStatusDescription(), 1, 5, 255, 255, 255);
 	if (JSRL.player.currentArmor)
-		this.term.putString(JSRL.player.currentArmor.getStatusDescription(), 1, 11, 255, 255, 255);
+		this.term.putString(JSRL.player.currentArmor.getStatusDescription(), 1, 6, 255, 255, 255);
 	if (JSRL.player.currentAccesory)
-		this.term.putString(JSRL.player.currentAccesory.getStatusDescription(), 1, 12, 255, 255, 255);
-	this.term.putString("Level    "+JSRL.dungeon.currentDepth, 1, 14, 255, 255, 255);
-	this.term.putString("HP       "+JSRL.player.hp+"/"+JSRL.player.maxhp, 1, 15, 255, 255, 255);
-	this.term.putString("Strength "+JSRL.player.strength, 1, 16, 255, 255, 255);
+		this.term.putString(JSRL.player.currentAccesory.getStatusDescription(), 1, 7, 255, 255, 255);
+	this.term.putString("Level    "+JSRL.dungeon.currentDepth, 1, 9, 255, 255, 255);
+	this.term.putString("HP       "+JSRL.player.hp+"/"+JSRL.player.maxhp, 1, 10, 255, 255, 255);
+	this.term.putString("Strength "+JSRL.player.strength, 1, 11, 255, 255, 255);
 	
 	if (JSRL.player.kineticCharge>0)
-		this.term.putString("Running", 1, 17, 255, 255, 255);
+		this.term.putString("Running", 1, 13, 255, 255, 255);
 	
 	//this.term.putString("Rage: "+JSRL.player.rageCounter, 1, 17, 255, 255, 255);
 	//this.term.putString("Build: "+JSRL.player.buildUpCounter, 1, 18, 255, 255, 255);

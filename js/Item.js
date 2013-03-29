@@ -164,7 +164,7 @@ Weapon.prototype.destroyItem = function(){
 };
 
 Weapon.prototype.getStatusDescription = function(){
-	return this.name + "[" + this.damageRoll.getDescription() + "] {"+this.integrity+"}";
+	return this.getMenuDescription();
 };
 
 Weapon.prototype.getMenuDescription = function(){
@@ -193,7 +193,7 @@ Armor.prototype.destroyItem = function(){
 };
 
 Armor.prototype.getStatusDescription = function(){
-	return this.name + "[" + this.protectionValue + "] {"+this.integrity+"}";
+	return this.getMenuDescription();
 };
 
 Armor.prototype.getMenuDescription = function(){
