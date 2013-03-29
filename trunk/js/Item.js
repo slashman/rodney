@@ -16,6 +16,22 @@ Item.prototype.getFloorDescription = function(){
 	return this.name;
 };
 
+Item.prototype.getTypeDescription = function(){
+	if (this.type === "ACCESORY"){
+		if (this.isLightSource)
+			return "Light";
+		else
+			return "???";
+	} else if (this.type === "SPENDABLE")
+		return "Potions";
+	else if (this.type === "WEAPON")
+		return "Weapons";
+	else if (this.type === "ARMOR")
+		return "Armor";
+	else
+		return "???";
+};
+
 function LightSource(itemId, name, lightBonus, fuel){
 	Item.call(this, itemId, name, "ACCESORY");
 	this.isLightSource = true;

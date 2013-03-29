@@ -419,15 +419,21 @@ UI.prototype.activateItemSelection = function(){
 	this.mode = 'SELECT_ITEM';
 	this.term.clear();
 	this.menuCursor = 0;
-	this.term.putString("Select item, press Space to use, [d] to drop", 20, 5, 255, 255, 0);
+	this.term.putString("Select item, press Space to use, [d] to drop", 20, 1, 255, 255, 0);
+	var itemType = '';
 	for (var i = 0; i < JSRL.player.inventory.length; i++){
+		var item = JSRL.player.inventory[i];
 		var equipped = '';
-		if (JSRL.player.currentWeapon === JSRL.player.inventory[i] ||
-			JSRL.player.currentArmor === JSRL.player.inventory[i] ||
-			JSRL.player.currentAccesory === JSRL.player.inventory[i]){
+		if (JSRL.player.currentWeapon ===  item ||
+			JSRL.player.currentArmor === item ||
+			JSRL.player.currentAccesory === item){
 			equipped = '(Equiped) ';
 		}
-		this.term.putString(equipped+JSRL.player.inventory[i].getMenuDescription(), 10, 7+i, 255, 255, 255);
+		if (itemType != item.type){
+			itemType = item.type;
+			this.term.putString(item.getTypeDescription(), 1, 3+i, 255, 0, 0);
+		}
+		this.term.putString(equipped+item.getMenuDescription(), 10, 3+i, 255, 255, 255);
 	}
 	this.drawSelectItem();
 };
@@ -435,9 +441,9 @@ UI.prototype.activateItemSelection = function(){
 UI.prototype.drawSelectItem = function(){
 	for (var i = 0; i < JSRL.player.inventory.length; i++){
 		if (i === this.menuCursor){
-			this.term.putString("(*)", 6, 7+i, 255, 0, 0);
+			this.term.putString(">", 9, 3+i, 255, 0, 0);
 		} else {
-			this.term.putString("   ", 6, 7+i, 255, 0, 0);
+			this.term.putString(" ", 9, 3+i, 255, 0, 0);
 		};
 	};
 	this.term.render();
