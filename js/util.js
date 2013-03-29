@@ -60,3 +60,23 @@ var ALL_DIRECTIONS = ["UP", "DOWN", "LEFT", "RIGHT","UPLEFT", "DOWNLEFT", "UPRIG
 function sumPositions(p1, p2){
 	return {x: p1.x+ p2.x, y: p1.y+p2.y};
 }
+
+function getAlternateDirections(direction){
+	if (direction === 0 && direction.y === 0)
+		return {a1: direction, a2: direction};
+	var side1 = direction;
+	var side2 = direction;
+	if (direction.x === 0){
+		side1 = {x: - 1, y: direction.y};
+		side2 = {x: + 1, y: direction.y};
+	} else if (direction.y === 0){
+		side1 = {x: direction.x, y: - 1};
+		side2 = {x: direction.x, y: + 1};
+	} else {
+		//  x+
+		//  +@
+		side1 = {x: direction.x, y: 0};
+		side2 = {x: 0, y: direction.y};
+	}
+	return {a1: side1, a2: side2};
+}
