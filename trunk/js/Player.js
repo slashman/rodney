@@ -165,13 +165,14 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	JSRL.ui.showMessage(attackMessage);
 	enemy.hp -= damage;
 	
+	// Add blood
 	var character = JSRL.tiles.getTile(enemy.tileId).getChar();
 	var splashSize = 2;
 	if (character === character.toLowerCase())
 		splashSize = 1;
 	JSRL.dungeon.splashBlood(sumPositions(enemy.position, attackDirection), splashSize);
 	
-	
+	// Kill enemy
 	if (enemy.hp <= 0){
 		mixpanel.track("Kill Enemy", {"enemy": enemy.name, "depth": JSRL.dungeon.currentDepth});
 		this.score += enemy.scorePrize;
@@ -351,6 +352,7 @@ Player.prototype.dropItem = function (item){
 		else
 			JSRL.ui.showMessage("You can't drop the "+item.name+" here");
 	} else {
+		JSRL.ui.showMessage("You drop the "+item.name);
 		this.inventory.removeObject(item);
 		if (item === this.currentWeapon)
 			this.currentWeapon = false;
