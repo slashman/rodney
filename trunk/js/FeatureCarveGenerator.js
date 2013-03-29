@@ -56,7 +56,13 @@ FeatureCarveGenerator.prototype.addCritters = function(depth){
 	var ecosystem = JSRL.monsterFactory.getEcosystem(depth);
 	for (var i = 0; i < crits; i++){
 		var enemyId = randomElementOf(ecosystem);
-		JSRL.dungeon.addEnemy(JSRL.monsterFactory.createMonster(enemyId), JSRL.dungeon.getFreePlace());
+		var enemyPosition = JSRL.dungeon.getFreePlace();
+		var enemyDistance = distance(this.startingPosition.x, this.startingPosition.y, enemyPosition.x, enemyPosition.y);
+		if (enemyDistance < 4){
+			i--;
+			continue;
+		}
+		JSRL.dungeon.addEnemy(JSRL.monsterFactory.createMonster(enemyId), enemyPosition);
 	}
 };
 
