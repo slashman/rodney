@@ -41,6 +41,8 @@ ItemFactory.prototype.addPotionDefinition = function (itemId, name, generationCh
 };
 
 ItemFactory.prototype.pushThreshold = function(itemId, generationChance){
+	if (generationChance <= 0)
+		return;
 	this.generationChanceTotal += generationChance;
 	this.thresholds.push({threshold: this.generationChanceTotal, itemId: itemId});
 };
@@ -116,7 +118,9 @@ ItemFactory.prototype.createItem = function(itemId){
 ItemFactory.prototype.getAnItem = function(){
 	var number = rand(0, this.generationChanceTotal);
 	for (var i = 0; i < this.thresholds.length; i++){
-		if (number < this.thresholds[i].threshold)
+		if (number <= this.thresholds[i].threshold)
 			return this.createItem(this.thresholds[i].itemId);
 	}
+	// console.log("Unable to get an item, dropping a TORCH");
+	return this.createItem("TORCH");
 };
