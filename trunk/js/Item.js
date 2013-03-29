@@ -108,6 +108,7 @@ DamageableItem.prototype.clash = function(strength){
 		this.damage();
 	}
 	if (this.integrity === 0){
+		this.destroyItem();
 		// Drop ruined items
 		JSRL.player.dropItem(this);
 	}
@@ -115,6 +116,10 @@ DamageableItem.prototype.clash = function(strength){
 
 DamageableItem.prototype.damage = function(){
 	
+};
+
+DamageableItem.prototype.destroyItem = function(){
+
 };
 
 DamageableItem.prototype.getFloorDescription = function(){
@@ -136,6 +141,10 @@ Weapon.prototype.damage = function(){
 	this.damageRoll.base --;
 	if (this.damageRoll.base <= 1)
 		this.damageRoll.base =  0;
+};
+
+Weapon.prototype.destroyItem = function(){
+	this.damageRoll.base =  0;
 };
 
 Weapon.prototype.getStatusDescription = function(){
@@ -161,8 +170,10 @@ Armor.prototype.damage = function(){
 	this.protectionValue --;
 	if (this.protectionValue <= 1)
 		this.protectionValue =  0;
-	if (this.integrity === 0)
-		this.protectionValue =  0;
+};
+
+Armor.prototype.destroyItem = function(){
+	this.protectionValue =  0;
 };
 
 Armor.prototype.getStatusDescription = function(){
