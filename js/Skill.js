@@ -501,7 +501,7 @@ Skills.skills =
  },
  {
 	 skillId: "DESTRUCTION",
-	 name: "Destruction",
+	 name: "Destroy",
 	 text1:  "Increase Strength by 3",
  },
  {
