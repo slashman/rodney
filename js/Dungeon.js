@@ -55,7 +55,7 @@ Dungeon.prototype.getDisplayedTile = function (x, y) {
 	} else 
 		ret = ut.NULLTILE;
 	if (!ret){
-		console.log("Invalid tile at "+x+","+y);
+		// console.log("Invalid tile at "+x+","+y);
 		return ut.NULLTILE;
 
 	}
@@ -111,7 +111,8 @@ Dungeon.prototype.tryMoveEnemyTo = function (enemy, destinationPosition){
 	}
 	var tile = this.getMapTile(destinationPosition.x, destinationPosition.y);
 	if (!tile){
-		console.log("No tile at "+destinationPosition.x+","+destinationPosition.y);
+		//console.log("No tile at "+destinationPosition.x+","+destinationPosition.y);
+		return;
 	}
 	if (tile.solid || 
 			this.getEnemy(destinationPosition.x, destinationPosition.y) ){
@@ -131,8 +132,7 @@ Dungeon.prototype.dungeonTurn = function(){
 Dungeon.prototype.generateLevel= function(depth){
 	mixpanel.track("Generate Level", {"depth": depth});
 	var generationResults = JSRL.dungeonGenerator.createLevel(depth);
-	JSRL.player.position = generationResults.entrancePosition;
-	this.map = generationResults.map;
+	JSRL.player.position = generationResults.entrancePosition;	
 	JSRL.player.resetFOVMasks();
 	JSRL.player.resetMemoryMap();
 	JSRL.player.updateFOV();
@@ -236,4 +236,24 @@ Dungeon.prototype.hasBlood = function(position){
 
 Dungeon.prototype.changeTile = function (position, tile){
 	this.map[position.y] = this.map[position.y].replaceAt(position.x, tile);
+};
+
+Dungeon.prototype.getFreePlace = function(){
+	while(true){
+		var place = {x: 0, y:0};
+		place.x = rand(1,this.getWidth()-2);
+		place.y = rand(1,this.getHeight()-2);
+		var cell = this.getMapTile(place.x, place.y);
+		if (cell.solid)
+			continue;
+		if (cell.downstairs)
+			continue;
+		var enemy = this.getEnemy(place.x, place.y);
+		if (enemy)
+			continue;
+		var item = this.getItem(place.x, place.y);
+		if (item)
+			continue;
+		return place;	
+	}
 };
