@@ -470,21 +470,26 @@ Player.prototype.tryMoving = function (movedir){
 	} else 	if (JSRL.dungeon.getMapTile(x, y) == null || JSRL.dungeon.getMapTile(x, y).solid){
 		this.rageCounter = 0;
 		if (this.hasSkill("BACKFLIP") && this.isRunning(movedir)){
-			var landingPosition = {x: movedir.x * -3 + this.position.x, y: movedir.y * -3 + this.position.y};
-			var xenemy = JSRL.dungeon.getEnemy(landingPosition.x, landingPosition.y);
-			var xtile = JSRL.dungeon.getMapTile(landingPosition.x, landingPosition.y);
-			if (!xenemy && !xtile.solid){
-				JSRL.ui.showMessage("You backflip!");
-				this.kineticCharge = 0;
-				this.position.x = landingPosition.x;
-				this.position.y = landingPosition.y;
-				this.landOn(landingPosition.x, landingPosition.y);
-				moved = true;
-			} else {
-				// Bump!
+			if (movedir.x != 0 && movedir.y != 0){
 				moved = false;
+			} else {
+				var landingPosition = {x: movedir.x * -3 + this.position.x, y: movedir.y * -3 + this.position.y};
+				var xenemy = JSRL.dungeon.getEnemy(landingPosition.x, landingPosition.y);
+				var xtile = JSRL.dungeon.getMapTile(landingPosition.x, landingPosition.y);
+				if (!xenemy && !xtile.solid){
+					JSRL.ui.showMessage("You backflip!");
+					this.kineticCharge = 0;
+					this.position.x = landingPosition.x;
+					this.position.y = landingPosition.y;
+					this.landOn(landingPosition.x, landingPosition.y);
+					moved = true;
+				} else {
+					// Bump!
+					moved = false;
+				}
 			}
-		} else if (this.hasSkill("WALLJUMP")){
+		} 
+		if (!moved && this.hasSkill("WALLJUMP")){
 			if (movedir.x === 0 || movedir.y === 0){
 				moved = false;
 			} else {
