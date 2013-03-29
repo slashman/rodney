@@ -20,14 +20,35 @@ function Player(name) {
 	this.currentArmor;
 	var torch = JSRL.itemFactory.createItem("TORCH");
 	var dagger = JSRL.itemFactory.createItem("DAGGER");
-	this.inventory.push(torch);
+	this.addItem(torch);
 	this.currentAccesory = torch;
-	this.inventory.push(dagger);
+	this.addItem(dagger);
 	this.currentWeapon = dagger;
 	this.sessionInfo = "";
 	this.skillPath = "";
 	this.score = 0;
 }
+
+Player.prototype.addItem = function (item){
+	this.inventory.push(item);
+	// Sort items
+	this.inventory.sort(function (a, b){
+		if (a.type === b.type){
+			// Same type, sort alpha
+			if (a.name < b.name)
+				return -1;
+			if (a.name > b.name)
+				return 1;
+			return 0;
+		} else {
+			// Sort by type
+			if (a.type < b.type)
+				return -1;
+			if (a.type > b.type)
+				return 1;
+		}
+	});
+};
 
 Player.prototype.addSkill = function(skill){
 	mixpanel.track("Add skill", {"skill": skill.name, "depth": JSRL.dungeon.currentDepth});
@@ -309,7 +330,7 @@ Player.prototype.doAction = function(){
 
 Player.prototype.tryPick = function (item){
 	if (this.inventory.length < this.carryCapacity-1){
-		this.inventory.push(item);
+		this.addItem(item);
 		JSRL.dungeon.removeItem(item);
 		if (item.isUnique)
 			JSRL.ui.showMessage("You pick up "+item.name);
