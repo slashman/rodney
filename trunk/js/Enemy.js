@@ -28,21 +28,31 @@ Enemy.prototype.enemyAI = function (){
 	}
 	
 	var directionToPlayer = this.starePlayer();
-	if (directionToPlayer == "NONE"){
+	if (directionToPlayer == "NONE" ||
+			( this.monsterId === "BAT" && chance(80) ) ||
+			( this.monsterId === "FLOATING_EYE" && chance(20) ) ||
+			( this.monsterId === "INVISIBLE_STALKER" && chance(50) )
+		){
 		//Wander aimlessly 
     	this.walk(randomDirection());
     	return;
 	} else {
 		var destinationPosition = {x: directionToPlayer.x + this.position.x, y: directionToPlayer.y + this.position.y};
-		if ( this.monsterId === "BAT" && chance(80)){
+		if (JSRL.dungeon.getMapTile(destinationPosition.x, destinationPosition.y).solid){ // This shouldn't happen much actually, as monsters can't look through walls
 	    	this.walk(randomDirection());
-		} else if ( this.monsterId === "FLOATING_EYE" && chance(20)){
-			this.walk(randomDirection());
-		} else if ( this.monsterId === "INVISIBLE_STALKER" && chance(50)){
-			this.walk(randomDirection());
-		} else if (JSRL.dungeon.getMapTile(destinationPosition.x, destinationPosition.y).solid){
-	    	this.walk(randomDirection());
-		} else {
+		} else if (JSRL.dungeon.getEnemy(destinationPosition.x, destinationPosition.y)){ // There's another monster blocking us
+			// Look for alternate paths using an advanced pathfinding mechanism
+			var alternateDirections = getAlternateDirections(directionToPlayer);
+			var alternatePosition1 = {x: alternateDirections.a1.x + this.position.x, y: alternateDirections.a1.y + this.position.y};
+			var alternatePosition2 = {x: alternateDirections.a2.x + this.position.x, y: alternateDirections.a2.y + this.position.y};
+			if (JSRL.dungeon.isWalkable(alternatePosition1)){
+				this.walk(alternateDirections.a1);
+			} else if (JSRL.dungeon.isWalkable(alternatePosition2)){
+				this.walk(alternateDirections.a2);
+			} else {
+				this.walk(randomDirection());
+			}
+		} else { // There's nothing between the monster and the player, charge ahead
 			this.walk(directionToPlayer);
 		}
 	}

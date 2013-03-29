@@ -257,3 +257,13 @@ Dungeon.prototype.getFreePlace = function(){
 		return place;	
 	}
 };
+
+Dungeon.prototype.isWalkable = function(place){
+	var cell = this.getMapTile(place.x, place.y);
+	if (cell.solid)
+		return false;
+	var enemy = this.getEnemy(place.x, place.y);
+	if (enemy)
+		return false;
+	return true;
+};
