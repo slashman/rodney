@@ -388,11 +388,11 @@ Player.prototype.tryMoving = function (movedir){
 		if (xenemy){
 			enemy = xenemy;
 			JSRL.ui.showMessage("You jump into "+enemy.getTheDescription());
+			this.position.x = x;
+			this.position.y = y;
+			this.landOn(x, y);
+			moved = true;
 		}
-		this.position.x = x;
-		this.position.y = y;
-		this.landOn(x, y);
-		moved = true;
 	}
 	if (enemy){
 		var kineticChargeTransferred = false;
