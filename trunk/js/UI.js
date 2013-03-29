@@ -253,6 +253,17 @@ UI.prototype.showStats = function (){
 	//this.term.putString("Rage: "+JSRL.player.rageCounter, 1, 17, 255, 255, 255);
 	//this.term.putString("Build: "+JSRL.player.buildUpCounter, 1, 18, 255, 255, 255);
 	
+	var yy = 0;
+	var xx = 60;
+	for (var i = 0; i < JSRL.player.skills.length; i++){
+		this.term.putString(JSRL.player.skills[i].name, xx, 4+yy, 255, 255, 255);
+		yy++;
+		if (yy > 15){
+			yy = 0;
+			xx += 10;
+		}
+	}
+	
 	this.term.putString("Press Space for action (Pick, Stairs, Inventory)", 1, 22, 255, 255, 255);
 
 };

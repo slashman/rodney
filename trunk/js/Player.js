@@ -38,13 +38,13 @@ Player.prototype.addSkill = function(skill){
 		if (this.hp > this.maxhp)
 			this.hp = this.maxhp;
 	} else if (skill.skillId === "DESTRUCTION"){
-		this.strength += 5;
+		this.strength += 3;
 	} else if (skill.skillId === "DARK_SIGHT"){
 		this.sightRange += 4;
 	} else if (skill.skillId === "PACKER"){
 		this.carryCapacity += 5;
 	} 
-	this.skills.push(skill.skillId);
+	this.skills.push(skill);
 };
 
 Player.prototype.resetMemoryMap = function(){
@@ -52,7 +52,10 @@ Player.prototype.resetMemoryMap = function(){
 };
 
 Player.prototype.hasSkill = function (skillId){
-	return this.skills.contains(skillId);
+	for (var i = 0; i < this.skills.length; i++)
+		if (this.skills[i].skillId === skillId)
+			return true;
+	return false;
 };
 
 Player.prototype.getLearnableSkills = function(){
