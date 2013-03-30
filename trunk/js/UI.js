@@ -374,8 +374,8 @@ UI.prototype.showTitleScreen = function(){
 };
 
 var TorchFilter = {
-	LIGHT_COLOR: { r: 170, g: 170, b: 0 },
-	LIGHT_INTENSITY: 0.8
+	LIGHT_COLOR: { r: 255, g: 255, b: 0 },
+	LIGHT_INTENSITY: 0.9
 };
 
 // Based on an implementation by UnicodeTiles.js
