@@ -3,8 +3,7 @@ function ItemFactory(){
 	this.thresholds = new Array();
 	this.generationChanceTotal = 0;
 	
-	//this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,6,0), 200, 30);
-	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(2,1,0), 200, 30);
+	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,6,0), 200, 30);
 	this.addWeaponDefinition("STAFF", "Staff", new Roll(2,3,0), 100, 30);
 	this.addWeaponDefinition("LONG_SWORD", "Long Sword", new Roll(3,4,0), 300, 15);
 	this.addWeaponDefinition("MACE", "Mace", new Roll(2,4,0), 300, 15);
