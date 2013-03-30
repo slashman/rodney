@@ -15,13 +15,14 @@ function UI () {
 	this.eng.setShaderFunc(TorchFilter.doLighting);
 	this.messageRepeatCounter = 0;
 	this.textBox = new TextBox(10, 78, {x: 1, y: 1});
+	this.keyboardPollingDelay = 10;
 	//ut.initInput(this.onKeyDown);
 	if (document.addEventListener)
 		document.addEventListener("keydown",this.onKeyDown);
 	else if (document.attachEvent)
 		document.attachEvent("onkeydown", this.onKeyDown);
 	window.setInterval(tick, 1000 / FPS);
-	window.setInterval(this.pollKeyboard, 100);
+	window.setTimeout(this.pollKeyboard, this.keyboardPollingDelay);
 }
 
 var keyLock = false;
@@ -40,8 +41,10 @@ UI.prototype.onKeyDown = function (keyboardEvent) {
 };
 
 UI.prototype.pollKeyboard = function (keyboardEvent) {
-	if (JSRL.ui.pressedKey == null)
+	if (JSRL.ui.pressedKey == null){
+		window.setTimeout(JSRL.ui.pollKeyboard, JSRL.ui.keyboardPollingDelay);
 		return;
+	}
 	var key = JSRL.ui.pressedKey;
 	JSRL.ui.pressedKey = null; 
 	if (JSRL.ui.mode === 'TITLE'){
@@ -50,6 +53,7 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 	}  else if (JSRL.ui.mode === 'IN_GAME'){
 		if (JSRL.player.dead){
 			if (keyCodeToChar[key] === "Space"){
+				JSRL.ui.keyboardPollingDelay = 10;
 				JSRL.ui.mode = 'TITLE';
 				Rodney.restartGame();
 			}
@@ -124,6 +128,7 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 			
 		}
 	}
+	window.setTimeout(JSRL.ui.pollKeyboard, JSRL.ui.keyboardPollingDelay);
 	keyLock = false;
 };
 
@@ -160,6 +165,7 @@ UI.prototype.enterName = function (key){
 		var callback = function(){
 			JSRL.ui.term.clear();
 			JSRL.ui.mode = 'IN_GAME';
+			JSRL.ui.keyboardPollingDelay = 100;
 			JSRL.ui.selectAdvancement();
 		};
 		Rodney.doStartGame(callback);
