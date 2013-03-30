@@ -19,7 +19,7 @@ function ItemFactory(){
 	this.addArmorDefinition("BANDED", "Banded mail", 7, 200, 5);
 	this.addArmorDefinition("PLATE", "Plate mail", 8, 500, 5);
 	
-	this.addLightsourceDefinition("TORCH", "Torch", 3, 200, 80);
+	this.addLightsourceDefinition("TORCH", "Torch", 4, 200, 80);
 	this.addLightsourceDefinition("LANTERN", "Lantern", 5, 300, 20);
 	
 	this.addPotionDefinition("HEALTH_POTION", "Healing Potion", 80);

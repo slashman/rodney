@@ -60,8 +60,8 @@ Player.prototype.addSkill = function(skill){
 			this.hp = this.maxhp;
 	} else if (skill.skillId === "DESTRUCTION"){
 		this.strength += 3;
-	} else if (skill.skillId === "DARK_SIGHT"){
-		this.sightRange += 4;
+	} else if (skill.skillId === "DARK_SIGHT" || skill.skillId === "DARK_SIGHT2" || skill.skillId === "INFRAVISION"){
+		this.sightRange ++;
 	} else if (skill.skillId === "PACKER"){
 		this.carryCapacity += 5;
 	} 
@@ -237,7 +237,11 @@ Player.prototype.updateFOV = function(){
 };
 
 Player.prototype.getSightRange = function(){
-	return this.sightRange + (this.currentAccesory && this.currentAccesory.lightBonus ? this.currentAccesory.lightBonus : 0);
+	return (this.sightRange > this.getLightRange() ? this.sightRange : this.getLightRange());
+};
+
+Player.prototype.getLightRange = function(){
+	return (this.currentAccesory && this.currentAccesory.lightBonus ? this.currentAccesory.lightBonus : 0);
 };
 
 Player.prototype.shootRay = function (a) {
