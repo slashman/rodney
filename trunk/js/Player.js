@@ -167,7 +167,8 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	
 	if (this.currentWeapon){
 		damage += this.currentWeapon.damageRoll.roll();
-		this.currentWeapon.clash(damage);
+		if (damage > 0)
+			this.currentWeapon.clash(damage);
 	}
 	
 	if (cornered){
@@ -280,7 +281,8 @@ Player.prototype.isSeeing = function (x,y){
 Player.prototype.damage = function(damage){
 	if (this.currentArmor){
 		damage -= this.currentArmor.protectionValue;
-		this.currentArmor.clash(damage);
+		if (damage > 0)
+			this.currentArmor.clash(damage);
 	}
 	if (damage < 0)
 		damage = 0;
