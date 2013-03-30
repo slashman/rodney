@@ -156,7 +156,7 @@ UI.prototype.showMessage = function (msg){
 };
 
 UI.prototype.enterName = function (key){
-	if (keyCodeToChar[key] === "Enter"){
+	if (keyCodeToChar[key] === "Enter" && this.inkeyBuffer.length > 0){
 		var callback = function(){
 			JSRL.ui.term.clear();
 			JSRL.ui.mode = 'IN_GAME';
