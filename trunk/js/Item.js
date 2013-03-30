@@ -163,9 +163,12 @@ Weapon.prototype.constructor = Weapon;
 var INTEGRITY_DAMAGE_ROLL_MODIFIERS = [-3, -2, -1, 0, 1];
 
 Weapon.prototype.damage = function(){
-	this.damageRoll.base --;
-	if (this.damageRoll.base <= 1)
-		this.damageRoll.base =  0;
+	if (this.damageRoll.base > 1)
+		this.damageRoll.base --;
+	else 
+		this.damageRoll.multiplier --;
+	if (this.damageRoll.multiplier < 1)
+		this.damageRoll.multiplier =  1;
 };
 
 Weapon.prototype.destroyItem = function(){
@@ -193,8 +196,8 @@ var INTEGRITY_PV_MODIFIERS = [-3, -2, -1, 0, 1];
 
 Armor.prototype.damage = function(){
 	this.protectionValue --;
-	if (this.protectionValue <= 1)
-		this.protectionValue =  0;
+	if (this.protectionValue < 1)
+		this.protectionValue =  1;
 };
 
 Armor.prototype.destroyItem = function(){
