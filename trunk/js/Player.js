@@ -277,8 +277,8 @@ Player.prototype.isSeeing = function (x,y){
 
 Player.prototype.damage = function(damage){
 	if (this.currentArmor){
-		this.currentArmor.clash(damage);
 		damage -= this.currentArmor.protectionValue;
+		this.currentArmor.clash(damage);
 	}
 	if (damage < 0)
 		damage = 0;
