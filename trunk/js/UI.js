@@ -170,9 +170,9 @@ UI.prototype.enterName = function (key){
 	} else if (keyCodeToChar[key] === "Backspace"){
 		this.inkeyBuffer = this.inkeyBuffer.substring(0, this.inkeyBuffer.length-1);
 	}
-	this.term.putString("          ", 25, 23, 255, 255, 255);
+	this.term.putString("           ", 25, 23, 255, 255, 255);
 	this.term.render();
-	this.term.putString(this.inkeyBuffer, 25, 23, 255, 255, 255);
+	this.term.putString(this.inkeyBuffer+"_", 25, 23, 255, 255, 255);
 			
 };
 
@@ -335,8 +335,10 @@ UI.prototype.showTitleScreen = function(){
 	this.mode = 'TITLE';
 	this.term.clear();
 	this.term.putString("- = RODNEY = -", 32, 1, 255, 0, 0);
-	this.term.putString("Slashware Interactive - 2013 7DRL Challenge", 15, 2, 255, 0, 0);
+	this.term.putString("by Slashware Interactive", 26, 2, 255, 0, 0);
 	this.term.putString("Rogue's name?", 10, 23, 255, 0, 0);
+	this.term.putString("_", 25, 23, 255, 255, 255);
+
 	
 	var scene = [
 "Twenty years ago, the brave adventurer 'Rodney' descended into the Dungeons",
