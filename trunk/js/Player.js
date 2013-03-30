@@ -311,25 +311,25 @@ Player.prototype.doAction = function(){
 		JSRL.websocket.quit(false);
 		JSRL.dungeon.generateLevel(1);
 		JSRL.websocket.abandonTown();
-		return;
+		return true;
 	}
 	this.kineticCharge = 0;
 	this.rageCounter = 0;
 	var tile = JSRL.dungeon.getMapTile(this.position.x, this.position.y);
 	if (tile.downstairs){
 		JSRL.dungeon.downstairs();
-		return;
+		return true;
 	}
 	var item = JSRL.dungeon.getItem(this.position.x, this.position.y);
 	if (item){
-		this.tryPick(item);
-		return;
+		return this.tryPick(item);
 	}
 	if (JSRL.player.inventory.length === 0){
 		JSRL.ui.showMessage('Nothing to do here..');
 	} else {
 		JSRL.ui.activateItemSelection();
 	}
+	return false;
 };
 
 Player.prototype.tryPick = function (item){
@@ -340,11 +340,13 @@ Player.prototype.tryPick = function (item){
 			JSRL.ui.showMessage("You pick up "+item.name);
 		else
 			JSRL.ui.showMessage("You pick up a "+item.name);
+		return true;
 	} else {
 		if (item.isUnique)
 			JSRL.ui.showMessage("You can't pick up "+item.name);
 		else
 			JSRL.ui.showMessage("You can't pick up the "+item.name);
+		return false;
 	}
 };
 
@@ -353,19 +355,23 @@ Player.prototype.useItem = function (item){
 	if (item.type === 'WEAPON'){
 		this.currentWeapon = item;
 		JSRL.ui.showMessage("You wield the "+item.name);
+		return true;
 	} else if (item.type === 'ARMOR'){
 		this.currentArmor = item;
 		JSRL.ui.showMessage("You wear the "+item.name);
+		return true;
 	} else if (item.type === 'ACCESORY'){
 		this.currentAccesory = item;
 		if (item.isUnique)
 			JSRL.ui.showMessage("You wear "+item.name);
 		else
 			JSRL.ui.showMessage("You wear the "+item.name);
+		return true;
 	} else if (item.use){
-		item.use();
+		return item.use();
 	} else {
 		JSRL.ui.showMessage("You find no use for the "+item.name);
+		return false;
 	}
 };
 
@@ -376,6 +382,7 @@ Player.prototype.dropItem = function (item){
 			JSRL.ui.showMessage("You can't drop "+item.name+" here");
 		else
 			JSRL.ui.showMessage("You can't drop the "+item.name+" here");
+		return false;
 	} else {
 		JSRL.ui.showMessage("You drop the "+item.name);
 		this.inventory.removeObject(item);
@@ -386,6 +393,7 @@ Player.prototype.dropItem = function (item){
 		if (item === this.currentAccesory)
 			this.currentAccesory = false;
 		JSRL.dungeon.addItem(item, this.position);
+		return true;
 	}
 	
 };
