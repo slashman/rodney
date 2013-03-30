@@ -38,9 +38,7 @@ Enemy.prototype.enemyAI = function (){
     	return;
 	} else {
 		var destinationPosition = {x: directionToPlayer.x + this.position.x, y: directionToPlayer.y + this.position.y};
-		if (JSRL.dungeon.getMapTile(destinationPosition.x, destinationPosition.y).solid){ // This shouldn't happen much actually, as monsters can't look through walls
-	    	this.walk(randomDirection());
-		} else if (JSRL.dungeon.getEnemy(destinationPosition.x, destinationPosition.y)){ // There's another monster blocking us
+		if (JSRL.dungeon.getMapTile(destinationPosition.x, destinationPosition.y).solid || JSRL.dungeon.getEnemy(destinationPosition.x, destinationPosition.y)){ // There's another monster or a mapcell blocking us
 			// Look for alternate paths using an advanced pathfinding mechanism
 			var alternateDirections = getAlternateDirections(directionToPlayer);
 			var alternatePosition1 = {x: alternateDirections.a1.x + this.position.x, y: alternateDirections.a1.y + this.position.y};
@@ -194,9 +192,19 @@ Enemy.prototype.attackPlayer = function(){
 
 Enemy.prototype.starePlayer = function(){
 	var sightRange = this.sightRange ? this.sightRange : 5;
-	if (distance(this.position.x, this.position.y, JSRL.player.position.x, JSRL.player.position.y) <= sightRange){
-		var xDiff = sign(JSRL.player.position.x - this.position.x);
-		var yDiff = sign(JSRL.player.position.y - this.position.y);
+	var referencePosition = JSRL.player.position;
+	if (!JSRL.player.isSeeing(this.position.x, this.position.y)){
+		if (this.lastKnownPlayerPosition)
+			referencePosition = this.lastKnownPlayerPosition;
+	} else {
+		if (!this.lastKnownPlayerPosition)
+			this.lastKnownPlayerPosition = {};
+		this.lastKnownPlayerPosition.x = JSRL.player.position.x;
+		this.lastKnownPlayerPosition.y = JSRL.player.position.y;
+	}
+	if (distance(this.position.x, this.position.y, referencePosition.x, referencePosition.y) <= sightRange){
+		var xDiff = sign(referencePosition.x - this.position.x);
+		var yDiff = sign(referencePosition.y - this.position.y);
 		return {x: xDiff, y: yDiff};
 	} else {
 		return "NONE";
