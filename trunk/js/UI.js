@@ -75,6 +75,9 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 		} else if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter"){
 			JSRL.player.addSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
 			JSRL.ui.mode = 'IN_GAME';
+			var effects = [ "boxin", "circlein", "random" ];
+			var effect = effects[Math.floor(Math.random()*effects.length)];
+			JSRL.ui.eng.setTileFunc(JSRL.ui.getDisplayedTile, effect, 1000);
 		}
 	} else if (JSRL.ui.mode === 'SELECT_ITEM'){
 		if (isUp(key)){
