@@ -81,7 +81,7 @@ Enemy.prototype.attackPlayer = function(){
 	var attackDirection = {x: directionToEnemy.x * -1, y: directionToEnemy.y * -1};
 	switch (this.monsterId){
 		case "GIANT_ANT":
-			if (chance(65)){
+			if (chance(35)){
 				JSRL.player.reduceStrength();
 				JSRL.ui.showMessage("You feel weaker!");
 			}
