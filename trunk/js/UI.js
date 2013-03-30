@@ -354,9 +354,8 @@ UI.prototype.showTitleScreen = function(){
 };
 
 var TorchFilter = {
-	LIGHT_COLOR: { r: 255, g: 255, b: 0 },
-	LIGHT_INTENSITY: 0.7,
-	MAX_DIST: 5
+	LIGHT_COLOR: { r: 170, g: 170, b: 0 },
+	LIGHT_INTENSITY: 0.8
 };
 
 // Based on an implementation by UnicodeTiles.js
@@ -368,7 +367,7 @@ TorchFilter.doLighting = function (tile, x, y, time) {
 	anim = Math.abs(anim - Math.floor(anim) - 0.5) + 0.5;
 	var d = distance(JSRL.player.position.x, JSRL.player.position.y, x, y);
 	// No shading if the tile is too far away from the player's "torch"
-	if (d >= TorchFilter.MAX_DIST) return tile;
+	if (d >= JSRL.player.getLightRange()) return tile;
 	// No shading if the player has no torch
 	if (!JSRL.player.currentAccesory || !JSRL.player.currentAccesory.lightBonus) return tile;
 	// We will create a new instance of ut.Tile because the tile
@@ -377,7 +376,7 @@ TorchFilter.doLighting = function (tile, x, y, time) {
 	// affect all the places where that might be referenced
 	var shaded = new ut.Tile(tile.getChar());
 	// Calculate a blending factor between light and tile colors
-	var f = (1.0 - (d / TorchFilter.MAX_DIST)) * TorchFilter.LIGHT_INTENSITY * anim;
+	var f = (1.0 - (d / JSRL.player.getLightRange())) * TorchFilter.LIGHT_INTENSITY * anim;
 	// Do the blending
 	shaded.r = Math.round(blend(TorchFilter.LIGHT_COLOR.r, tile.r, f));
 	shaded.g = Math.round(blend(TorchFilter.LIGHT_COLOR.g, tile.g, f));

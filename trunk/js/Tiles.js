@@ -66,8 +66,8 @@ function Tiles(){
 	this.addTile("YENDOR", new ut.Tile("\"", 255, 255, 55));
 	
 	//Terrain
-	this.addTerrainTile("#", new ut.Tile('#', 55, 55, 0), true, true,false);
-	this.addTerrainTile(".",  new ut.Tile('.', 0, 55, 0), false, false,false);
+	this.addTerrainTile("#", new ut.Tile('#', 55, 55, 55), true, true,false);
+	this.addTerrainTile(".",  new ut.Tile('.', 55, 55, 55), false, false,false);
 	this.addTerrainTile("*", new ut.Tile('#', 255, 0, 0), true, true,false);
 	this.addTerrainTile(",",  new ut.Tile('.', 255, 0, 0), false, false,false);
 	this.addTerrainTile(">", new ut.Tile('>', 170, 0, 0), false, false, true);
@@ -83,17 +83,21 @@ Tiles.prototype.addTile = function(tileId, tile){
 };
 
 Tiles.prototype.addTerrainTile = function(tileId, utTile, solid, opaque, downstairs){
+	var darkTile = new ut.Tile(utTile.getChar());
+	darkTile.setColor(0, 0, 55);
+
 	this.terrainTiles[tileId] = {
 		tileId: tileId,
 		solid: solid,
 		opaque: opaque,
 		downstairs: downstairs,
-		utTile: utTile
+		utTile: utTile,
+		darkTile: darkTile
 	};
 
 	// Add memory tile, shade of Grey
 	var memoryTile = utTile.clone();
-	memoryTile.setColor(55, 0, 0);
+	memoryTile.setColor(0, 55, 0);
 	this.addTile("MEM_"+tileId, memoryTile);	
 };
 
