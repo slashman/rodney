@@ -3,11 +3,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>RODNEY - 2013 7DRL</title>
-        
+        <title>RODNEY - Slashware Interactive</title>
         <link href="game.css" rel="stylesheet" type="text/css" />
-        
-        <script type="text/javascript" src="js/leadboard.js"></script>
+        <script type="text/javascript" src="js/leadboard.js?v=6"></script>
         <?php
             $scores = RodneyManager::getTopScores(10);
         ?>
@@ -15,15 +13,15 @@
     
     <body>
         <div align="center">
-            <table style="width: 800px;" border="1">
+            <table style="width: 500px;" class="gridtable">
                 <tr>
-                    <td align="center" colspan="3">HIGH SCORES</td>
+                    <th align="center" colspan="3">HIGH SCORES</th>
                 </tr>
                 
                 <tr>
-                    <td width="200">Name</td>
-                    <td width="200">Date</td>
-                    <td width="400">Score</td>
+                    <th width="200">Name</th>
+                    <th width="200">Date</th>
+                    <th width="100">Score</th>
                 </tr>
                 
                 <?php for ($i=0;$i<sizeof($scores);$i++){ ?>
