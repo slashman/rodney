@@ -115,6 +115,12 @@ Enemy.prototype.attackPlayer = function(){
 				} else {
 					var item = randomElementOf(JSRL.player.inventory);
 					JSRL.ui.showMessage("The nymph steals a "+item.name+" from you!");
+					if (item === JSRL.player.currentWeapon)
+						JSRL.player.currentWeapon = false;
+					if (item === JSRL.player.currentArmor)
+						JSRL.player.currentArmor = false;
+					if (item === JSRL.player.currentAccesory)
+						JSRL.player.currentAccesory = false;
 					JSRL.player.inventory.removeObject(item);
 				}
 				if (chance(80)){
