@@ -54,9 +54,11 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 				Rodney.restartGame();
 			}
 		} else {
-			JSRL.ui.movePlayer(key);
-			JSRL.dungeon.dungeonTurn();
-			JSRL.ui.tick();
+			var acted = JSRL.ui.movePlayer(key);
+			if (acted) {
+				JSRL.dungeon.dungeonTurn();
+				JSRL.ui.tick();
+			}
 		}
 	} else if (JSRL.ui.mode === 'SELECT_ADVANCEMENT'){
 		if (isUp(key)){
@@ -85,10 +87,18 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 				JSRL.ui.menuCursor = JSRL.player.inventory.length-1;
 			}
 		} else if (keyCodeToChar[key] === "Space"){
-			JSRL.player.useItem(JSRL.player.inventory[JSRL.ui.menuCursor]);
+			var acted = JSRL.player.useItem(JSRL.player.inventory[JSRL.ui.menuCursor]);
+			if (acted){
+				JSRL.dungeon.dungeonTurn();
+				JSRL.ui.tick();
+			}
 			JSRL.ui.mode = 'IN_GAME';
 		} else if (keyCodeToChar[key] === "D"){
-			JSRL.player.dropItem(JSRL.player.inventory[JSRL.ui.menuCursor]);
+			var acted = JSRL.player.dropItem(JSRL.player.inventory[JSRL.ui.menuCursor]);
+			if (acted){
+				JSRL.dungeon.dungeonTurn();
+				JSRL.ui.tick();
+			}
 			JSRL.ui.mode = 'IN_GAME';
 		} else if (keyCodeToChar[key] === "Esc"){
 			JSRL.ui.mode = 'IN_GAME';
@@ -199,16 +209,15 @@ UI.prototype.movePlayer = function(key){
 	JSRL.player.newTurn();
 	if (JSRL.player.paralysisCounter > 0){
 		this.showMessage("You can't move!");
-		return;
+		return true;
 	}
 	
 	if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Ctrl"){
-		JSRL.player.doAction();
-		return;
+		return JSRL.player.doAction();
 	}
 	if (keyCodeToChar[key] === "I"){
 		this.selectItem();
-		return;
+		return false;
 	}
 		
 	var movedir = { x: 0, y: 0 }; // Movement vector
@@ -228,7 +237,7 @@ UI.prototype.movePlayer = function(key){
 		JSRL.player.tryMoving(movedir);
 	}
 	JSRL.player.updateFOV();
-		
+	return true;
 };
 
 UI.prototype.getDisplayedTile = function (x,y){
