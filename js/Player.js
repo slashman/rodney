@@ -51,7 +51,8 @@ Player.prototype.addItem = function (item){
 };
 
 Player.prototype.addSkill = function(skill){
-	mixpanel.track("Add skill", {"skill": skill.name, "depth": JSRL.dungeon.currentDepth});
+	if (Rodney.mixPanelEnabled)
+		mixpanel.track("Add skill", {"skill": skill.name, "depth": JSRL.dungeon.currentDepth});
 	JSRL.ui.showMessage('You learn '+skill.name);
 	if (skill.skillId === "ENDURANCE"){
 		this.maxhp += 50;
@@ -195,7 +196,8 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	
 	// Kill enemy
 	if (enemy.hp <= 0){
-		mixpanel.track("Kill Enemy", {"enemy": enemy.name, "depth": JSRL.dungeon.currentDepth});
+		if (Rodney.mixPanelEnabled)
+			mixpanel.track("Kill Enemy", {"enemy": enemy.name, "depth": JSRL.dungeon.currentDepth});
 		this.score += enemy.scorePrize;
 		if (enemy.name === "Rodney"){
 			JSRL.ui.showMessage("Rodney falls to his knees: Aaaarrgh!!!");
@@ -351,7 +353,8 @@ Player.prototype.tryPick = function (item){
 };
 
 Player.prototype.useItem = function (item){
-	mixpanel.track("Use Item", {"item": item.name});
+	if (Rodney.mixPanelEnabled)
+		mixpanel.track("Use Item", {"item": item.name});
 	if (item.type === 'WEAPON'){
 		this.currentWeapon = item;
 		JSRL.ui.showMessage("You wield the "+item.name);
@@ -653,7 +656,8 @@ Player.prototype.recoverHP = function(hp){
 
 Player.prototype.checkEndgame = function(){
 	if (this.deadArnold && this.deadToy && this.deadLane &&this.deadMango){
-		mixpanel.track("Win Game", {"depth": JSRL.dungeon.currentDepth});
+		if (Rodney.mixPanelEnabled)
+			mixpanel.track("Win Game", {"depth": JSRL.dungeon.currentDepth});
 		JSRL.ui.endGame();
 	}	
 };

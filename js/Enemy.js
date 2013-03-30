@@ -80,8 +80,8 @@ Enemy.prototype.attackPlayer = function(){
 	switch (this.monsterId){
 		case "GIANT_ANT":
 			if (chance(35)){
+				JSRL.ui.showMessage("The Giant Ant poisons you. You feel weaker!");
 				JSRL.player.reduceStrength();
-				JSRL.ui.showMessage("You feel weaker!");
 			}
 		break;
 		case "DRAGON":
@@ -96,14 +96,14 @@ Enemy.prototype.attackPlayer = function(){
 		break;
 		case "FLOATING_EYE":
 			if (chance(65) && JSRL.player.paralysisCounter === 0){
-				JSRL.player.paralize();
 				JSRL.ui.showMessage("The floating eye hypnotizes you with his gaze!");
+				JSRL.player.paralize();
 			}
 		break;
 		case "VIOLET_FUNGI":
 			if (chance(20) && JSRL.player.paralysisCounter === 0){
-				JSRL.player.paralize();
 				JSRL.ui.showMessage("The violet fungi engulfs you!");
+				JSRL.player.paralize();
 			}
 		break;
 		case "NYMPH":
@@ -130,28 +130,28 @@ Enemy.prototype.attackPlayer = function(){
 		break;
 		case "RUST_MONSTER":
 			if (JSRL.player.currentArmor && chance(65) && JSRL.player.currentArmor.itemId != "LEATHER"){
-				JSRL.player.currentArmor.clash(40);;
-				JSRL.ui.showMessage("The Rust Monster eats your "+JSRL.player.currentArmor.name);
+				JSRL.ui.showMessage("The Rust Monster squirts acid at your "+JSRL.player.currentArmor.name);
+				JSRL.player.currentArmor.clash(40);
 			} else {
 				JSRL.ui.showMessage("The Rust Monster licks you");
 			} 
 		break;
 		case "UMBER_HULK":
 			if (chance(40) && JSRL.player.confusionCounter === 0){
-				JSRL.player.confuse();
 				JSRL.ui.showMessage("The Umber Hulk gazes at you. You are confused!");
+				JSRL.player.confuse();
 			}
 		break;
 		case "VAMPIRE":
 			if (chance(30)){
-				JSRL.player.reduceMaxHP();
 				JSRL.ui.showMessage("The Vampire bits you... you feel fragile!");
+				JSRL.player.reduceMaxHP();
 			}
 		break;
 		case "WRAITH":
 			if (chance(50)){
-				JSRL.player.reduceMaxHP();
 				JSRL.ui.showMessage("The Wraith mesmerizes you... you feel fragile!");
+				JSRL.player.reduceMaxHP();
 			}
 		break;
 	}
@@ -159,12 +159,12 @@ Enemy.prototype.attackPlayer = function(){
 		|| this.monsterId === "NYMPH"
 		|| this.monsterId === "RUST_MONSTER"
 			)){
-		JSRL.player.damage(this.damageRoll.roll());
 		if (this.isUnique){
 			JSRL.ui.showMessage(this.name+" hits you.");
 		} else {
 			JSRL.ui.showMessage("The "+this.name+" hits you.");
 		}
+		JSRL.player.damage(this.damageRoll.roll());
 		if (JSRL.player.hasSkill("COUNTER")){
 			if (chance(20)){
 				JSRL.ui.showMessage("You counter attack.");
@@ -174,7 +174,8 @@ Enemy.prototype.attackPlayer = function(){
 	}
 	
 	if (JSRL.player.hp <= 0){
-		mixpanel.track("Game Over", {"enemy": this.name, "depth": JSRL.dungeon.currentDepth, "score": JSRL.player.score});
+		if (Rodney.mixPanelEnabled)
+			mixpanel.track("Game Over", {"enemy": this.name, "depth": JSRL.dungeon.currentDepth, "score": JSRL.player.score});
 		JSRL.player.hp = 0;
 		if (this.name === "Rodney"){
 			JSRL.ui.showMessage("Rodney says: Begone forever thief!. Press SPACE to continue");

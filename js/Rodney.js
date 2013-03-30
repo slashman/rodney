@@ -5,13 +5,16 @@ var Rodney = {};
 var WS_HOST = "ws://216.119.144.155:12345/echo";
 //var WS_HOST = "NEIN";
 
+Rodney.mixPanelEnabled = false;
+
 Rodney.initGame = function () {
 	JSRL.ui = new UI();
 	Rodney.restartGame();
 };
 
 Rodney.restartGame = function (){
-	mixpanel.track("New Game");
+	if (Rodney.mixPanelEnabled)
+		mixpanel.track("New Game");
 	JSRL.ui.reset();
 };
 
@@ -29,7 +32,8 @@ Rodney.doStartGame = function (onConnect){
 		if (abortConnection)
 			return;
 		if (status == 1){
-			mixpanel.track("Enter Town");
+			if (Rodney.mixPanelEnabled)
+				mixpanel.track("Enter Town");
 			JSRL.websocket.onTown = true;
 			JSRL.dungeon.createTownLevel();
 			JSRL.ui.showMessage("You are in the entrance to the Dungeons of Doom, look for another adventurers or press space to enter.");

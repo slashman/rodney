@@ -137,7 +137,8 @@ Dungeon.prototype.dungeonTurn = function(){
 };
 
 Dungeon.prototype.generateLevel= function(depth){
-	mixpanel.track("Generate Level", {"depth": depth});
+	if (Rodney.mixPanelEnabled)
+		mixpanel.track("Generate Level", {"depth": depth});
 	var generationResults = JSRL.dungeonGenerator.createLevel(depth);
 	JSRL.player.position = generationResults.entrancePosition;	
 	JSRL.player.resetFOVMasks();
