@@ -75,16 +75,20 @@ Potion.prototype.constructor = Potion;
 
 Potion.prototype.use = function(){
 	if (this.itemId === "HEALTH_POTION"){
-		JSRL.ui.showMessage("You feel better");
+		JSRL.ui.showMessage("You drink the potion: You feel better");
 		JSRL.player.recoverHP(rand(50,70));
 		JSRL.player.inventory.removeObject(this);
 	} else if (this.itemId === "EXTRA_HEALTH_POTION"){
-		JSRL.ui.showMessage("You feel much better!");
+		JSRL.ui.showMessage("You drink the potion: You feel much better!");
 		JSRL.player.recoverHP(rand(80,120));
 		JSRL.player.inventory.removeObject(this);
 	} else if (this.itemId === "GAIN_STRENGTH_POTION"){
-		JSRL.ui.showMessage("You feel stronger");
+		JSRL.ui.showMessage("You drink the potion: You feel stronger");
 		JSRL.player.strength+=2;
+		JSRL.player.inventory.removeObject(this);
+	} else if (this.itemId === "GAIN_VITALITY_POTION"){
+		JSRL.ui.showMessage("You drink the potion: You feel bolder!");
+		JSRL.player.maxhp += 20;
 		JSRL.player.inventory.removeObject(this);
 	}
 };

@@ -25,6 +25,8 @@ function ItemFactory(){
 	this.addPotionDefinition("HEALTH_POTION", "Healing Potion", 80);
 	this.addPotionDefinition("EXTRA_HEALTH_POTION", "Extra Healing Potion", 15);
 	this.addPotionDefinition("GAIN_STRENGTH_POTION", "Strength Potion", 5);
+	this.addPotionDefinition("GAIN_VITALITY_POTION", "Vitality Potion", 5);
+
 	
 	this.addAccesoryDefinition("YENDOR", "The Amulet of Yendor", true, 0);
 }
