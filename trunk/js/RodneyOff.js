@@ -1,8 +1,6 @@
 /*global ut */
 var Rodney = {};
 
-//var WS_HOST = "ws://192.168.1.2:12345/echo";
-//var WS_HOST = "ws://216.119.144.155:12345/echo";
 var WS_HOST = "NEIN";
 
 Rodney.initGame = function () {
@@ -11,6 +9,7 @@ Rodney.initGame = function () {
 };
 
 Rodney.restartGame = function (){
+	mixpanel.track("New Game");
 	JSRL.ui.reset();
 };
 
@@ -28,8 +27,10 @@ Rodney.doStartGame = function (onConnect){
 		if (abortConnection)
 			return;
 		if (status == 1){
+			mixpanel.track("Enter Town");
 			JSRL.websocket.onTown = true;
 			JSRL.dungeon.createTownLevel();
+			JSRL.ui.showMessage("You are in the entrance to the Dungeons of Doom, look for another adventurers or press space to enter.");
 			JSRL.websocket.sendPlayerInfo();
 		}else if (status == 3)	
 			JSRL.dungeon.generateLevel(1);
