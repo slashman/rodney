@@ -2,38 +2,44 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>RODNEY - 2013 7DRL</title>
+	<title>RODNEY - Slashware Interactive</title>
 	<link href="lib/unicodetiles/unicodetiles.css" rel="stylesheet" type="text/css" />
 	<link href="game.css" rel="stylesheet" type="text/css" />
 	
-	<script src="lib/unicodetiles/unicodetiles.js?v=4"></script>
-	<script src="lib/unicodetiles/ut.WebGLRenderer.js?v=4"></script>
-	<script src="lib/unicodetiles/ut.CanvasRenderer.js?v=4"></script>
-	<script src="lib/unicodetiles/ut.DOMRenderer.js?v=4"></script>
-	<script src="js/keycodes.js?v=4"></script>
-	<script src="lib/websocket/RWSC.js?v=4"></script>
-	<script src="js/Tiles.js?v=4"></script>
-	<script src="js/TextBox.js?v=4"></script>
-	<script src="js/JSRL.js?v=4"></script>
-	<script src="js/RodneyOff.js?v=4"></script>
-	<script src="js/Skill.js?v=4"></script>
-	<script src="js/UI.js?v=4"></script>
-	<script src="js/Player.js?v=4"></script>
-	<script src="js/Enemy.js?v=4"></script>
-	<script src="js/Dungeon.js?v=4"></script>
-	<script src="js/DungeonGenerator.js?v=4"></script>
-	<script src="js/Item.js?v=4"></script>
-	<script src="js/Roll.js?v=4"></script>
-	<script src="js/MonsterFactory.js?v=4"></script>
-	<script src="js/ItemFactory.js?v=4"></script>
-	<script src="js/FeatureCarveGenerator.js?v=4"></script>
-	<script src="js/util.js?v=4"></script>
+	<script src="lib/unicodetiles/unicodetiles.js?v=5"></script>
+	<script src="lib/unicodetiles/ut.WebGLRenderer.js?v=5"></script>
+	<script src="lib/unicodetiles/ut.CanvasRenderer.js?v=5"></script>
+	<script src="lib/unicodetiles/ut.DOMRenderer.js?v=5"></script>
+	<script src="js/keycodes.js?v=5"></script>
+	<script src="lib/websocket/RWSC.js?v=5"></script>
+	<script src="js/Tiles.js?v=5"></script>
+	<script src="js/TextBox.js?v=5"></script>
+	<script src="js/JSRL.js?v=5"></script>
+	<script src="js/RodneyOff.js?v=5"></script>
+	<script src="js/Skill.js?v=5"></script>
+	<script src="js/UI.js?v=5"></script>
+	<script src="js/Player.js?v=5"></script>
+	<script src="js/Enemy.js?v=5"></script>
+	<script src="js/Dungeon.js?v=5"></script>
+	<script src="js/DungeonGenerator.js?v=5"></script>
+	<script src="js/Item.js?v=5"></script>
+	<script src="js/Roll.js?v=5"></script>
+	<script src="js/MonsterFactory.js?v=5"></script>
+	<script src="js/ItemFactory.js?v=5"></script>
+	<script src="js/FeatureCarveGenerator.js?v=5"></script>
+	<script src="js/util.js?v=5"></script>
+	
+<!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
+e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+mixpanel.init("493fd199a0bd8dcce0ef2d05e1289bf7");</script><!-- end Mixpanel -->
+
 </head>
 
 <body onload="Rodney.initGame();">
 	<div class="centerer">
 		<div id="game">Enable JavaScript and reload the page.</div>
-		<div class="chat" style = "display: none;">
+		<div class="chat">
 			<div id="chatBox"></div>
 			
 			<div>
@@ -42,11 +48,14 @@
 		</div>
 	</div>
 	<div class="centerer">
-        <input type="button" value="Show leadboard" onclick="location.href='leadboard.php'" />
-    </div>
-	<div class="centerer">
-		A production of <a href = "http://interactive.slashware.net/" target = "_blank">Slashware Interactive</a>
-		Powered by <a href = "http://tapiov.net/unicodetiles.js/" target = "_blank">unicodetiles.js</a>
+		<audio controls="controls" loop="loop" autoplay="autoplay"><source src="mp3/dungeonsOfDemise.mp3" type="audio/mpeg"></source></audio>
+		<br/>
+        <input type="button" value="Leaderboard" onclick="location.href='leadboard.php'" />
+        <p>Problems? Try out the <a href = "offline.html">Offline version</a></p>
+        <p>Use Google Chrome for a better experience.</p>
+    	<p>A production of <a href = "http://interactive.slashware.net/" target = "_blank">Slashware Interactive</a></p>
+		<p>Powered by <a href = "http://tapiov.net/unicodetiles.js/" target = "_blank">unicodetiles.js</a></p>
 	</div>
+	
 </body>
 </html>
