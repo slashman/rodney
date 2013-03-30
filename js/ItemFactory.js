@@ -3,7 +3,8 @@ function ItemFactory(){
 	this.thresholds = new Array();
 	this.generationChanceTotal = 0;
 	
-	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,6,0), 200, 30);
+	//this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,6,0), 200, 30);
+	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(2,1,0), 200, 30);
 	this.addWeaponDefinition("STAFF", "Staff", new Roll(2,3,0), 100, 30);
 	this.addWeaponDefinition("LONG_SWORD", "Long Sword", new Roll(3,4,0), 300, 15);
 	this.addWeaponDefinition("MACE", "Mace", new Roll(2,4,0), 300, 15);
@@ -105,12 +106,12 @@ ItemFactory.prototype.createItem = function(itemId){
 	if (definition.type === "WEAPON"){
 		var integrity = rand(10,100) / 100;
 		integrity = Math.round(definition.baseIntegrity * integrity);
-		if (integrity > definition.baseIntegrity) integrity = definition.baseIntegrity
+		if (integrity > definition.baseIntegrity) integrity = definition.baseIntegrity;
 		return new Weapon(definition.itemId, definition.name, definition.damageRoll.clone(), integrity, definition.baseIntegrity);
 	}else if (definition.type === "ARMOR"){
 		var integrity = rand(25,100) / 100;
 		integrity = Math.round(definition.baseIntegrity * integrity);
-		if (integrity > definition.baseIntegrity) integrity = definition.baseIntegrity
+		if (integrity > definition.baseIntegrity) integrity = definition.baseIntegrity;
 		return new Armor(definition.itemId, definition.name, definition.protectionValue, integrity, definition.baseIntegrity);
 	}else if (definition.type === "LIGHTSOURCE"){
 		return new LightSource(definition.itemId, definition.name, definition.sightBonus, definition.fuel);
