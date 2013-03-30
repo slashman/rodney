@@ -23,7 +23,7 @@
                 <tr>
                     <td width="200">Name</td>
                     <td width="200">Date</td>
-                    <td width="400">Skillpath</td>
+                    <td width="400">Score</td>
                 </tr>
                 
                 <?php for ($i=0;$i<sizeof($scores);$i++){ ?>

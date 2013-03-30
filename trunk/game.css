@@ -6,6 +6,12 @@ body{
 	font-family: Arial, Helvetica, sans-serif;	
 }
 
+a:link {color:#FF0000;}      /* unvisited link */
+a:visited {color:#FF0000;}  /* visited link */
+a:hover {color:#FF0000;}  /* mouse over link */
+a:active {color:#FF0000;}  /* selected link */
+
+
 .centerer {
 	text-align: center;
 }
