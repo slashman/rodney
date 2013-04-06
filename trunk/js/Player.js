@@ -171,7 +171,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	if (this.currentWeapon){
 		damage += this.currentWeapon.damageRoll.roll();
 		if (damage > 0)
-			this.currentWeapon.clash(damage);
+			this.currentWeapon.clash(4);
 	}
 	
 	if (cornered){
