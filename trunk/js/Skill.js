@@ -126,7 +126,7 @@ Skills.skills =
 ],
 [
 "#########",  
-"#...!...#",
+"#.......#",
 "#...@j#.#",
 "#.......#",
 "#.......#",
@@ -135,6 +135,14 @@ Skills.skills =
 [
 "#########",  
 "#...!...#",
+"#...@*#.#",
+"#.......#",
+"#.......#",
+"#########"
+],
+[
+"#########",  
+"#.......#",
 "#...@%#.#",
 "#.......#",
 "#.......#",
@@ -147,6 +155,7 @@ Skills.skills =
 	 name: "Spin Slash",
 	 text1: "Attack enemies in opposite directions",
 	 text2: "Increased damage.",
+	 hasActions: true,
 	animation: 
 		[
 [
@@ -327,6 +336,7 @@ Skills.skills =
 	 skillId: "COUNTER",
 	 name: "Counterattack",
 	 text1: "20% chance to gain a free attack after being hit",
+	 hasActions: true,
 	 animation: 
 			[
 [
@@ -370,6 +380,7 @@ Skills.skills =
 	 skillId: "RAGE",
 	 name: "Rage",
 	 text1: "Increase damage for consecutive attacks",
+	 hasActions: true,
 	 animation: 
 			[
 [
@@ -432,6 +443,7 @@ Skills.skills =
 	 skillId: "BUILDUP",
 	 name: "Build Up",
 	 text1: "Stand fast to power up and unleash a strong blow",
+	 hasActions: true,
 	 animation: 
 				[
 	[
@@ -718,20 +730,20 @@ Skills.skills =
 	 animation: 
 			[
 	[
-	"#########",  
-	"#@..    #",
-	"#...    #",
-	"#..     #",
-	"#       #",
-	"#########",
+	"DDDDDDDDD",  
+	"D@--    D",
+	"D---    D",
+	"D--     D",
+	"D       D",
+	"DDDDDDDDD",
 	],
 	[
-	"#########",  
-	"#@...   #",
-	"#....   #",
-	"#...    #",
-	"#..     #",
-	"#########",
+	"DDDDDDDDD",  
+	"D@---   D",
+	"D----   D",
+	"D---    D",
+	"D--     D",
+	"DDDDDDDDD",
 	]
 			]
  },
@@ -743,28 +755,28 @@ Skills.skills =
 	 animation: 
 			[
 	[
-	"#########",  
-	"#@..    #",
-	"#...    #",
-	"#..     #",
-	"#       #",
-	"#########",
+	"DDDDDDDDD",  
+	"D@--    D",
+	"D---    D",
+	"D--     D",
+	"D       D",
+	"DDDDDDDDD",
 	],
 	[
-	"#########",  
-	"#@...   #",
-	"#....   #",
-	"#...    #",
-	"#..     #",
-	"#########",
+	"DDDDDDDDD",  
+	"D@---   D",
+	"D----   D",
+	"D---    D",
+	"D--     D",
+	"DDDDDDDDD",
 	],
 	[
-	"#########",  
-	"#@....  #",
-	"#.....  #",
-	"#....   #",
-	"#...    #",
-	"#########",
+	"DDDDDDDDD",  
+	"D@----  D",
+	"D-----  D",
+	"D----   D",
+	"D---    D",
+	"DDDDDDDDD",
 	]
 			]
  }, 
@@ -776,36 +788,36 @@ Skills.skills =
 	 animation: 
 			[
 	[
-	"#########",  
-	"#@..    #",
-	"#...    #",
-	"#..     #",
-	"#       #",
-	"#########",
+	"DDDDDDDDD",  
+	"D@--    D",
+	"D---    D",
+	"D--     D",
+	"D       D",
+	"DDDDDDDDD",
 	],
 	[
-	"#########",  
-	"#@...   #",
-	"#....   #",
-	"#...    #",
-	"#..     #",
-	"#########",
+	"DDDDDDDDD",  
+	"D@---   D",
+	"D----   D",
+	"D---    D",
+	"D--     D",
+	"DDDDDDDDD",
 	],
 	[
-	"#########",  
-	"#@....  #",
-	"#.....  #",
-	"#....   #",
-	"#...    #",
-	"#########",
+	"DDDDDDDDD",  
+	"D@----  D",
+	"D-----  D",
+	"D----   D",
+	"D---    D",
+	"DDDDDDDDD",
 	],
 	[
-	"#########",  
-	"#@..... #",
-	"#...... #",
-	"#...... #",
-	"#....   #",
-	"#########",
+	"DDDDDDDDD",  
+	"D@----- D",
+	"D------ D",
+	"D------ D",
+	"D----   D",
+	"DDDDDDDDD",
 	]
 			]
  }, 

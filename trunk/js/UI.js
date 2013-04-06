@@ -304,7 +304,36 @@ UI.prototype.tick = function () {
 		if (this.currentSkillAnimation && this.currentSkillAnimation.frames){
 			var animationFrame = this.currentSkillAnimation.frames[this.currentSkillAnimation.frame];
 			for (var i = 0; i < animationFrame.length; i++){
-				this.term.putString(animationFrame[i], 20, 4+i, 255, 255, 255);
+				if (this.currentSkillAnimation.hasActions && i == animationFrame.length - 1){
+					this.term.putString(animationFrame[i], 20, 4+i, 255, 255, 255);
+				} else {
+					for (var j = 0; j < animationFrame[i].length; j++){
+						var color = [255, 255, 255];
+						var char = animationFrame[i].charAt(j);
+						if (char === '#')
+							color = [170, 170, 170];
+						else if (char === '.')
+							color = [170, 170, 170];
+						else if (char === '@')
+							color = [255, 255, 255];
+						else if (char === 'j')
+							color = [255, 255, 55];
+						else if (char === '%')
+							color = [255, 255, 55];
+						else if (char === '!')
+							color = [255, 0, 0];
+						else if (char === '*')
+							color = [255, 0, 0];
+						else if (char === '-'){
+							char = '.';
+							color = [0, 0, 170];
+						} else if (char === 'D') {
+							char = '#';
+							color = [0, 0, 170];
+						} 
+						this.term.putString(char, 20+j, 4+i, color[0], color[1], color[2]);
+					}
+				}
 			}
 			this.currentSkillAnimation.tickCounter++;
 			var delay = FPS;
@@ -472,7 +501,8 @@ UI.prototype.showSkill = function(skill){
 	this.currentSkillAnimation = {
 		frame: 0,
 		tickCounter: 0,
-		frames: skill.animation
+		frames: skill.animation,
+		hasActions: skill.hasActions
 	};
 	this.term.clear();
 	this.term.putString(skill.text1, 30, 4, 255, 255, 255);
