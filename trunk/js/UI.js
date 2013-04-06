@@ -307,7 +307,6 @@ UI.prototype.tick = function () {
 	if (this.mode === 'IN_GAME'){
 		this.refresh();
 	} else if (this.mode === 'SELECT_ADVANCEMENT'){
-		this.term.clear();
 		if (this.currentSkillAnimation && this.currentSkillAnimation.frames){
 			var animationFrame = this.currentSkillAnimation.frames[this.currentSkillAnimation.frame];
 			for (var i = 0; i < animationFrame.length; i++){
