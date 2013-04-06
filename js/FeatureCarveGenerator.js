@@ -25,7 +25,7 @@ FeatureCarveGenerator.prototype.createLevel = function (depth){
 	var addExit = true;
 	if (rodneyLevel || rbLevel)
 		addExit = false;
-	JSRL.dungeon.map = this.generateLevel(9, '#', '.', '.', 60, 60, addExit);
+	JSRL.dungeon.setMap(this.generateLevel(9, '#', '.', '.', 60, 60, addExit));
 
 	if (rodneyLevel){
 		var rodney = JSRL.monsterFactory.createMonster("RODNEY");

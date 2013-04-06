@@ -141,9 +141,13 @@ Dungeon.prototype.generateLevel= function(depth){
 		mixpanel.track("Generate Level", {"depth": depth});
 	var generationResults = JSRL.dungeonGenerator.createLevel(depth);
 	JSRL.player.position = generationResults.entrancePosition;	
-	JSRL.player.resetFOVMasks();
-	JSRL.player.resetMemoryMap();
 	JSRL.player.updateFOV();
+};
+
+Dungeon.prototype.setMap = function(map){
+	this.map = map;
+	JSRL.player.resetMemoryMap();
+	//JSRL.player.resetFOVMasks();
 };
 
 Dungeon.prototype.downstairs = function(){
@@ -208,9 +212,7 @@ Dungeon.prototype.createTownLevel = function(){
 	}
 	
 	JSRL.player.position = position;
-	this.map = map;
-	JSRL.player.resetFOVMasks();
-	JSRL.player.resetMemoryMap();
+	this.setMap(map);
 	JSRL.player.updateFOV();
 };
 
