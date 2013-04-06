@@ -498,11 +498,67 @@ Skills.skills =
 	 skillId: "ENDURANCE",
 	 name: "Endurance",
 	 text1:  "Increase Max HP by 50",
+	 animation: 
+			[
+[
+"#########",  
+"#.......#",
+"#.@.....#",
+"#.......#",
+"#.HP+...#",
+"#########",
+]
+	]
  },
  {
 	 skillId: "DESTRUCTION",
-	 name: "Destroy",
+	 name: "Butcher",
 	 text1:  "Increase Strength by 3",
+	 animation: 
+			[
+[
+"#########",  
+"#.......#",
+"#.@.....#",
+"#.......#",
+"#.Str+..#",
+"#########",
+]
+	]
+ },
+ {
+	 skillId: "DESTRUCTION2",
+	 requirements: ["DESTRUCTION"],
+	 name: "Crush",
+	 text1:  "Increase Strength by 3",
+	 animation: 
+			[
+[
+"#########",  
+"#.......#",
+"#.@.....#",
+"#.......#",
+"#.Str++.#",
+"#########",
+]
+	]	 
+ },
+ {
+	 skillId: "DESTRUCTION3",
+	 requirements: ["DESTRUCTION2"],
+	 name: "Raze",
+	 text1:  "Increase Strength by 3",
+	 animation: 
+			[
+[
+"#########",  
+"#.......#",
+"#.@.....#",
+"#.......#",
+"#.Str+++#",
+"#########",
+]
+	]	 
  },
  {
 	 skillId: "DARK_SIGHT",
