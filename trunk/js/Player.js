@@ -69,9 +69,7 @@ Player.prototype.addSkill = function(skill){
 	this.skills.push(skill);
 };
 
-Player.prototype.resetMemoryMap = function(){
-	this.memoryMap = new Array();
-};
+
 
 Player.prototype.hasSkill = function (skillId){
 	for (var i = 0; i < this.skills.length; i++)
@@ -101,28 +99,33 @@ Player.prototype.getLearnableSkills = function(){
 	return ret;
 };
 
-Player.prototype.resetFOVMasks = function(){
-	// Init FOV masks
-	var w = 200;
-	var h = 200;
-	
-	//var h = JSRL.ui.term.h;
-	//var w = JSRL.ui.term.w;
+/**
+ * Empties the memory and FOV map of the player for a new level
+ * 
+ * Player can only remember one level at a time
+ * 
+ */
+Player.prototype.resetMemoryMap = function(){
+	var w = JSRL.dungeon.getWidth();
+	var h = JSRL.dungeon.getHeight();
+	this.memoryMap = new Array(w);
 	this.maskBuffer = new Array(w);
-	for (var j = 0; j < w; ++j)
-		this.maskBuffer[j] = new Array(h);
+	for (var i = 0; i < w; i++){
+		this.memoryMap[i] = new Array(h);
+		this.maskBuffer[i] = new Array(h);
+	}
 };
 
-Player.prototype.remembers = function (	x, y){
-	if (!this.memoryMap[x])
+Player.prototype.remembers = function (x, y){
+	if (this.memoryMap && this.memoryMap[x])
+		return this.memoryMap[x][y];
+	else
 		return false;
-	return this.memoryMap[x][y];
 };
 
 Player.prototype.remember = function (x,y){
-	if (!this.memoryMap[x])
-		this.memoryMap[x] = new Array();
-	this.memoryMap[x][y] = true;
+	if (this.memoryMap && this.memoryMap[x])
+		this.memoryMap[x][y] = true;
 };
 
 Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornered, spinSlash, slashthru, attackDirection){
@@ -275,7 +278,10 @@ Player.prototype.shootRay = function (a) {
 
 Player.prototype.isSeeing = function (x,y){
 	//return this.maskBuffer[y - this.maskOrigin.y][x - this.maskOrigin.x];
-	return this.maskBuffer[x][y];
+	if (this.maskBuffer && this.maskBuffer[x])
+		return this.maskBuffer[x][y];
+	else
+		return false;
 };
 
 Player.prototype.damage = function(damage){
