@@ -37,7 +37,13 @@ UI.prototype.onKeyDown = function (keyboardEvent) {
 		keyLock = false;
 		return;
 	}
-	JSRL.ui.pressedKey = keyboardEvent.keyCode; 
+	var keyCode = keyCodeToChar[keyboardEvent.keyCode];
+	if (keyCode === "Ctrl" || keyCode === "Shift" || keyCode === "Alt" || keyCode === "Tab"){
+		//Yawn
+		keyLock = false;
+	} else{
+		JSRL.ui.pressedKey = keyboardEvent.keyCode; 
+	}
 };
 
 UI.prototype.pollKeyboard = function (keyboardEvent) {
@@ -52,7 +58,7 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 		JSRL.ui.term.render();
 	}  else if (JSRL.ui.mode === 'IN_GAME'){
 		if (JSRL.player.dead){
-			if (keyCodeToChar[key] === "Space"){
+			if (keyCodeToChar[key] === "Enter"){
 				JSRL.ui.keyboardPollingDelay = 10;
 				JSRL.ui.mode = 'TITLE';
 				Rodney.restartGame();
@@ -76,7 +82,7 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 				JSRL.ui.menuCursor = JSRL.ui.availableAdvancements.length-1;
 			}
 			JSRL.ui.showSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
-		} else if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter"){
+		} else if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter" || keyCodeToChar[key] === "V"){
 			JSRL.player.addSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
 			JSRL.ui.mode = 'IN_GAME';
 			var effects = [ "boxin", "circlein", "random" ];
@@ -93,7 +99,7 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 			if (JSRL.ui.menuCursor > JSRL.player.inventory.length-1){
 				JSRL.ui.menuCursor = JSRL.player.inventory.length-1;
 			}
-		} else if (keyCodeToChar[key] === "Space"){
+		} else if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter" || keyCodeToChar[key] === "V"){
 			var acted = JSRL.player.useItem(JSRL.player.inventory[JSRL.ui.menuCursor]);
 			if (acted){
 				JSRL.dungeon.dungeonTurn();
@@ -112,11 +118,11 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 		}
 		JSRL.ui.drawSelectItem();
 	} else if (JSRL.ui.mode === 'SCENE'){
-		if (keyCodeToChar[key] === "Space"){
+		if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter" || keyCodeToChar[key] === "V"){
 			JSRL.ui.mode = 'IN_GAME';
 		}
 	} else if (JSRL.ui.mode === 'END_SCENE'){
-		if (keyCodeToChar[key] === "Space"){
+		if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter" || keyCodeToChar[key] === "V"){
 			JSRL.player.dead = true;
 			
 			if (WS_HOST != "NEIN"){
@@ -163,11 +169,11 @@ UI.prototype.showMessage = function (msg){
 UI.prototype.enterName = function (key){
 	if (keyCodeToChar[key] === "Enter" && this.inkeyBuffer.length > 0){
 		var callback = function(){
-			JSRL.ui.term.clear();
-			JSRL.ui.mode = 'IN_GAME';
+			JSRL.ui.inputEnabled = true;
 			JSRL.ui.keyboardPollingDelay = 100;
 			JSRL.ui.selectAdvancement();
 		};
+		JSRL.ui.inputEnabled = false;
 		Rodney.doStartGame(callback);
 	} else if (key >= keyCharToCode["A"] && key <= keyCharToCode["Z"]){
 		if (this.inkeyBuffer.length < 10){
@@ -220,8 +226,8 @@ UI.prototype.movePlayer = function(key){
 		this.showMessage("You can't move!");
 		return true;
 	}
-	
-	if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Ctrl"){
+
+	if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter" || keyCodeToChar[key] === "V"){
 		return JSRL.player.doAction();
 	}
 	if (keyCodeToChar[key] === "I"){
@@ -301,6 +307,7 @@ UI.prototype.tick = function () {
 	if (this.mode === 'IN_GAME'){
 		this.refresh();
 	} else if (this.mode === 'SELECT_ADVANCEMENT'){
+		this.term.clear();
 		if (this.currentSkillAnimation && this.currentSkillAnimation.frames){
 			var animationFrame = this.currentSkillAnimation.frames[this.currentSkillAnimation.frame];
 			for (var i = 0; i < animationFrame.length; i++){

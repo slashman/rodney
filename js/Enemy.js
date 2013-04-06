@@ -178,9 +178,9 @@ Enemy.prototype.attackPlayer = function(){
 			mixpanel.track("Game Over", {"enemy": this.name, "depth": JSRL.dungeon.currentDepth, "score": JSRL.player.score});
 		JSRL.player.hp = 0;
 		if (this.name === "Rodney"){
-			JSRL.ui.showMessage("Rodney says: Begone forever thief!. Press SPACE to continue");
+			JSRL.ui.showMessage("Rodney says: Begone forever thief!. Press Enter to continue");
 		} else {
-			JSRL.ui.showMessage("You are dead. Press SPACE to continue");
+			JSRL.ui.showMessage("You are dead. Press Enter to continue");
 		}
 		JSRL.player.dead = true;
 		
