@@ -235,11 +235,21 @@ FeatureCarveGenerator.prototype.addExit = function (ret, exit){
 
 FeatureCarveGenerator.prototype.addEntrance = function (ret, entrance){
 	this.startingPosition = entrance;
-//	ret [entrance.x] = ret [entrance.x].replaceAt(entrance.y, '<'); No way up pals
 };
 
 FeatureCarveGenerator.prototype.isExitPlaceable = function (position){
-	return this.preLevel[position.x][position.y] === '.';
+	if (this.preLevel[position.x][position.y] !== '.')
+		return false;
+	// Check for borders
+	if (position.x === 0 || position.y === 0 || position.x === this.preLevel.length - 1 || position.y === this.preLevel[0].length - 1)
+		return false;
+	// Check for corridors (Don't add exits on corridors)
+	if (this.preLevel[position.x - 1][position.y] !== '.' || 
+		this.preLevel[position.x + 1][position.y] !== '.' ||
+		this.preLevel[position.x ][position.y + 1] !== '.' ||
+		this.preLevel[position.x ][position.y - 1] !== '.')
+		return false;
+	return true
 };
 
 FeatureCarveGenerator.prototype.getLevelWidth = function (){
