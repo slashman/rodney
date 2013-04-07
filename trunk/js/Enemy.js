@@ -212,10 +212,13 @@ Enemy.prototype.starePlayer = function(){
 	}
 };
 
-Enemy.prototype.getTheDescription = function(){
+Enemy.prototype.getTheDescription = function(ucase){
 	if (this.isUnique){
 		return this.name;
 	} else {
-		return "the "+this.name;
+		if (ucase)
+			return "The "+this.name;
+		else
+			return "the "+this.name;
 	}
 };
