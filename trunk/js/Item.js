@@ -76,12 +76,12 @@ Potion.prototype.constructor = Potion;
 Potion.prototype.use = function(){
 	if (this.itemId === "HEALTH_POTION"){
 		JSRL.ui.showMessage("You drink the potion: You feel better");
-		JSRL.player.recoverHP(rand(50,70));
+		JSRL.player.recoverHP(rand(20,40));
 		JSRL.player.inventory.removeObject(this);
 		return true;
 	} else if (this.itemId === "EXTRA_HEALTH_POTION"){
 		JSRL.ui.showMessage("You drink the potion: You feel much better!");
-		JSRL.player.recoverHP(rand(80,120));
+		JSRL.player.recoverHP(rand(40,60));
 		JSRL.player.inventory.removeObject(this);
 		return true;
 	} else if (this.itemId === "GAIN_STRENGTH_POTION"){

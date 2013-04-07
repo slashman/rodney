@@ -67,7 +67,7 @@ FeatureCarveGenerator.prototype.addCritters = function(depth){
 };
 
 FeatureCarveGenerator.prototype.addItems = function(depth){
-	var crits = rand(5,10);
+	var crits = rand(3,6);
 	for (var i = 0; i < crits; i++){
 		JSRL.dungeon.addItem(JSRL.itemFactory.getAnItem(), JSRL.dungeon.getFreePlace());
 	}

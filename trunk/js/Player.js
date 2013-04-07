@@ -2,8 +2,8 @@
 
 function Player(name) {
 	this.name = name;
-	this.hp = 100;
-	this.maxhp = 100;
+	this.hp = 75;
+	this.maxhp = 75;
 	this.strength = 3;
 	this.sightRange = 2;
 	this.kineticCharge=0;
@@ -164,7 +164,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 		}
 	}
 	
-	var damage = this.strength;
+	var damage = rand(1, this.strength);
 	damage += rageBonus;
 	damage += buildupBonus;
 	
@@ -289,9 +289,13 @@ Player.prototype.damage = function(damage){
 		damage -= this.currentArmor.protectionValue;
 		if (damage > 0)
 			this.currentArmor.clash(damage);
+		else
+			this.currentArmor.clash(1);
 	}
 	if (damage < 0)
 		damage = 0;
+	if (damage === 0 && chance (60))
+		damage = 1;
 	if (damage === 0){
 		JSRL.ui.showMessage("You shrug off the attack");
 	} else {
