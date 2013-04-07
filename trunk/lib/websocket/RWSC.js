@@ -148,13 +148,21 @@ RWSC.prototype.sendMessage = function(){
 	chatBox.scrollTop = chatBox.scrollHeight;
 	
 	//Now send message to everybody else
-	var jsonMsg = {type: "chat", msg: JSRL.player.name+" >> "+msg, key: this.key}
+	var jsonMsg = {type: "chat", msg: JSRL.player.name+" >> "+msg, key: this.key};
 	this.send(JSON.stringify(jsonMsg));
 };
 
 RWSC.prototype.sendNewDepthMessage = function(){
-	var jsonMsg = {type: "chat", msg: JSRL.player.name+" descends into level "+JSRL.dungeon.currentDepth, key: this.key}
+	var message = JSRL.player.name+" descends into level "+JSRL.dungeon.currentDepth;
+	this.appendMessage(message);
+	var jsonMsg = {type: "chat", msg: message, key: this.key};
 	this.send(JSON.stringify(jsonMsg));
+};
+
+RWSC.prototype.appendMessage = function(message){
+	message = this.stripHTMLTags(message);
+	chatBox.innerHTML += "<br/>" + message;
+	chatBox.scrollTop = chatBox.scrollHeight;
 };
 
 RWSC.prototype.send = function(msg){
