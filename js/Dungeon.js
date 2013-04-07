@@ -157,7 +157,8 @@ Dungeon.prototype.downstairs = function(){
 	this.enemies = new Array();
 	this.items = new Array();
 	this.generateLevel(this.currentDepth);
-	JSRL.ui.selectAdvancement();
+	if (this.currentDepth % 2 == 1)
+		JSRL.ui.selectAdvancement();
 };
 
 Dungeon.prototype.createTownLevel = function(){
