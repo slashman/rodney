@@ -225,7 +225,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 			this.deadMango = true;
 			this.checkEndgame();
 		} else {
-			JSRL.ui.showMessage(enemy.getTheDescription()+ " dies");
+			JSRL.ui.showMessage(enemy.getTheDescription(true)+ " dies");
 		}
 		JSRL.dungeon.removeEnemy(enemy);
 	}
