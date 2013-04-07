@@ -59,7 +59,7 @@ Player.prototype.addSkill = function(skill){
 		this.hp += 50;
 		if (this.hp > this.maxhp)
 			this.hp = this.maxhp;
-	} else if (skill.skillId === "DESTRUCTION"){
+	} else if (skill.skillId === "DESTRUCTION" || skill.skillId === "DESTRUCTION2" || skill.skillId === "DESTRUCTION3"){
 		this.strength += 3;
 	} else if (skill.skillId === "DARK_SIGHT" || skill.skillId === "DARK_SIGHT2" || skill.skillId === "INFRAVISION"){
 		this.sightRange ++;
