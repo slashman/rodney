@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>RODNEY - Slashware Interactive</title>
+	<title>Rodney v9 - Slashware Interactive</title>
         <link href="game.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="js/leadboard.js?v=6"></script>
         <?php
