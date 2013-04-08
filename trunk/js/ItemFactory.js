@@ -3,7 +3,7 @@ function ItemFactory(){
 	this.thresholds = new Array();
 	this.generationChanceTotal = 0;
 	
-	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,6,0), 400, 60);
+	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,6,0), 400, 40);
 	this.addWeaponDefinition("STAFF", "Staff", new Roll(2,3	,0), 600, 15);
 	this.addWeaponDefinition("LONG_SWORD", "Long Sword", new Roll(3,4,0), 400, 15);
 	this.addWeaponDefinition("MACE", "Mace", new Roll(2,4,0), 600, 15);
@@ -19,10 +19,10 @@ function ItemFactory(){
 	this.addArmorDefinition("BANDED", "Banded mail", 7, 200, 2);
 	this.addArmorDefinition("PLATE", "Plate mail", 8, 500, 1);
 	
-	this.addLightsourceDefinition("TORCH", "Torch", 4, 200, 80);
+	this.addLightsourceDefinition("TORCH", "Torch", 4, 200, 30);
 	this.addLightsourceDefinition("LANTERN", "Lantern", 5, 300, 20);
 	
-	this.addPotionDefinition("HEALTH_POTION", "Healing Potion", 20);
+	this.addPotionDefinition("HEALTH_POTION", "Healing Potion", 60);
 	this.addPotionDefinition("EXTRA_HEALTH_POTION", "Extra Healing Potion", 15);
 	this.addPotionDefinition("GAIN_STRENGTH_POTION", "Strength Potion", 5);
 	this.addPotionDefinition("GAIN_VITALITY_POTION", "Vitality Potion", 5);
