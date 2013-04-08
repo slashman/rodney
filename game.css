@@ -70,3 +70,19 @@ table.gridtable td {
 	border-color: #666666;
 	background-color: #ffffff;
 }
+
+#vkeyb {
+}
+
+#vkeyb td{
+	background-color: blue;
+	color: white;
+	text-align: center;
+	padding: 2px;
+	margin: 2px;
+	border: 2px;
+	width: 100px;
+	height: 50px;
+	cursor: pointer;	
+}
+

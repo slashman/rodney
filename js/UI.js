@@ -29,6 +29,7 @@ var keyLock = false;
 UI.prototype.onKeyDown = function (keyboardEvent) {
 	if (keyLock)
 		return;
+	keyboardEvent.preventDefault();
 	keyLock = true;
 	if (window.event)
 		keyboardEvent = window.event;
@@ -106,6 +107,7 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 				JSRL.ui.tick();
 			}
 			JSRL.ui.mode = 'IN_GAME';
+			
 		} else if (keyCodeToChar[key] === "D"){
 			var acted = JSRL.player.dropItem(JSRL.player.inventory[JSRL.ui.menuCursor]);
 			if (acted){
@@ -169,6 +171,7 @@ UI.prototype.showMessage = function (msg){
 UI.prototype.enterName = function (key){
 	if (keyCodeToChar[key] === "Enter" && this.inkeyBuffer.length > 0){
 		var callback = function(){
+			showVirtualKeyboard();
 			JSRL.ui.inputEnabled = true;
 			JSRL.ui.keyboardPollingDelay = 100;
 			JSRL.ui.selectAdvancement();
@@ -374,6 +377,7 @@ UI.prototype.reset = function(){
 
 UI.prototype.showTitleScreen = function(){
 	this.mode = 'TITLE';
+	showNameEnter();
 	this.term.clear();
 	this.term.putString("- = RODNEY = -", 32, 1, 255, 0, 0);
 	this.term.putString("by Slashware Interactive", 26, 2, 255, 0, 0);

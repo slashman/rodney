@@ -12,6 +12,7 @@
 	<script src="lib/unicodetiles/ut.DOMRenderer.js?v=8"></script>
 	<script src="js/keycodes.js?v=8"></script>
 	<script src="lib/websocket/RWSC.js?v=8"></script>
+	<script src="js/vkeyb.js?v=8"></script>
 	<script src="js/Tiles.js?v=8"></script>
 	<script src="js/TextBox.js?v=8"></script>
 	<script src="js/JSRL.js?v=8"></script>
@@ -46,6 +47,45 @@ mixpanel.init("493fd199a0bd8dcce0ef2d05e1289bf7");</script><!-- end Mixpanel -->
 				<textarea id="txtChatText" onkeydown="JSRL.websocket.messageKeydown(event)"></textarea>
 			</div>
 		</div>
+	</div>
+	<div class="centerer">
+		<div id = "nameEnterDiv" style = "display: none;">Name: <input type = "text" onkeypress="return vkeybcode(event);"/></div>
+		<table id = "gameKeyboardTable" style = "width: 400px; margin-left: auto; margin-right: auto; display: none;">
+			<tr>
+				<td>
+					<table id = "vkeyb">
+						<tr>
+							<td onclick="vkeyb('Numpad 5');">
+								Pass
+							</td>
+						</tr>
+						<tr>
+							<td onclick="vkeyb('I');">
+								Inventory
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table id = "vkeyb">
+						<tr>
+							<td onclick="vkeyb('Numpad 7');">UpLeft</td>
+							<td onclick="vkeyb('Numpad 8');">Up</td>
+							<td onclick="vkeyb('Numpad 9');">UpRight</td>
+						</tr>
+						<tr>
+							<td onclick="vkeyb('Numpad 4');">Left</td>
+							<td onclick="vkeyb('Enter');">Action</td>
+							<td onclick="vkeyb('Numpad 6');">Right</td>
+						</tr>
+						<tr>
+							<td onclick="vkeyb('Numpad 1');">DownLeft</td>
+							<td onclick="vkeyb('Numpad 2');">Down</td>
+							<td onclick="vkeyb('Numpad 3');">DownRight</td>
+						</tr>						
+					</table>
+				</td>
+		</table>
 	</div>
 	<div class="centerer">
 		<audio controls="controls" loop="loop" autoplay="autoplay"><source src="mp3/dungeonsOfDemise.mp3" type="audio/mpeg"></source></audio>
