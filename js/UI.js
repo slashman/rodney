@@ -29,16 +29,17 @@ var keyLock = false;
 UI.prototype.onKeyDown = function (keyboardEvent) {
 	if (keyLock)
 		return;
-	keyboardEvent.preventDefault();
 	keyLock = true;
 	if (window.event)
 		keyboardEvent = window.event;
-	
+	var keyCode = keyCodeToChar[keyboardEvent.keyCode];
+	if (keyCode === "Left" || keyCode === "Right" || keyCode === "Up" || keyCode === "Down" || keyCode === "Space")
+		keyboardEvent.preventDefault();	
 	if (!JSRL.ui.inputEnabled){
 		keyLock = false;
 		return;
 	}
-	var keyCode = keyCodeToChar[keyboardEvent.keyCode];
+	
 	if (keyCode === "Ctrl" || keyCode === "Shift" || keyCode === "Alt" || keyCode === "Tab"){
 		//Yawn
 		keyLock = false;
