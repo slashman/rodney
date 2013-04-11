@@ -3,31 +3,35 @@ function ItemFactory(){
 	this.thresholds = new Array();
 	this.generationChanceTotal = 0;
 	
-	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,6,0), 400, 40);
-	this.addWeaponDefinition("STAFF", "Staff", new Roll(2,3	,0), 600, 15);
-	this.addWeaponDefinition("LONG_SWORD", "Long Sword", new Roll(3,4,0), 400, 15);
-	this.addWeaponDefinition("MACE", "Mace", new Roll(2,4,0), 600, 15);
-	this.addWeaponDefinition("SPEAR", "Spear", new Roll(1,8,0), 300, 2);
-	this.addWeaponDefinition("CLAYMORE", "Claymore", new Roll(4,4,0), 400, 2);
+	// Weapon 2/6 = 200 (-50)
+	this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,6,0), 400, 60);
+	this.addWeaponDefinition("STAFF", "Staff", new Roll(2,3	,0), 600, 40);
+	this.addWeaponDefinition("LONG_SWORD", "Long Sword", new Roll(3,4,0), 400, 30);
+	this.addWeaponDefinition("MACE", "Mace", new Roll(2,4,0), 600, 10);
+	this.addWeaponDefinition("SPEAR", "Spear", new Roll(1,8,0), 300, 5);
+	this.addWeaponDefinition("CLAYMORE", "Claymore", new Roll(4,4,0), 400, 5);
 	
-	this.addArmorDefinition("LEATHER", "Leather armor", 2, 75, 15);
-	this.addArmorDefinition("STUDDED", "Studded leather armor", 4, 75, 10);
-	this.addArmorDefinition("RING", "Ring mail", 4, 100, 7);
-	this.addArmorDefinition("SCALE", "Scale mail", 5, 100, 5);
-	this.addArmorDefinition("CHAIN", "Chain mail", 6, 300, 5);
-	this.addArmorDefinition("SPLINT", "Splint mail", 7, 300, 3);
-	this.addArmorDefinition("BANDED", "Banded mail", 7, 200, 2);
-	this.addArmorDefinition("PLATE", "Plate mail", 8, 500, 1);
+	// Armor 1/6 = 100
+	this.addArmorDefinition("LEATHER", "Leather armor", 2, 75, 30);
+	this.addArmorDefinition("STUDDED", "Studded leather armor", 4, 75, 20);
+	this.addArmorDefinition("RING", "Ring mail", 4, 100, 15);
+	this.addArmorDefinition("SCALE", "Scale mail", 5, 100, 15);
+	this.addArmorDefinition("CHAIN", "Chain mail", 6, 300, 10);
+	this.addArmorDefinition("SPLINT", "Splint mail", 7, 300, 5);
+	this.addArmorDefinition("BANDED", "Banded mail", 7, 200, 3);
+	this.addArmorDefinition("PLATE", "Plate mail", 8, 500, 2);
 	
-	this.addLightsourceDefinition("TORCH", "Torch", 4, 200, 30);
-	this.addLightsourceDefinition("LANTERN", "Lantern", 5, 300, 20);
+	// Light 1/6 = 100
+	this.addLightsourceDefinition("TORCH", "Torch", 4, 200, 70);
+	this.addLightsourceDefinition("LANTERN", "Lantern", 5, 300, 30);
 	
-	this.addPotionDefinition("HEALTH_POTION", "Healing Potion", 60);
-	this.addPotionDefinition("EXTRA_HEALTH_POTION", "Extra Healing Potion", 15);
+	// Potion 2/6 = 200
+	this.addPotionDefinition("HEALTH_POTION", "Healing Potion", 170);
+	this.addPotionDefinition("EXTRA_HEALTH_POTION", "Extra Healing Potion", 20);
 	this.addPotionDefinition("GAIN_STRENGTH_POTION", "Strength Potion", 5);
 	this.addPotionDefinition("GAIN_VITALITY_POTION", "Vitality Potion", 5);
 
-	
+	// Special
 	this.addAccesoryDefinition("YENDOR", "The Amulet of Yendor", true, 0);
 }
 
