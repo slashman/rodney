@@ -164,7 +164,9 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 		}
 	}
 	
-	var damage = rand(1, this.strength);
+	var damage = this.strength - rand(0, 2);
+	if (damage < 1) damage = 1;
+	
 	damage += rageBonus;
 	damage += buildupBonus;
 	
