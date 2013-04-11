@@ -272,7 +272,9 @@ UI.prototype.showStats = function (){
 	if (JSRL.player.currentAccesory)
 		this.term.putString(JSRL.player.currentAccesory.getStatusDescription(), 1, 7, 255, 255, 255);
 	this.term.putString("Level    "+JSRL.dungeon.currentDepth, 1, 9, 255, 255, 255);
-	this.term.putString("HP       "+JSRL.player.hp+"/"+JSRL.player.maxhp, 1, 10, 255, 255, 255);
+	var percentage = JSRL.player.hp / JSRL.player.maxhp;
+	this.term.putString("HP       "+JSRL.player.hp+"/"+JSRL.player.maxhp, 1, 10, 255, Math.round(255*percentage), Math.round(255*percentage));
+	
 	this.term.putString("Strength "+JSRL.player.strength, 1, 11, 255, 255, 255);
 	
 	if (JSRL.player.kineticCharge>0)
