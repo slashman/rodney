@@ -19,11 +19,15 @@ function Player(name) {
 	this.currentWeapon;
 	this.currentArmor;
 	var torch = JSRL.itemFactory.createItem("TORCH");
-	var dagger = JSRL.itemFactory.createItem("DAGGER");
+	var dagger = JSRL.itemFactory.createItem("DAGGER", true);
+	var leather = JSRL.itemFactory.createItem("LEATHER", true);
+	
 	this.addItem(torch);
 	this.currentAccesory = torch;
 	this.addItem(dagger);
 	this.currentWeapon = dagger;
+	this.addItem(leather);
+	this.currentArmor = leather;
 	this.sessionInfo = "";
 	this.skillPath = "";
 	this.score = 0;
