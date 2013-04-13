@@ -33,8 +33,14 @@ UI.prototype.onKeyDown = function (keyboardEvent) {
 	if (window.event)
 		keyboardEvent = window.event;
 	var keyCode = keyCodeToChar[keyboardEvent.keyCode];
-	if (keyCode === "Left" || keyCode === "Right" || keyCode === "Up" || keyCode === "Down" || keyCode === "Space")
-		keyboardEvent.preventDefault();	
+	if (keyCode === "Left" || keyCode === "Right" || keyCode === "Up" || keyCode === "Down" || keyCode === "Space"){
+		if (keyboardEvent.preventDefault) 
+			keyboardEvent.preventDefault();
+		else {
+			keyboardEvent.returnValue = false; // IEs
+			event.returnValue = false; // IE8
+		}
+	}
 	if (!JSRL.ui.inputEnabled){
 		keyLock = false;
 		return;
