@@ -308,7 +308,7 @@ UI.prototype.refresh = function(){
 	this.eng.update(JSRL.player.position.x, JSRL.player.position.y);
 	this.term.put(JSRL.tiles.AT, this.term.cx, this.term.cy);
 	this.showStats();
-	//this.term.putString(this.currentMessage, 1, 1, 255, 0, 0);
+	this.term.putString(this.currentMessage, 1, 1, 255, 0, 0);
 	this.textBox.setText(this.currentMessage);
 	this.textBox.draw();
 	this.term.render(); // Render
