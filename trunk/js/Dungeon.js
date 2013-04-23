@@ -42,8 +42,10 @@ Dungeon.prototype.getDisplayedTile = function (x, y) {
 				ret = JSRL.tiles.getTile(enemy.tileId);
 			else if (JSRL.player.getLightRange() > 0)
 				ret = JSRL.tiles.getTerrainTile(t).utTile;
-			else
+			else{
 				ret = JSRL.tiles.getTerrainTile(t).darkTile;
+				ret.itType = 1;
+			}
 		} else {
 			// Items
 			var item = this.getItem(x,y); 
@@ -51,14 +53,86 @@ Dungeon.prototype.getDisplayedTile = function (x, y) {
 				ret = JSRL.tiles.getTile(item.itemId);
 			} else {
 				// Terrain
-				if (JSRL.player.getLightRange() > 0)
+				if (JSRL.player.getLightRange() > 0){
 					ret = JSRL.tiles.getTerrainTile(t).utTile;
-				else
+					ret.itType = 0;
+				}else{
 					ret = JSRL.tiles.getTerrainTile(t).darkTile;
+					ret.itType = 1;
+				}
 			}
 		}
 	} else if (JSRL.player.remembers(x,y)){
 		ret = JSRL.tiles.getMemoryTile(t);
+		ret.itType = 2;
+	} else 
+		ret = ut.NULLTILE;
+	if (!ret){
+		// console.log("Invalid tile at "+x+","+y);
+		return ut.NULLTILE;
+
+	}
+	return ret;
+};
+
+Dungeon.prototype.getTerrainTile = function (x, y) {
+	// Terrain
+	var t = "";
+	try {
+		t = this.map[y][x]; 
+	} catch(err) {
+		return ut.NULLTILE; 
+	}
+	var ret = false;
+	if (JSRL.player.isSeeing(x,y)){
+		if (JSRL.player.getLightRange() > 0){
+			ret = JSRL.tiles.getTerrainTile(t).utTile;
+			ret.itType = 0;
+		}else{
+			ret = JSRL.tiles.getTerrainTile(t).darkTile;
+			ret.itType = 1;
+		}
+	} else if (JSRL.player.remembers(x,y)){
+		ret = JSRL.tiles.getMemoryTile(t);
+		ret.itType = 2;
+	} else 
+		ret = ut.NULLTILE;
+	if (!ret){
+		// console.log("Invalid tile at "+x+","+y);
+		return ut.NULLTILE;
+
+	}
+	return ret;
+};
+
+Dungeon.prototype.getOverlayTile = function (x, y) {
+	// Terrain
+	var t = "";
+	try {
+		t = this.map[y][x]; 
+	} catch(err) {
+		return ut.NULLTILE; 
+	}
+	var ret = false;
+	if (JSRL.player.isSeeing(x,y)){
+		// Enemies
+		var enemy = this.getEnemy(x,y); 
+		if (enemy){
+			if (enemy.monsterId === "MIMIC" && !enemy.wasHit)
+				ret = JSRL.tiles.getTerrainTile(">").utTile;
+			else if (enemy.monsterId != "INVISIBLE_STALKER")
+				ret = JSRL.tiles.getTile(enemy.tileId);
+			else
+				return ut.NULLTILE; 
+		} else {
+			// Items
+			var item = this.getItem(x,y); 
+			if (item){
+				ret = JSRL.tiles.getTile(item.itemId);
+			} else {
+				return ut.NULLTILE; 
+			}
+		}
 	} else 
 		ret = ut.NULLTILE;
 	if (!ret){

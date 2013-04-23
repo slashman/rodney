@@ -91,6 +91,7 @@ Tiles.prototype.addTerrainTile = function(tileId, utTile, solid, opaque, downsta
 
 	utTile.imageTile = imageTile;
 	darkTile.imageTile = imageTile;
+	
 	this.terrainTiles[tileId] = {
 		tileId: tileId,
 		solid: solid,
@@ -116,5 +117,6 @@ Tiles.prototype.getTerrainTile = function(tileId){
 };
 
 Tiles.prototype.getMemoryTile = function(tileId){
-	return this.getTile("MEM_"+tileId);
+	var tile = this.getTile("MEM_"+tileId);
+	return tile;
 };
