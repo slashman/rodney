@@ -35,7 +35,7 @@ GraphicRender.prototype.refresh = function(playerPos){
 			}
 			
 			//Draw player
-			if (screenTile.x == 12 && screenTile.y == 6){
+			if (screenTile.x == Math.floor(this.view.w / 2) && screenTile.y == Math.floor(this.view.h / 2)){
 				var tile = JSRL.tiles.getTile("AT").imageTile;
 				this.imagesMan.drawImageTile(tile, screenTile.x, screenTile.y);
 			}
