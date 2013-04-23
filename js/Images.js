@@ -2,15 +2,17 @@ function Images(mapScale){
 	this.images = {};
 	this.mapScale = mapScale
 	
-	this.addImage("TERRAIN", this.loadImage("img/crl_terrain_2x.gif", {imgNum: 20, vImgNum: 13, offsetL: 32, offsetT: 66}));
-	this.addImage("MONSTERS32", this.loadImage("img/crl_mons32_2x.gif", {imgNum: 10, vImgNum: 10, offsetL: 32, offsetT: 32}));
-	this.addImage("MONSTERS48", this.loadImage("img/crl_mons48_2x.gif", {imgNum: 7, vImgNum: 7, offsetL: 48, offsetT: 64}));
-	this.addImage("CHARS", this.loadImage("img/crl_chars_2x.gif", {imgNum: 6, vImgNum: 6, offsetL: 32, offsetT: 32}));
-	this.addImage("ITEMS", this.loadImage("img/crl_items_2x.gif", {imgNum: 9, vImgNum: 26, offsetL: 16, offsetT: 16}));
+	this.addImage("TERRAIN", this.loadImage("img/crl_terrain.gif", {imgNum: 20, vImgNum: 13, offsetL: 16, offsetT: 33}));
+	this.addImage("TERRAIN_NIGHT", this.loadImage("img/crl_terrain_night_d.gif", {imgNum: 20, vImgNum: 13, offsetL: 16, offsetT: 33}));
+	this.addImage("MONSTERS32", this.loadImage("img/crl_mons32.gif", {imgNum: 10, vImgNum: 10, offsetL: 16, offsetT: 16}));
+	this.addImage("MONSTERS48", this.loadImage("img/crl_mons48.gif", {imgNum: 7, vImgNum: 7, offsetL: 24, offsetT: 32}));
+	this.addImage("CHARS", this.loadImage("img/crl_chars.gif", {imgNum: 6, vImgNum: 6, offsetL: 16, offsetT: 16}));
+	this.addImage("ITEMS", this.loadImage("img/crl_items.gif", {imgNum: 9, vImgNum: 26, offsetL: 8, offsetT: 8}));
 }
 
 Images.prototype.addImage = function(imageId, img){
 	this.images[imageId] = img;
+	this.images[imageId].imageId = imageId;
 };
 
 Images.prototype.loadImage = function(path, params){
@@ -71,6 +73,15 @@ Images.prototype.drawImage = function(image, imgIn, vImgIn, x, y){
 		x1, y1, image.imgWidth, image.imgHeight,
 		x, y, image.imgWidth, image.imgHeight);
 	ctx.restore();
+};
+
+Images.prototype.drawFogTile = function(x, y){
+	x = x * this.mapScale.w;
+	y = y * this.mapScale.h;
+	
+	var ctx = JSRL.ui.eng.viewport.renderer.ctx2;
+	ctx.fillStyle = "rgba(0,0,0,0.5)";
+	ctx.fillRect(x,y,this.mapScale.w,this.mapScale.h);
 };
 
 Images.prototype.drawImageTile = function(imageTile, x, y){

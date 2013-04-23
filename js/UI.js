@@ -13,6 +13,7 @@ function UI () {
 	this.term = new ut.Viewport(document.getElementById("game"), 80, 25, "canvas");
 	this.eng = new ut.Engine(this.term, this.getDisplayedTile, MAP_WIDTH, MAP_HEIGHT);
 	this.eng.setShaderFunc(TorchFilter.doLighting);
+	this.graph = new GraphicRender(this.eng.viewport.renderer.ctx2, this.getTerrainTile, this.getOverlayTile, JSRL.images, {w: 24, h: 12});
 	this.messageRepeatCounter = 0;
 	this.textBox = new TextBox(10, 78, {x: 1, y: 1});
 	this.keyboardPollingDelay = 10;
@@ -269,6 +270,14 @@ UI.prototype.getDisplayedTile = function (x,y){
 	return JSRL.dungeon.getDisplayedTile(x,y);
 };
 
+UI.prototype.getTerrainTile = function (x,y){
+	return JSRL.dungeon.getTerrainTile(x,y);
+};
+
+UI.prototype.getOverlayTile = function(x, y){
+	return JSRL.dungeon.getOverlayTile(x, y);
+};
+
 UI.prototype.showStats = function (){
 	this.term.putString(JSRL.player.name, 1, 4, 255, 0, 0);
 	if (JSRL.player.currentWeapon)
@@ -304,6 +313,10 @@ UI.prototype.showStats = function (){
 
 };
 
+UI.prototype.graphicRefresh = function(){
+	this.graph.update(JSRL.player.position.x, JSRL.player.position.y);
+};
+
 UI.prototype.refresh = function(){
 	this.eng.update(JSRL.player.position.x, JSRL.player.position.y);
 	this.term.put(JSRL.tiles.AT, this.term.cx, this.term.cy);
@@ -317,7 +330,10 @@ UI.prototype.refresh = function(){
 
 UI.prototype.tick = function () {
 	if (this.mode === 'IN_GAME'){
-		this.refresh();
+		if (JSRL.isGraphicMode)
+			this.graphicRefresh();
+		else
+			this.refresh();
 	} else if (this.mode === 'SELECT_ADVANCEMENT'){
 		if (this.currentSkillAnimation && this.currentSkillAnimation.frames){
 			var animationFrame = this.currentSkillAnimation.frames[this.currentSkillAnimation.frame];
