@@ -13,7 +13,7 @@ function UI () {
 	this.term = new ut.Viewport(document.getElementById("game"), 80, 25, "canvas");
 	this.eng = new ut.Engine(this.term, this.getDisplayedTile, MAP_WIDTH, MAP_HEIGHT);
 	this.eng.setShaderFunc(TorchFilter.doLighting);
-	this.graph = new GraphicRender(this.eng.viewport.renderer.ctx2, this.getTerrainTile, this.getOverlayTile, JSRL.images, {w: 24, h: 12});
+	this.graph = new GraphicRender(this.eng.viewport.renderer.ctx2, this.getTerrainTile, this.getOverlayTile, JSRL.images, {w: 24, h: 12}, {w: 32, h: 32},'XXpx "Fondamento"');
 	this.messageRepeatCounter = 0;
 	this.textBox = new TextBox(10, 78, {x: 1, y: 1});
 	this.keyboardPollingDelay = 10;
@@ -314,14 +314,15 @@ UI.prototype.showStats = function (){
 };
 
 UI.prototype.graphicRefresh = function(){
+	this.graph.addText(this.currentMessage, "rgb(255,0,0)", 20, 500, 3, 1);
 	this.graph.update(JSRL.player.position.x, JSRL.player.position.y);
+	
 };
 
 UI.prototype.refresh = function(){
 	this.eng.update(JSRL.player.position.x, JSRL.player.position.y);
 	this.term.put(JSRL.tiles.AT, this.term.cx, this.term.cy);
 	this.showStats();
-	this.term.putString(this.currentMessage, 1, 1, 255, 0, 0);
 	this.textBox.setText(this.currentMessage);
 	this.textBox.draw();
 	this.term.render(); // Render

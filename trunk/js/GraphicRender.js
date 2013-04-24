@@ -1,9 +1,12 @@
-function GraphicRender(context, terrainFunc, overlayFunc, imagesMan, view){
+function GraphicRender(context, terrainFunc, overlayFunc, imagesMan, view, tileSize, font){
 	this.ctx = context;
 	this.getTerrainTile = terrainFunc;
 	this.getOverlayTile = overlayFunc;
 	this.imagesMan = imagesMan;
 	this.view = view;
+	this.textBuffer = [];
+	this.tileSize = tileSize;
+	this.font = font;
 }
 
 GraphicRender.prototype.refresh = function(playerPos){
@@ -48,28 +51,72 @@ GraphicRender.prototype.refresh = function(playerPos){
 	
 };
 
+GraphicRender.prototype.drawTextBuffer = function(){
+	for (var i=0,len=this.textBuffer.length;i<len;i++){
+		var t = this.textBuffer[i];
+		
+		this.ctx.font = this.font.replace("XX",t.size);
+		this.ctx.fillStyle = t.color;
+		
+		var text = t.text.split("\n");
+		for (var i=0,len=text.length;i<len;i++){
+			this.ctx.fillText(text[i], t.x*this.tileSize.w, t.y*this.tileSize.h+(i*t.size));
+		}
+	}
+	
+	this.clearTextBuffer();
+};
+
 GraphicRender.prototype.update = function(playerX, playerY){
 	this.ctx.fillStyle = "rgb(0,0,0)";
 	this.ctx.fillRect(0,0,this.ctx.canvas.width,this.ctx.canvas.height);
 	
 	this.refresh({x: playerX, y: playerY});
+	this.drawTextBuffer();
 };
 
-GraphicRender.prototype.term = function(){
-	this.strings = [];
-};
-
-GraphicRender.prototype.term.prototype.clear = function(){
-	this.strings = [];
-};
-
-GraphicRender.prototype.term.prototype.putString = function(string, x, y, r, g, b){
-	this.strings.push({
-		s: string,
+GraphicRender.prototype.addText = function(text, color, fontSize, maxWidth, x, y){
+	this.textBuffer.push({
+		text: this.formatText(text, fontSize, maxWidth),
+		color: color,
+		size: fontSize,
 		x: x,
-		y: y,
-		r: r,
-		g: g,
-		b: b
+		y: y
 	});
+};
+
+GraphicRender.prototype.clearTextBuffer = function(){
+	this.textBuffer = [];
+};
+
+GraphicRender.prototype.formatText = function(text, fontSize, maxWidth){
+	if (text.trim() == "")
+		return text;
+		
+	this.ctx.font = this.font.replace("XX",fontSize);
+	
+	var ret = "";
+	var line = "";
+	var width = this.ctx.measureText(text).width;
+	
+	if (width <= maxWidth){
+		return text;
+	}
+	
+	var words = text.split(" ");
+	line = words[0];
+	for (var i=1,len=words.length;i<len;i++){
+		width = this.ctx.measureText(line+" "+words[i]).width
+		if (width < maxWidth){
+			line += " "+words[i];
+		}else{
+			if (ret != "")
+				ret += "\n";
+			ret += line;
+			line = words[i];
+		}
+	}
+	ret += "\n"+line;
+	
+	return ret;
 };
