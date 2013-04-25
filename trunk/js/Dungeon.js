@@ -213,6 +213,7 @@ Dungeon.prototype.dungeonTurn = function(){
 Dungeon.prototype.generateLevel= function(depth){
 	if (Rodney.mixPanelEnabled)
 		mixpanel.track("Generate Level", {"depth": depth});
+	JSRL.itemFactory.setThresholds(depth);
 	var generationResults = JSRL.dungeonGenerator.createLevel(depth);
 	JSRL.player.position = generationResults.entrancePosition;	
 	JSRL.player.updateFOV();
