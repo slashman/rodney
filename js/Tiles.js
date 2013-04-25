@@ -11,7 +11,7 @@ function Tiles(imagesClass){
 	this.addTile("DRAGON", new ut.Tile("D", 170, 0, 0), imagesClass.imageTile("MONSTERS48", 5, 0));
 	this.addTile("FLOATING_EYE", new ut.Tile("s", 0, 170, 170), imagesClass.imageTile("MONSTERS32", 1, 5));
 	this.addTile("VIOLET_FUNGI", new ut.Tile("F", 255, 55, 255), imagesClass.imageTile("MONSTERS48", 3, 3));
-	this.addTile("GNOME", new ut.Tile("g", 0, 170, 0), imagesClass.imageTile("MONSTERS32", 9, 8));
+	this.addTile("GNOME", new ut.Tile("g", 0, 170, 0), imagesClass.imageTile("MONSTERS32", 9, 6));
 	this.addTile("HOBGOBLIN", new ut.Tile("H", 170, 170, 170), imagesClass.imageTile("MONSTERS32", 0, 1));
 	this.addTile("INVISIBLE_STALKER", new ut.Tile("I", 255, 255, 255));
 	this.addTile("JACKAL", new ut.Tile("j", 255, 255, 55), imagesClass.imageTile("MONSTERS32", 7, 8));
@@ -32,14 +32,14 @@ function Tiles(imagesClass){
 	this.addTile("YETI", new ut.Tile("m", 255, 255, 255), imagesClass.imageTile("MONSTERS32", 6, 5));
 	this.addTile("ZOMBIE", new ut.Tile("z", 170, 55, 0), imagesClass.imageTile("MONSTERS32", 2, 1));
 
-	this.addTile("RODNEY", new ut.Tile("☺", 0, 255, 0), imagesClass.imageTile("CHARS", 0, 2));
+	this.addTile("RODNEY", new ut.Tile("☺", 0, 255, 0), imagesClass.imageTile("CHARS", 2, 0));
 
-	this.addTile("AT", new ut.Tile("@", 0, 0, 255), imagesClass.imageTile("CHARS", 2, 0));
+	this.addTile("AT", new ut.Tile("@", 0, 0, 255), imagesClass.imageTile("CHARS", 0, 2));
 	
 	this.addTile("ARNOLD", new ut.Tile("@", 255, 0, 0), imagesClass.imageTile("CHARS", 0, 0));
 	this.addTile("TOY", new ut.Tile("@", 0, 255, 0), imagesClass.imageTile("CHARS", 0, 4));
-	this.addTile("LANE", new ut.Tile("@", 0, 0, 255), imagesClass.imageTile("CHARS", 1, 0));
-	this.addTile("MANGO", new ut.Tile("@", 255, 0, 255), imagesClass.imageTile("CHARS", 0, 4));
+	this.addTile("LANE", new ut.Tile("@", 0, 0, 255), imagesClass.imageTile("CHARS", 0, 1));
+	this.addTile("MANGO", new ut.Tile("@", 255, 0, 255), imagesClass.imageTile("CHARS", 2, 2));
 	
 	//Items
 	this.addTile("DAGGER", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 1, 10));
