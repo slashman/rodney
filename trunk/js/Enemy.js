@@ -16,13 +16,13 @@ Enemy.prototype.enemyAI = function (){
 		return;
 	if (this.monsterId === "TROLL" && chance(50)){
 		if (this.hp < this.maxhp){
-			JSRL.ui.showMessage("The troll regenerates");
+			JSRL.ui.showMessage("The "+this.getDescription()+" regenerates");
 			this.hp++;
 		}
 	}
 	if (this.monsterId === "VAMPIRE" && chance(80)){
 		if (this.hp < this.maxhp){
-			JSRL.ui.showMessage("The Vampire regenerates");
+			JSRL.ui.showMessage("The "+this.getDescription()+" regenerates");
 			this.hp++;
 		}
 	}
@@ -65,6 +65,10 @@ Enemy.prototype.walk = function (direction){
 	JSRL.dungeon.tryMoveEnemyTo(this, destinationPosition);
 };
 
+Enemy.prototype.getDescription = function (){
+	return this.name;
+};
+
 Enemy.prototype.attackPlayer = function(){
 	if (JSRL.player.dead)
 		return;
@@ -80,7 +84,7 @@ Enemy.prototype.attackPlayer = function(){
 	switch (this.monsterId){
 		case "GIANT_ANT":
 			if (chance(10)){
-				JSRL.ui.showMessage("The Giant Ant poisons you. You feel weaker!");
+				JSRL.ui.showMessage("The "+this.getDescription()+" poisons you. You feel weaker!");
 				JSRL.player.reduceStrength();
 			}
 		break;
@@ -96,23 +100,23 @@ Enemy.prototype.attackPlayer = function(){
 		break;
 		case "FLOATING_EYE":
 			if (chance(65) && JSRL.player.paralysisCounter === 0){
-				JSRL.ui.showMessage("The floating eye hypnotizes you with his gaze!");
+				JSRL.ui.showMessage("The "+this.getDescription()+" hypnotizes you with his gaze!");
 				JSRL.player.paralize();
 			}
 		break;
 		case "VIOLET_FUNGI":
 			if (chance(20) && JSRL.player.paralysisCounter === 0){
-				JSRL.ui.showMessage("The violet fungi engulfs you!");
+				JSRL.ui.showMessage("The "+this.getDescription()+" engulfs you!");
 				JSRL.player.paralize();
 			}
 		break;
 		case "NYMPH":
 			if (chance(65)){
 				if(JSRL.player.inventory.length === 0){
-					JSRL.ui.showMessage("The nymph steals a kiss from you!");
+					JSRL.ui.showMessage("The "+this.getDescription()+" steals a kiss from you!");
 				} else {
 					var item = randomElementOf(JSRL.player.inventory);
-					JSRL.ui.showMessage("The nymph steals a "+item.name+" from you!");
+					JSRL.ui.showMessage("The "+this.getDescription()+" steals a "+item.name+" from you!");
 					if (item === JSRL.player.currentWeapon)
 						JSRL.player.currentWeapon = false;
 					if (item === JSRL.player.currentArmor)
@@ -122,7 +126,7 @@ Enemy.prototype.attackPlayer = function(){
 					JSRL.player.inventory.removeObject(item);
 				}
 				if (chance(80)){
-					JSRL.ui.showMessage("The nymph vanishes");
+					JSRL.ui.showMessage("The "+this.getDescription()+" vanishes");
 					JSRL.dungeon.removeEnemy(this);
 					return;
 				}
@@ -130,27 +134,27 @@ Enemy.prototype.attackPlayer = function(){
 		break;
 		case "RUST_MONSTER":
 			if (JSRL.player.currentArmor && chance(65) && JSRL.player.currentArmor.itemId != "LEATHER"){
-				JSRL.ui.showMessage("The Rust Monster squirts acid at your "+JSRL.player.currentArmor.name);
+				JSRL.ui.showMessage("The "+this.getDescription()+" squirts acid at your "+JSRL.player.currentArmor.name);
 				JSRL.player.currentArmor.clash(40);
 			} else {
-				JSRL.ui.showMessage("The Rust Monster licks you");
+				JSRL.ui.showMessage("The "+this.getDescription()+" licks you");
 			} 
 		break;
 		case "UMBER_HULK":
 			if (chance(40) && JSRL.player.confusionCounter === 0){
-				JSRL.ui.showMessage("The Umber Hulk gazes at you. You are confused!");
+				JSRL.ui.showMessage("The "+this.getDescription()+" gazes at you. You are confused!");
 				JSRL.player.confuse();
 			}
 		break;
 		case "VAMPIRE":
 			if (chance(30)){
-				JSRL.ui.showMessage("The Vampire bits you... you feel fragile!");
+				JSRL.ui.showMessage("The "+this.getDescription()+" bites you... you feel fragile!");
 				JSRL.player.reduceMaxHP();
 			}
 		break;
 		case "WRAITH":
 			if (chance(50)){
-				JSRL.ui.showMessage("The Wraith mesmerizes you... you feel fragile!");
+				JSRL.ui.showMessage("The "+this.getDescription()+" mesmerizes you... you feel fragile!");
 				JSRL.player.reduceMaxHP();
 			}
 		break;
