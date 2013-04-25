@@ -59,8 +59,8 @@ GraphicRender.prototype.drawTextBuffer = function(){
 		this.ctx.fillStyle = t.color;
 		
 		var text = t.text.split("\n");
-		for (var i=0,len=text.length;i<len;i++){
-			this.ctx.fillText(text[i], t.x*this.tileSize.w, t.y*this.tileSize.h+(i*t.size));
+		for (var j=0,jlen=text.length;j<jlen;j++){
+			this.ctx.fillText(text[j], t.x*this.tileSize.w, t.y*t.size+(j*t.size));
 		}
 	}
 	
@@ -75,9 +75,13 @@ GraphicRender.prototype.update = function(playerX, playerY){
 	this.drawTextBuffer();
 };
 
-GraphicRender.prototype.addText = function(text, color, fontSize, maxWidth, x, y){
+GraphicRender.prototype.addText = function(text, color, fontSize, maxWidth, x, y, measure){
+	if (measure){
+		text = this.formatText(text, fontSize, maxWidth);
+	}
+	
 	this.textBuffer.push({
-		text: this.formatText(text, fontSize, maxWidth),
+		text: text,
 		color: color,
 		size: fontSize,
 		x: x,
