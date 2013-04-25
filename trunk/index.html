@@ -43,7 +43,7 @@ mixpanel.init("493fd199a0bd8dcce0ef2d05e1289bf7");</script><!-- end Mixpanel -->
 <body onload="Rodney.initGame();">
 	<div class="centerer">
 		<div id="game">Enable JavaScript and reload the page.</div>
-		<div class="chat">
+		<div id = "chat" class="chat">
 			<div id="chatBox"></div>
 			
 			<div>
@@ -99,7 +99,7 @@ mixpanel.init("493fd199a0bd8dcce0ef2d05e1289bf7");</script><!-- end Mixpanel -->
 		<audio controls="controls" loop="loop" autoplay="autoplay"><source src="mp3/dungeonsOfDemise.mp3" type="audio/mpeg"></source></audio>
 		<br/>
         <p>Use Google Chrome for a better experience.</p>
-        <p><a href = "leadboard.php">Leaderboard</a> - <a href = "7drl">7DRL version</a> - <a href = "offline.html">Offline version</a></p>
+        <p><input type = "button" onclick = "Rodney.leaderboard();" value = "Leaderboard"/> - <input type = "button" id = "btnConnection" onclick = "Rodney.switchConnection();" value = "Online Mode"/> - <input type = "button" id = "btnGraphics" onclick = "Rodney.switchGraphics();" value = "Using Graphics"/> - <input type = "button" onclick = "Rodney.sdrl();" value = "7DRL version"/></p>
     	<p>A production of <a href = "http://interactive.slashware.net/" target = "_blank">Slashware Interactive</a>, powered by <a href = "http://tapiov.net/unicodetiles.js/" target = "_blank">unicodetiles.js</a></p>
 	</div>
 	

@@ -67,3 +67,28 @@ Rodney.doStartGame = function (onConnect){
 };
 
 var abortConnection = false;
+
+Rodney.switchConnection = function() {
+	if (WS_HOST === "NEIN"){
+		WS_HOST = "ws://games.slashware.net:12345/echo";
+		document.getElementById("chat").style.display = "inline-block";
+	} else {
+		WS_HOST = "NEIN";
+		document.getElementById("chat").style.display = "none";
+	}
+	document.getElementById("btnConnection").value = WS_HOST === "NEIN" ? "Offline Mode" : "Online Mode";
+
+};
+
+Rodney.switchGraphics = function() {
+	JSRL.isGraphicMode = !JSRL.isGraphicMode;	
+	document.getElementById("btnGraphics").value = !JSRL.isGraphicMode ? "Using Characters" : "Using Graphics";
+};
+
+Rodney.leaderboard = function(){
+	location.href = "leadboard.php";
+};
+
+Rodney.sdrl = function(){
+	location.href = "7drl";
+};
