@@ -5,17 +5,17 @@ function Tiles(imagesClass){
 	this.AT.imageTile = imagesClass.imageTile("CHARS", 2, 0);
 
 	//Monsters
-	this.addTile("GIANT_ANT", new ut.Tile("A", 255, 255, 255), imagesClass.imageTile("MONSTERS32", 1, 2));
+	this.addTile("GIANT_ANT", new ut.Tile("P", 255, 255, 255), imagesClass.imageTile("MONSTERS32", 1, 2));
 	this.addTile("BAT", new ut.Tile("b", 170, 170, 170), imagesClass.imageTile("MONSTERS32", 7, 2));
-	this.addTile("CENTAUR", new ut.Tile("C", 170, 55, 0), imagesClass.imageTile("MONSTERS48", 1, 0));
+	this.addTile("CENTAUR", new ut.Tile("B", 170, 55, 0), imagesClass.imageTile("MONSTERS48", 1, 0));
 	this.addTile("DRAGON", new ut.Tile("D", 170, 0, 0), imagesClass.imageTile("MONSTERS48", 5, 0));
-	this.addTile("FLOATING_EYE", new ut.Tile("e", 0, 170, 170), imagesClass.imageTile("MONSTERS32", 1, 5));
+	this.addTile("FLOATING_EYE", new ut.Tile("s", 0, 170, 170), imagesClass.imageTile("MONSTERS32", 1, 5));
 	this.addTile("VIOLET_FUNGI", new ut.Tile("F", 255, 55, 255), imagesClass.imageTile("MONSTERS48", 3, 3));
 	this.addTile("GNOME", new ut.Tile("g", 0, 170, 0), imagesClass.imageTile("MONSTERS32", 9, 8));
 	this.addTile("HOBGOBLIN", new ut.Tile("H", 170, 170, 170), imagesClass.imageTile("MONSTERS32", 0, 1));
 	this.addTile("INVISIBLE_STALKER", new ut.Tile("I", 255, 255, 255));
 	this.addTile("JACKAL", new ut.Tile("j", 255, 255, 55), imagesClass.imageTile("MONSTERS32", 7, 8));
-	this.addTile("KOBOLD", new ut.Tile("k", 170, 55, 0), imagesClass.imageTile("MONSTERS32", 6, 4));
+	this.addTile("KOBOLD", new ut.Tile("l", 170, 55, 0), imagesClass.imageTile("MONSTERS32", 6, 4));
 	this.addTile("LEPRECHAUN", new ut.Tile("l", 0, 170, 0), imagesClass.imageTile("MONSTERS32", 9, 7));
 	this.addTile("MIMIC", new ut.Tile("m", 170, 0, 0), imagesClass.imageTile("MONSTERS48", 1, 1));
 	this.addTile("NYMPH", new ut.Tile("n", 55, 55, 255), imagesClass.imageTile("MONSTERS32", 4, 3));
@@ -24,12 +24,12 @@ function Tiles(imagesClass){
 	this.addTile("QUASIT", new ut.Tile("q", 170, 0, 0), imagesClass.imageTile("MONSTERS32", 5, 4));
 	this.addTile("RUST_MONSTER", new ut.Tile("R", 55, 255, 55), imagesClass.imageTile("MONSTERS48", 2, 2));
 	this.addTile("SNAKE", new ut.Tile("s", 0, 170, 0), imagesClass.imageTile("MONSTERS32", 0, 8));
-	this.addTile("TROLL", new ut.Tile("T", 0, 170, 0), imagesClass.imageTile("MONSTERS48", 0, 6));
+	this.addTile("TROLL", new ut.Tile("W", 0, 170, 0), imagesClass.imageTile("MONSTERS48", 0, 6));
 	this.addTile("UMBER_HULK", new ut.Tile("U", 55, 55, 55), imagesClass.imageTile("MONSTERS48", 0, 2));
-	this.addTile("VAMPIRE", new ut.Tile("v", 55, 55, 55), imagesClass.imageTile("MONSTERS32", 6, 3));
+	this.addTile("VAMPIRE", new ut.Tile("w", 255, 55, 55), imagesClass.imageTile("MONSTERS32", 6, 3));
 	this.addTile("WRAITH", new ut.Tile("w", 55, 55, 55), imagesClass.imageTile("MONSTERS32", 3, 2));
 	this.addTile("XORN", new ut.Tile("x", 170, 0, 0), imagesClass.imageTile("MONSTERS48", 3, 2));
-	this.addTile("YETI", new ut.Tile("Y", 255, 255, 255), imagesClass.imageTile("MONSTERS32", 6, 5));
+	this.addTile("YETI", new ut.Tile("m", 255, 255, 255), imagesClass.imageTile("MONSTERS32", 6, 5));
 	this.addTile("ZOMBIE", new ut.Tile("z", 170, 55, 0), imagesClass.imageTile("MONSTERS32", 2, 1));
 
 	this.addTile("RODNEY", new ut.Tile("☺", 0, 255, 0), imagesClass.imageTile("CHARS", 0, 2));
