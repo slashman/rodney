@@ -313,8 +313,40 @@ UI.prototype.showStats = function (){
 
 };
 
+UI.prototype.showGraphicStats = function (){
+	this.graph.addText(JSRL.player.name, "rgb(255,0,0)", 20, 500, 1, 4);
+	if (JSRL.player.currentWeapon)
+		this.graph.addText(JSRL.player.currentWeapon.getStatusDescription(), "rgb(255,255,255)", 20, 500, 1, 5);
+	if (JSRL.player.currentArmor)
+		this.graph.addText(JSRL.player.currentArmor.getStatusDescription(), "rgb(255,255,255)", 20, 500, 1, 6);
+	if (JSRL.player.currentAccesory)
+		this.graph.addText(JSRL.player.currentAccesory.getStatusDescription(), "rgb(255,255,255)", 20, 500, 1, 7);
+	this.graph.addText("Level    "+JSRL.dungeon.currentDepth, "rgb(255,255,255)", 20, 500, 1, 9);
+	var percentage = JSRL.player.hp / JSRL.player.maxhp;
+	this.graph.addText("HP       "+JSRL.player.hp+"/"+JSRL.player.maxhp, "rgb(255,"+Math.round(255*percentage)+","+Math.round(255*percentage)+")", 20, 500, 1, 10);
+	
+	this.graph.addText("Strength "+JSRL.player.strength, "rgb(255,255,255)", 20, 500, 1, 11);
+	
+	if (JSRL.player.kineticCharge>0)
+		this.graph.addText("Running", "rgb(255,255,255)", 20, 500, 1, 13);
+	
+	var yy = 0;
+	var xx = 19;
+	for (var i = 0; i < JSRL.player.skills.length; i++){
+		this.graph.addText(JSRL.player.skills[i].name, "rgb(255,255,255)", 20, 500, xx, 4+yy);
+		yy++;
+		if (yy > 15){
+			yy = 0;
+			xx += 3;
+		}
+	}
+	
+	this.graph.addText("Press Space for action (Pick, Stairs, Inventory)", "rgb(255,255,255)", 20, 500, 1, 22);
+};
+
 UI.prototype.graphicRefresh = function(){
-	this.graph.addText(this.currentMessage, "rgb(255,0,0)", 20, 500, 3, 1);
+	this.graph.addText(this.currentMessage, "rgb(255,255,255)", 20, 500, 3, 1, true);
+	this.showGraphicStats();
 	this.graph.update(JSRL.player.position.x, JSRL.player.position.y);
 	
 };
