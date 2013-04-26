@@ -24,7 +24,7 @@ function Tiles(imagesClass){
 	this.addTile("QUASIT", new ut.Tile("q", 170, 0, 0), imagesClass.imageTile("MONSTERS32", 5, 4));
 	this.addTile("RUST_MONSTER", new ut.Tile("R", 55, 255, 55), imagesClass.imageTile("MONSTERS48", 2, 2));
 	this.addTile("SNAKE", new ut.Tile("s", 0, 170, 0), imagesClass.imageTile("MONSTERS32", 0, 8));
-	this.addTile("TROLL", new ut.Tile("W", 0, 170, 0), imagesClass.imageTile("MONSTERS48", 0, 6));
+	this.addTile("TROLL", new ut.Tile("W", 0, 170, 0), imagesClass.imageTile("MONSTERS48", 6, 0));
 	this.addTile("UMBER_HULK", new ut.Tile("U", 55, 55, 55), imagesClass.imageTile("MONSTERS48", 0, 2));
 	this.addTile("VAMPIRE", new ut.Tile("w", 255, 55, 55), imagesClass.imageTile("MONSTERS32", 6, 3));
 	this.addTile("WRAITH", new ut.Tile("w", 55, 55, 55), imagesClass.imageTile("MONSTERS32", 3, 2));
