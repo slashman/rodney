@@ -9,7 +9,7 @@ function MonsterFactory(){
 	this.addMonsterDefinition("VIOLET_FUNGI", "Deadly Flower", new Roll(6,8,0), 15, 24, new Roll(1,6,0));
 	this.addMonsterDefinition("GNOME", "Gnome", new Roll(1,8,2), 6, 15, new Roll(1,6,1));
 	this.addMonsterDefinition("HOBGOBLIN", "Hobgoblin", new Roll(2,4,1), 1, 10, new Roll(1,8,2));
-	this.addMonsterDefinition("INVISIBLE_STALKER", "Invisible Stalker", new Roll(6,8,0), 16, 25, new Roll(4,4,0));
+	this.addMonsterDefinition("INVISIBLE_STALKER", "Invisible Stalker", new Roll(3,8,0), 16, 25, new Roll(2,4,0));
 	this.addMonsterDefinition("JACKAL", "Jackal", new Roll(1,8,2), 1, 7, new Roll(1,2,0));
 	this.addMonsterDefinition("KOBOLD", "Lizardman", new Roll(2,4,2), 1, 6, new Roll(1,4,0));
 	this.addMonsterDefinition("LEPRECHAUN", "Leprechaun", new Roll(3,8,0), 7, 16, new Roll(1,1,0));
