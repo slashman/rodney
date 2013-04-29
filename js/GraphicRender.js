@@ -7,13 +7,15 @@ function GraphicRender(context, terrainFunc, overlayFunc, imagesMan, view, tileS
 	this.textBuffer = [];
 	this.tileSize = tileSize;
 	this.font = font;
+	this.textEffects = [];
+	this.currentView = {x: 0, y: 0};
 }
 
 GraphicRender.prototype.refresh = function(playerPos){
 	//var tile = this.getTile(playerPos.x, playerPos.y).imageTile;
 	var left = playerPos.x - Math.floor(this.view.w / 2);
 	var top = playerPos.y - Math.floor(this.view.h / 2);
-	
+	this.currentView = {x: left, y: top};
 	
 	var screenTile = {x: 0, y: 0};
 	for (var j=top,jlen=top+this.view.h;j<jlen;j++){
@@ -59,12 +61,34 @@ GraphicRender.prototype.drawTextBuffer = function(){
 		this.ctx.fillStyle = t.color;
 		
 		var text = t.text.split("\n");
-		for (var j=0,jlen=text.length;j<jlen;j++){
-			this.ctx.fillText(text[j], t.x*this.tileSize.w, t.y*t.size+(j*t.size));
+		var init = (text.length >= 3)? text.length - 3 : 0;
+		for (var j=init,jlen=text.length;j<jlen;j++){
+			this.ctx.fillText(text[j], t.x*this.tileSize.w, t.y*t.size+((j-init)*t.size));
 		}
 	}
 	
 	this.clearTextBuffer();
+};
+
+GraphicRender.prototype.drawTextEffectsBuffer = function(){
+	for (var i=0,len=this.textEffects.length;i<len;i++){
+		var t = this.textEffects[i];
+		if (!t)
+			continue;
+		t.life--;
+		t.y -= 2;
+		var rel = (t.life / t.mLife).toPrecision(2);
+		var col = "rgba("+t.color.substring(t.color.indexOf("(")+1,t.color.indexOf(")"))+","+rel+")"; 
+
+		this.ctx.font = this.font.replace("XX",t.size);
+		this.ctx.fillStyle = col;		
+		this.ctx.fillText(t.text, t.x, t.y);
+		
+		if (t.life <= 0){
+			this.textEffects.splice(i,1);
+			i--;
+		}
+	}
 };
 
 GraphicRender.prototype.update = function(playerX, playerY){
@@ -73,6 +97,7 @@ GraphicRender.prototype.update = function(playerX, playerY){
 	
 	this.refresh({x: playerX, y: playerY});
 	this.drawTextBuffer();
+	this.drawTextEffectsBuffer();
 };
 
 GraphicRender.prototype.addText = function(text, color, fontSize, maxWidth, x, y, measure){
@@ -87,6 +112,8 @@ GraphicRender.prototype.addText = function(text, color, fontSize, maxWidth, x, y
 		x: x,
 		y: y
 	});
+	
+	return text;
 };
 
 GraphicRender.prototype.clearTextBuffer = function(){
@@ -123,4 +150,19 @@ GraphicRender.prototype.formatText = function(text, fontSize, maxWidth){
 	ret += "\n"+line;
 	
 	return ret;
+};
+
+GraphicRender.prototype.addTextEffect = function(text, fontSize, color, x, y, life){
+	if (text.trim() == "")
+		return;
+		
+	this.textEffects.push({
+		text: text,
+		fontSize: fontSize,
+		color: color,
+		x: (x - this.currentView.x) * this.tileSize.w,
+		y: (y - this.currentView.y) * this.tileSize.h,
+		life: life,
+		mLife: life
+	});
 };

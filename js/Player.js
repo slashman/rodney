@@ -148,6 +148,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	}
 	var attackMessage = "You hit "+enemy.getTheDescription();
 	enemy.wasHit = true;
+	JSRL.ui.graph.addTextEffect("HIT",20,"rgb(255,255,255)",enemy.position.x,enemy.position.y+1,15);
 	var buildupBonus = 0;
 	if (this.hasSkill("BUILDUP")){
 		if (this.buildUpCounter > 0)
