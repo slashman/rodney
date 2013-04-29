@@ -8,6 +8,7 @@ function GraphicRender(context, terrainFunc, overlayFunc, imagesMan, view, tileS
 	this.tileSize = tileSize;
 	this.font = font;
 	this.textEffects = [];
+	this.graphicEffects = [];
 	this.currentView = {x: 0, y: 0};
 }
 
@@ -31,12 +32,23 @@ GraphicRender.prototype.refresh = function(playerPos){
 					continue;
 				if (!tile.imageTile)
 					continue;
-				
+					
 				var img = tile.imageTile;
-				if (tile.itType == 2 && tile.imageTile.image.imageId == "TERRAIN")
+				var blood = null;
+				if (img.vImgIn < 0)
+					blood = this.imagesMan.imageTile("BLOOD",0,0);
+				
+				if (tile.itType == 2 && tile.imageTile.image.imageId == "TERRAIN"){
+					img = {image: this.imagesMan.getImage("TERRAIN_DARK"), imgIn: tile.imageTile.imgIn, vImgIn: tile.imageTile.vImgIn};
+					blood = null;
+				}
+					
+				if (tile.itType == 1 && tile.imageTile.image.imageId == "TERRAIN")
 					img = {image: this.imagesMan.getImage("TERRAIN_NIGHT"), imgIn: tile.imageTile.imgIn, vImgIn: tile.imageTile.vImgIn};
 				
 				this.imagesMan.drawImageTile(img, screenTile.x, screenTile.y);
+				if (blood != null)
+					this.imagesMan.drawImageTile(blood, screenTile.x, screenTile.y);
 			}
 			
 			//Draw player
@@ -91,6 +103,23 @@ GraphicRender.prototype.drawTextEffectsBuffer = function(){
 	}
 };
 
+GraphicRender.prototype.drawGraphicEffectsBuffer = function(){
+	for (var i=0,len=this.graphicEffects.length;i<len;i++){
+		var g = this.graphicEffects[i];
+		if (!g)
+			continue;
+		
+		var img = this.imagesMan.imageTile(g.image,g.index,0);
+		this.imagesMan.drawImageTile(img, g.x - this.currentView.x, g.y - this.currentView.y);
+		
+		g.index++;
+		if (g.index == img.imgNum){
+			this.graphicEffects.splice(i,1);
+			i--;
+		}
+	}
+};
+
 GraphicRender.prototype.update = function(playerX, playerY){
 	this.ctx.fillStyle = "rgb(0,0,0)";
 	this.ctx.fillRect(0,0,this.ctx.canvas.width,this.ctx.canvas.height);
@@ -98,6 +127,7 @@ GraphicRender.prototype.update = function(playerX, playerY){
 	this.refresh({x: playerX, y: playerY});
 	this.drawTextBuffer();
 	this.drawTextEffectsBuffer();
+	this.drawGraphicEffectsBuffer();
 };
 
 GraphicRender.prototype.addText = function(text, color, fontSize, maxWidth, x, y, measure){
@@ -166,3 +196,12 @@ GraphicRender.prototype.addTextEffect = function(text, fontSize, color, x, y, li
 		mLife: life
 	});
 };
+
+GraphicRender.prototype.addGraphicEffect = function(imageId, x, y){
+	this.graphicEffects.push({
+		image: imageId,
+		x: x,
+		y: y,
+		index: 0
+	});
+}
