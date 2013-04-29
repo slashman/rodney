@@ -47,7 +47,7 @@ function Tiles(imagesClass){
 	this.addTile("LONG_SWORD", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 0, 21));
 	this.addTile("MACE", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 1, 12));
 	this.addTile("SPEAR", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 0, 17));
-	this.addTile("CLAYMORE", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 8, 16));
+	this.addTile("CLAYMORE", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 8, 18));
 	
 	this.addTile("LEATHER", new ut.Tile("]", 255, 255, 55), imagesClass.imageTile("ITEMS", 1, 7));
 	this.addTile("STUDDED", new ut.Tile("]", 255, 255, 55), imagesClass.imageTile("ITEMS", 2, 7));
@@ -70,8 +70,8 @@ function Tiles(imagesClass){
 	//Terrain
 	this.addTerrainTile("#", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 3));
 	this.addTerrainTile(".",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 3));
-	this.addTerrainTile("*", new ut.Tile('#', 255, 0, 0), true, true,false, imagesClass.imageTile("TERRAIN", 0, 3));
-	this.addTerrainTile(",",  new ut.Tile('.', 255, 0, 0), false, false,false, imagesClass.imageTile("TERRAIN", 1, 3));
+	this.addTerrainTile("*", new ut.Tile('#', 255, 0, 0), true, true,false, imagesClass.imageTile("TERRAIN", 0, -3));
+	this.addTerrainTile(",",  new ut.Tile('.', 255, 0, 0), false, false,false, imagesClass.imageTile("TERRAIN", 1, -3));
 	this.addTerrainTile(">", new ut.Tile('>', 170, 0, 0), false, false, true, imagesClass.imageTile("TERRAIN", 4, 3));
 	
 	this.addTerrainTile("^", new ut.Tile('.', 0, 170, 0), false, false, false, imagesClass.imageTile("TERRAIN", 3, 0));
