@@ -181,7 +181,6 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 		if (damage > 0)
 			this.currentWeapon.clash(4);
 	}
-	
 	if (cornered){
 		damage *= 2;
 		attackMessage = "You corner "+enemy.getTheDescription();
@@ -196,6 +195,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 		attackMessage = "You charge against "+enemy.getTheDescription();
 		this.kineticCharge = 0;
 	} 
+	attackMessage += " ("+damage+")";
 	JSRL.ui.showMessage(attackMessage);
 	enemy.hp -= damage;
 	
