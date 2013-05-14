@@ -84,13 +84,31 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 			JSRL.ui.menuCursor--;
 			if (JSRL.ui.menuCursor < 0)
 				JSRL.ui.menuCursor = 0;
-			JSRL.ui.showSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
+			var searching = true;
+			while (searching){
+				if (!JSRL.ui.showSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor])){
+					if (JSRL.ui.menuCursor > 0)
+						JSRL.ui.menuCursor--;
+					else
+						JSRL.ui.menuCursor++;
+				}else
+					searching = false;
+			}
 		} else if (isDown(key)){
 			JSRL.ui.menuCursor++;
 			if (JSRL.ui.menuCursor > JSRL.ui.availableAdvancements.length-1){
 				JSRL.ui.menuCursor = JSRL.ui.availableAdvancements.length-1;
 			}
-			JSRL.ui.showSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
+			var searching = true;
+			while (searching){
+				if (!JSRL.ui.showSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor])){
+					if (JSRL.ui.menuCursor < JSRL.ui.availableAdvancements.length-1)
+						JSRL.ui.menuCursor++;
+					else
+						JSRL.ui.menuCursor--;
+				}else
+					searching = false;
+			}
 		} else if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter" || keyCodeToChar[key] === "V"){
 			JSRL.player.addSkill(JSRL.ui.availableAdvancements[JSRL.ui.menuCursor]);
 			JSRL.ui.mode = 'IN_GAME';
@@ -428,12 +446,18 @@ UI.prototype.tick = function () {
 			}
 		}
 		this.term.putString("Select a skill", 2, 2, 255, 255, 0);
+		var skipSkill = 0;
 		for (var i = 0; i < this.availableAdvancements.length; i++){
-			this.term.putString(this.availableAdvancements[i].name, 5, 4+i, 255, 255, 255);
+			if (this.availableAdvancements[i].requires)
+				if (!JSRL.player.hasSkill(this.availableAdvancements[i].requires)){
+					skipSkill++;
+					continue;
+				}
+			this.term.putString(this.availableAdvancements[i].name, 5, 4+i-skipSkill, 255, 255, 255);
 			if (i === this.menuCursor){
-				this.term.putString("(*)", 2, 4+i, 255, 0, 0);
+				this.term.putString("(*)", 2, 4+i-skipSkill, 255, 0, 0);
 			} else {
-				this.term.putString("   ", 2, 4+i, 255, 0, 0);
+				this.term.putString("   ", 2, 4+i-skipSkill, 255, 0, 0);
 			};
 		}
 		this.term.render();
@@ -579,6 +603,10 @@ UI.prototype.drawSelectItem = function(){
 };
 
 UI.prototype.showSkill = function(skill){
+	if (skill.requires)
+		if (!JSRL.player.hasSkill(skill.requires))
+			return false;
+	
 	this.currentSkillAnimation = {
 		frame: 0,
 		tickCounter: 0,
@@ -588,6 +616,8 @@ UI.prototype.showSkill = function(skill){
 	this.term.clear();
 	this.term.putString(skill.text1, 30, 4, 255, 255, 255);
 	if (skill.text2) this.term.putString(skill.text2, 30, 6, 255, 255, 255);
+	
+	return true;
 };
 
 
