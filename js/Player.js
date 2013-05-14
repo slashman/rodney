@@ -235,6 +235,31 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 		} else {
 			JSRL.ui.showMessage(enemy.getTheDescription(true)+ " dies");
 		}
+		//Add reward for some skills
+		if (this.hasSkill("HEROISM")){
+			var damage = enemy.damageRoll.roll();
+			var recover = 0;
+			if (damage <= 3)
+				recover = 1;
+			else if (damage <= 6)
+				recover = 2;
+			else if (damage <= 9)
+				recover = 3;
+			else if (damage <= 12)
+				recover = 4;
+			else if (damage <= 15)
+				recover = 5;
+			
+			JSRL.ui.showMessage("Recovered "+recover+" hit point");
+			this.hp += recover;
+			if (this.hp > this.maxhp)
+				this.hp = this.maxhp;
+		}else if (this.hasSkill("COURAGE")){
+			JSRL.ui.showMessage("Recovered 1 hit point");
+			this.hp += 1;
+			if (this.hp > this.maxhp)
+				this.hp = this.maxhp;
+		}
 		JSRL.dungeon.removeEnemy(enemy);
 	}
 };
@@ -340,6 +365,18 @@ Player.prototype.doAction = function(){
 	var tile = JSRL.dungeon.getMapTile(this.position.x, this.position.y);
 	if (tile.downstairs){
 		JSRL.dungeon.downstairs();
+		
+		if (this.hasSkill("EXPLORER")){
+			JSRL.ui.showMessage("Recovered 25 hit point");
+			this.hp += 25;
+			if (this.hp > this.maxhp)
+				this.hp = this.maxhp;
+		}else if (this.hasSkill("WANDERER")){
+			JSRL.ui.showMessage("Recovered 10 hit point");
+			this.hp += 10;
+			if (this.hp > this.maxhp)
+				this.hp = this.maxhp;
+		}
 		return true;
 	}
 	var item = JSRL.dungeon.getItem(this.position.x, this.position.y);
