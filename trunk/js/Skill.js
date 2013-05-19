@@ -217,8 +217,8 @@ Skills.skills =
  {
 	 skillId: "SLASH",
 	 name: "Slash",
-	 text1: 
-		 "Pass by an enemy while attacking",
+	 text1: "Pass by an enemy while attacking",
+	 text2: "Damage increased by 50%.",	 
 	animation: 
 		[
 [
@@ -270,7 +270,9 @@ Skills.skills =
 	 name: "Backslash",
 	 text1: 
 		 "Pass by two enemies while attacking",
-	animation: 
+	 text2: "Damage increased by 50%.",
+
+		 animation: 
 		[
 [
 "#########",  
@@ -669,7 +671,7 @@ Skills.skills =
 	 skillId: "SWEEP",
 	 name: "Sweep",
 	 text1: "Hit the three positions in front of you.",
-	 text2: "Damage increased 50%.",
+	 text2: "Damage increased by 50%.",
 	animation: 
 		[
 [
