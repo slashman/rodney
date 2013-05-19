@@ -207,6 +207,8 @@ Dungeon.prototype.tryMoveEnemyTo = function (enemy, destinationPosition){
 Dungeon.prototype.dungeonTurn = function(){
 	for (var i = 0; i < this.enemies.length; i++){
 		this.enemies[i].enemyAI();
+		if (this.enemies[i].doubleSpeed)
+			this.enemies[i].enemyAI();
 	}
 };
 

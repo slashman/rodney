@@ -1,4 +1,4 @@
-function Enemy(monsterId, name, hp, tileId, damageRoll){
+function Enemy(monsterId, name, hp, tileId, damageRoll, doubleSpeed){
 	this.monsterId = monsterId;
 	this.name = name;
 	this.hp = hp;
@@ -8,6 +8,7 @@ function Enemy(monsterId, name, hp, tileId, damageRoll){
 	this.damageRoll = damageRoll;
 	this.aiType = "SIMPLE";
 	this.wasHit = false;
+	this.doubleSpeed = doubleSpeed;
 }
 
 Enemy.prototype.enemyAI = function (){
