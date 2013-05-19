@@ -20,9 +20,10 @@ function Tiles(imagesClass){
 	this.addTile("MIMIC", new ut.Tile("m", 170, 0, 0), imagesClass.imageTile("MONSTERS48", 1, 1));
 	this.addTile("NYMPH", new ut.Tile("n", 55, 55, 255), imagesClass.imageTile("MONSTERS32", 4, 3));
 	this.addTile("ORC", new ut.Tile("o", 0, 170, 0), imagesClass.imageTile("MONSTERS32", 5, 1));
+	this.addTile("GOLEM", new ut.Tile("G", 0, 170, 0), imagesClass.imageTile("MONSTERS48", 2, 2));	
 	this.addTile("PURPLE_WORM", new ut.Tile("P", 255, 55, 255), imagesClass.imageTile("MONSTERS48", 2, 3));
 	this.addTile("QUASIT", new ut.Tile("q", 170, 0, 0), imagesClass.imageTile("MONSTERS32", 5, 4));
-	this.addTile("RUST_MONSTER", new ut.Tile("R", 55, 255, 55), imagesClass.imageTile("MONSTERS48", 2, 2));
+	this.addTile("RUST_MONSTER", new ut.Tile("R", 55, 255, 55), imagesClass.imageTile("MONSTERS32", 8, 4));
 	this.addTile("SNAKE", new ut.Tile("s", 0, 170, 0), imagesClass.imageTile("MONSTERS32", 0, 8));
 	this.addTile("TROLL", new ut.Tile("W", 0, 170, 0), imagesClass.imageTile("MONSTERS48", 6, 0));
 	this.addTile("UMBER_HULK", new ut.Tile("U", 55, 55, 55), imagesClass.imageTile("MONSTERS48", 0, 2));

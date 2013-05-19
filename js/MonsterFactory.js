@@ -16,6 +16,7 @@ function MonsterFactory(){
 	this.addMonsterDefinition("MIMIC", "Mimic", new Roll(7,8,0), 19, 50, new Roll(3,4,0), false);
 	this.addMonsterDefinition("NYMPH", "Nymph", new Roll(3,4,0), 11, 20, new Roll(0,0,0), false);
 	this.addMonsterDefinition("ORC", "Orc", new Roll(2,6,4), 4, 13, new Roll(1,8,1), false);
+	this.addMonsterDefinition("GOLEM", "Golem", new Roll(10,6,4), 4, 13, new Roll(1,3,0), false);
 	this.addMonsterDefinition("PURPLE_WORM", "Purple Worm", new Roll(15,8,0), 21, 50, new Roll(2,12,4), false);
 	this.addMonsterDefinition("QUASIT", "Quasit", new Roll(3,4,0), 10, 19, new Roll(2,4,0), true);
 	this.addMonsterDefinition("RUST_MONSTER", "Rust Monster", new Roll(5,8,0), 9, 18, new Roll(0,0,0), false);
