@@ -668,8 +668,8 @@ Skills.skills =
  {
 	 skillId: "SWEEP",
 	 name: "Sweep",
-	 text1: 
-		 "Hit the three positions in front of you.",
+	 text1: "Hit the three positions in front of you.",
+	 text2: "Damage increased 50%.",
 	animation: 
 		[
 [
