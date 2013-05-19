@@ -674,11 +674,11 @@ Player.prototype.trySlash = function(movedir, buildupBonus){
 	var m1= JSRL.dungeon.getEnemy(this.position.x + directionCycle[index1].x, this.position.y + directionCycle[index1].y);
 	var m2= JSRL.dungeon.getEnemy(this.position.x + directionCycle[index2].x, this.position.y + directionCycle[index2].y);
 	if (m1){
-		this.attackEnemy(m1, false, false, false, true, directionCycle[index1], false, buildupBonus, 1);
+		this.attackEnemy(m1, false, false, false, true, directionCycle[index1], false, buildupBonus, 1.5);
 	} 
 	if (!m1 || !once){
 		if (m2)
-			this.attackEnemy(m2, false, false, false, true, directionCycle[index2], false, buildupBonus, 1);
+			this.attackEnemy(m2, false, false, false, true, directionCycle[index2], false, buildupBonus, 1.5);
 	}
 };
 
