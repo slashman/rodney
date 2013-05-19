@@ -731,6 +731,42 @@ Skills.skills =
 	]
  },
  {
+	 skillId: "PARRY",	 
+	 name: "Parry",
+	 text1: "Block 50% damage from your active enemy",
+	 hasActions: true,
+	 animation: 
+				[
+	[
+	"#########",  
+	"#.......#",
+	"#..@j...#",
+	"#.......#",
+	"#.......#",
+	"#########",
+	"         "
+	],	
+	[
+	"#########",  
+	"#.......#",
+	"#..@*...#",
+	"#.......#",
+	"#.......#",
+	"#########",
+	" Attack  "
+	],
+	[
+	"#########",  
+	"#..!....#",
+	"#..*j...#",
+	"#.......#",
+	"#.......#",
+	"#########",
+	" Parry!  "
+	]
+]	
+ },
+ {
 	 skillId: "DESTRUCTION",
 	 name: "Butcher",
 	 text1:  "Increase Strength by 3",
