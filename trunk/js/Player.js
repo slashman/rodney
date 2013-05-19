@@ -132,7 +132,7 @@ Player.prototype.remember = function (x,y){
 		this.memoryMap[x][y] = true;
 };
 
-Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornered, spinSlash, slashthru, attackDirection, buildupBonus){
+Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornered, spinSlash, slashthru, attackDirection, buildupBonus, multiplier){
 	if (enemy.aiType === "NETWORK"){
 		JSRL.ui.showMessage("You bump into "+enemy.name);
 		return;
@@ -196,6 +196,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 		attackMessage = "You charge against "+enemy.getTheDescription();
 		this.kineticCharge = 0;
 	} 
+	damage *= multiplier;
 	attackMessage += " ("+damage+")";
 	JSRL.ui.showMessage(attackMessage);
 	enemy.hp -= damage;
@@ -516,7 +517,7 @@ Player.prototype.tryMoving = function (movedir){
 		}
 		
 		// Bump into enemy!
-		this.attackEnemy(enemy, kineticChargeTransferred, cornered, spinSlash, false, movedir, buildupBonus);
+		this.attackEnemy(enemy, kineticChargeTransferred, cornered, spinSlash, false, movedir, buildupBonus, 1);
 		
 		if (this.hasSkill("SWEEP")){
 			//Check for the other enemies
@@ -537,11 +538,11 @@ Player.prototype.tryMoving = function (movedir){
 			}
 			var xenemy = JSRL.dungeon.getEnemy(landingPosition1.x, landingPosition1.y);
 			if (xenemy){
-				this.attackEnemy(xenemy, false, false, false, false, movedir, buildupBonus);
+				this.attackEnemy(xenemy, false, false, false, false, movedir, buildupBonus, 1.5);
 			}
 			xenemy = JSRL.dungeon.getEnemy(landingPosition2.x, landingPosition2.y);
 			if (xenemy){
-				this.attackEnemy(xenemy, false, false, false, false, movedir, buildupBonus);
+				this.attackEnemy(xenemy, false, false, false, false, movedir, buildupBonus, 1.5);
 			}
 
 		}
@@ -673,11 +674,11 @@ Player.prototype.trySlash = function(movedir, buildupBonus){
 	var m1= JSRL.dungeon.getEnemy(this.position.x + directionCycle[index1].x, this.position.y + directionCycle[index1].y);
 	var m2= JSRL.dungeon.getEnemy(this.position.x + directionCycle[index2].x, this.position.y + directionCycle[index2].y);
 	if (m1){
-		this.attackEnemy(m1, false, false, false, true, directionCycle[index1], false, buildupBonus);
+		this.attackEnemy(m1, false, false, false, true, directionCycle[index1], false, buildupBonus, 1);
 	} 
 	if (!m1 || !once){
 		if (m2)
-			this.attackEnemy(m2, false, false, false, true, directionCycle[index2], false, buildupBonus);
+			this.attackEnemy(m2, false, false, false, true, directionCycle[index2], false, buildupBonus, 1);
 	}
 };
 
