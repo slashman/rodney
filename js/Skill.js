@@ -840,7 +840,7 @@ Skills.skills =
  {
 	 skillId: "COURAGE",
 	 name: "Courage",
-	 text1:  "recover 1 hit point for defeating an enemy",
+	 text1:  "Recover 1 HP for defeating an enemy",
 	 animation: [
 		[
 			"#########",  
@@ -863,7 +863,7 @@ Skills.skills =
 			"#.......#",
 			"#..@....#",
 			"#.......#",
-			"#..HP+..#",
+			"#..HP++.#",
 			"#########",
 		]
 	]
@@ -871,8 +871,8 @@ Skills.skills =
  {
 	 skillId: "HEROISM",
 	 name: "Heroism",
-	 text1:  "recover between 1 and 5 hp for defeating enemies.",
-	 requires: "COURAGE",
+	 text1:  "Recover 1 to 5 HP for defeating enemies.",
+	 requirements: ["COURAGE"],
 	 animation: [
 		[
 			"#########",  
@@ -903,7 +903,7 @@ Skills.skills =
  {
 	 skillId: "WANDERER",
 	 name: "Wanderer",
-	 text1:  "recover 10 hit points for entering a new floor.",
+	 text1:  "Recover 10 HP for entering a new floor.",
 	 animation: [
 		[
 			"#########",  
@@ -926,7 +926,7 @@ Skills.skills =
 			"#.......#",
 			"#.......#",
 			"#....@..#",
-			"#.hp+10.#",
+			"#.HP+10.#",
 			"#########",
 		]
 	]
@@ -934,8 +934,8 @@ Skills.skills =
  {
 	 skillId: "EXPLORER",
 	 name: "Explorer",
-	 text1:  "recover 25 hit points for entering a new floor.",
-	 requires: "WANDERER",
+	 text1:  "Recover 25 HP for entering a new floor.",
+	 requirements: ["WANDERER"],
 	 animation: [
 		[
 			"#########",  
@@ -958,7 +958,7 @@ Skills.skills =
 			"#.......#",
 			"#.......#",
 			"#....@..#",
-			"#.hp+25.#",
+			"#.HP+25.#",
 			"#########",
 		]
 	]
