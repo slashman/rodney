@@ -249,13 +249,14 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 				recover = 4;
 			else if (damage <= 15)
 				recover = 5;
-			
-			JSRL.ui.showMessage("Recovered "+recover+" hit point");
+			if (recover > 0 && this.hp < this.maxhp)
+				JSRL.ui.showMessage("[+"+recover+"HP]");
 			this.hp += recover;
 			if (this.hp > this.maxhp)
 				this.hp = this.maxhp;
 		}else if (this.hasSkill("COURAGE")){
-			JSRL.ui.showMessage("Recovered 1 hit point");
+			if (this.hp < this.maxhp)
+				JSRL.ui.showMessage("[+1HP]");
 			this.hp += 1;
 			if (this.hp > this.maxhp)
 				this.hp = this.maxhp;
@@ -367,12 +368,14 @@ Player.prototype.doAction = function(){
 		JSRL.dungeon.downstairs();
 		
 		if (this.hasSkill("EXPLORER")){
-			JSRL.ui.showMessage("Recovered 25 hit point");
+			if (this.hp < this.maxhp)
+				JSRL.ui.showMessage("[+25HP]");
 			this.hp += 25;
 			if (this.hp > this.maxhp)
 				this.hp = this.maxhp;
 		}else if (this.hasSkill("WANDERER")){
-			JSRL.ui.showMessage("Recovered 10 hit point");
+			if (this.hp < this.maxhp)
+				JSRL.ui.showMessage("[+10HP]");
 			this.hp += 10;
 			if (this.hp > this.maxhp)
 				this.hp = this.maxhp;
