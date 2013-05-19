@@ -132,7 +132,7 @@ Player.prototype.remember = function (x,y){
 		this.memoryMap[x][y] = true;
 };
 
-Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornered, spinSlash, slashthru, attackDirection){
+Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornered, spinSlash, slashthru, attackDirection, buildupBonus){
 	if (enemy.aiType === "NETWORK"){
 		JSRL.ui.showMessage("You bump into "+enemy.name);
 		return;
@@ -150,13 +150,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	enemy.wasHit = true;
 	JSRL.ui.graph.addGraphicEffect("HIT",enemy.position.x,enemy.position.y);
 	JSRL.sounds.getSound("SND_SWORD").copyPlay();
-	var buildupBonus = 0;
-	if (this.hasSkill("BUILDUP")){
-		if (this.buildUpCounter > 0)
-			buildupBonus = Math.round(this.buildUpCounter);
-		if (buildupBonus > 4)
-			buildupBonus = 4;
-	}
+
 	
 	if (this.hasSkill("BASH") && !cornered){
 		if (chance(20)){
@@ -174,12 +168,19 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	if (damage < 1) damage = 1;
 	
 	damage += rageBonus;
-	damage += buildupBonus;
+	var buildUpMultiplier = buildupBonus / 2;
+	if (buildUpMultiplier > 0)
+		damage *= buildUpMultiplier;
 	
 	if (this.currentWeapon){
 		damage += this.currentWeapon.damageRoll.roll();
-		if (damage > 0)
-			this.currentWeapon.clash(4);
+		if (damage > 0){
+			if (buildUpMultiplier > 0){
+				this.currentWeapon.clash(40);
+			} else {
+				this.currentWeapon.clash(4);
+			}
+		}
 	}
 	if (cornered){
 		damage *= 2;
@@ -508,8 +509,17 @@ Player.prototype.tryMoving = function (movedir){
 		if (this.hasSkill("SPIN") && this.currentWeapon){
 			spinSlash = this.lastAttackDir && oppositeDirection(movedir, this.lastAttackDir);
 		}
+		
+		var buildupBonus = 0;
+		if (this.hasSkill("BUILDUP")){
+			if (this.buildUpCounter > 0)
+				buildupBonus = Math.round(this.buildUpCounter);
+			if (buildupBonus > 4)
+				buildupBonus = 4;
+		}
+		
 		// Bump into enemy!
-		this.attackEnemy(enemy, kineticChargeTransferred, cornered, spinSlash, false, movedir);
+		this.attackEnemy(enemy, kineticChargeTransferred, cornered, spinSlash, false, movedir, buildupBonus);
 		
 		if (this.hasSkill("SWEEP")){
 			//Check for the other enemies
@@ -530,11 +540,11 @@ Player.prototype.tryMoving = function (movedir){
 			}
 			var xenemy = JSRL.dungeon.getEnemy(landingPosition1.x, landingPosition1.y);
 			if (xenemy){
-				this.attackEnemy(xenemy, false, false, false, false, movedir);
+				this.attackEnemy(xenemy, false, false, false, false, movedir, buildupBonus);
 			}
 			xenemy = JSRL.dungeon.getEnemy(landingPosition2.x, landingPosition2.y);
 			if (xenemy){
-				this.attackEnemy(xenemy, false, false, false, false, movedir);
+				this.attackEnemy(xenemy, false, false, false, false, movedir, buildupBonus);
 			}
 
 		}
@@ -598,9 +608,18 @@ Player.prototype.tryMoving = function (movedir){
 		}
 	} else {
 		this.rageCounter = 0;
+		
+		var buildupBonus = 0;
+		if (this.hasSkill("BUILDUP")){
+			if (this.buildUpCounter > 0)
+				buildupBonus = Math.round(this.buildUpCounter);
+			if (buildupBonus > 4)
+				buildupBonus = 4;
+		}
+		
 		// Check if slashing through #SLASH #BACKSLASH
 		if (this.currentWeapon && this.hasSkill("SLASH") || this.hasSkill("BACKSLASH")){
-			this.trySlash(movedir);
+			this.trySlash(movedir, buildupBonus);
 		}
 		var addBlood = JSRL.dungeon.hasBlood(this.position) && chance(30);
 		this.position.x = x;
@@ -640,7 +659,7 @@ var directionCycle = [
                       {x: 1, y: 1}
                       ];
 
-Player.prototype.trySlash = function(movedir){
+Player.prototype.trySlash = function(movedir, buildupBonus){
 	if (movedir.x === 0 && movedir.y === 0)
 		return;
 	var once = !this.hasSkill("BACKSLASH");
@@ -660,11 +679,11 @@ Player.prototype.trySlash = function(movedir){
 	var m1= JSRL.dungeon.getEnemy(this.position.x + directionCycle[index1].x, this.position.y + directionCycle[index1].y);
 	var m2= JSRL.dungeon.getEnemy(this.position.x + directionCycle[index2].x, this.position.y + directionCycle[index2].y);
 	if (m1){
-		this.attackEnemy(m1, false, false, false, true, directionCycle[index1]);
+		this.attackEnemy(m1, false, false, false, true, directionCycle[index1], false, buildupBonus);
 	} 
 	if (!m1 || !once){
 		if (m2)
-			this.attackEnemy(m2, false, false, false, true, directionCycle[index2]);
+			this.attackEnemy(m2, false, false, false, true, directionCycle[index2], false, buildupBonus);
 	}
 };
 
