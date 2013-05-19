@@ -168,14 +168,13 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 	if (damage < 1) damage = 1;
 	
 	damage += rageBonus;
-	var buildUpMultiplier = buildupBonus / 2;
-	if (buildUpMultiplier > 0)
-		damage *= buildUpMultiplier;
+	if (buildupBonus > 0)
+		damage *= buildupBonus;
 	
 	if (this.currentWeapon){
 		damage += this.currentWeapon.damageRoll.roll();
 		if (damage > 0){
-			if (buildUpMultiplier > 0){
+			if (buildupBonus > 0){
 				this.currentWeapon.clash(40);
 			} else {
 				this.currentWeapon.clash(4);
@@ -464,7 +463,7 @@ Player.prototype.dropItem = function (item){
 
 Player.prototype.standFast = function(){
 	this.kineticCharge = 0;
-	if (this.hasSkill("BUILDUP")){
+	if (this.hasSkill("BUILDUP") || this.hasSkill("RIPOSTE")){
 		this.buildUpCounter++;
 		JSRL.ui.showMessage("You stand fast building up!");
 	} else {
@@ -511,11 +510,8 @@ Player.prototype.tryMoving = function (movedir){
 		}
 		
 		var buildupBonus = 0;
-		if (this.hasSkill("BUILDUP")){
-			if (this.buildUpCounter > 0)
-				buildupBonus = Math.round(this.buildUpCounter);
-			if (buildupBonus > 4)
-				buildupBonus = 4;
+		if (this.hasSkill("BUILDUP") && this.buildUpCounter > 0){
+			buildupBonus = 2;
 		}
 		
 		// Bump into enemy!
@@ -610,11 +606,8 @@ Player.prototype.tryMoving = function (movedir){
 		this.rageCounter = 0;
 		
 		var buildupBonus = 0;
-		if (this.hasSkill("BUILDUP")){
-			if (this.buildUpCounter > 0)
-				buildupBonus = Math.round(this.buildUpCounter);
-			if (buildupBonus > 4)
-				buildupBonus = 4;
+		if (this.hasSkill("BUILDUP") && this.buildUpCounter > 0){
+				buildupBonus = 2;
 		}
 		
 		// Check if slashing through #SLASH #BACKSLASH
