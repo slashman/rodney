@@ -186,7 +186,7 @@ Enemy.prototype.attackPlayer = function(){
 		} else if(JSRL.player.hasSkill("RIPOSTE")){
 			if (JSRL.player.buildUpCounter > 0){
 				JSRL.ui.showMessage("You riposte!");
-				JSRL.player.attackEnemy(this, false, false, false, false, directionToEnemy, 4, 1);
+				JSRL.player.attackEnemy(this, false, false, false, directionToEnemy, 4, 1);
 			}
 		}
 	}
