@@ -7,26 +7,26 @@ function MonsterFactory(){
 	this.addMonsterDefinition("DRAGON", "Demon", new Roll(10,8,0), 22, 50, new Roll(4,10,5));
 	this.addMonsterDefinition("FLOATING_EYE", "Floating Skull", new Roll(1,8,0), 2, 11, new Roll(0,0,0));
 	this.addMonsterDefinition("VIOLET_FUNGI", "Deadly Flower", new Roll(6,8,0), 15, 24, new Roll(1,6,0));
-	this.addMonsterDefinition("GNOME", "Gnome", new Roll(1,8,2), 6, 15, new Roll(1,6,1));
-	this.addMonsterDefinition("HOBGOBLIN", "Hobgoblin", new Roll(2,4,1), 1, 10, new Roll(1,8,2));
+	this.addMonsterDefinition("GNOME", "Gnome", new Roll(2,4,2), 6, 15, new Roll(1,6,1));
+	this.addMonsterDefinition("HOBGOBLIN", "Hobgoblin", new Roll(2,4,3), 1, 10, new Roll(1,8,2));
 	this.addMonsterDefinition("INVISIBLE_STALKER", "Invisible Stalker", new Roll(3,8,0), 16, 25, new Roll(2,4,0));
-	this.addMonsterDefinition("JACKAL", "Jackal", new Roll(1,8,2), 1, 7, new Roll(1,2,0));
+	this.addMonsterDefinition("JACKAL", "Jackal", new Roll(1,8,4), 1, 7, new Roll(1,2,0));
 	this.addMonsterDefinition("KOBOLD", "Lizardman", new Roll(2,4,2), 1, 6, new Roll(1,4,0));
 	this.addMonsterDefinition("LEPRECHAUN", "Leprechaun", new Roll(3,8,0), 7, 16, new Roll(1,1,0));
 	this.addMonsterDefinition("MIMIC", "Mimic", new Roll(7,8,0), 19, 50, new Roll(3,4,0));
 	this.addMonsterDefinition("NYMPH", "Nymph", new Roll(3,4,0), 11, 20, new Roll(0,0,0));
-	this.addMonsterDefinition("ORC", "Orc", new Roll(2,6,2), 4, 13, new Roll(1,8,1));
+	this.addMonsterDefinition("ORC", "Orc", new Roll(2,6,4), 4, 13, new Roll(1,8,1));
 	this.addMonsterDefinition("PURPLE_WORM", "Purple Worm", new Roll(15,8,0), 21, 50, new Roll(2,12,4));
 	this.addMonsterDefinition("QUASIT", "Quasit", new Roll(3,8,0), 10, 19, new Roll(2,4,0));
 	this.addMonsterDefinition("RUST_MONSTER", "Rust Monster", new Roll(5,8,0), 9, 18, new Roll(0,0,0));
-	this.addMonsterDefinition("SNAKE", "Snake", new Roll(1,8,0), 1, 9, new Roll(1,3,0));
+	this.addMonsterDefinition("SNAKE", "Snake", new Roll(1,8,2), 1, 9, new Roll(1,3,0));
 	this.addMonsterDefinition("TROLL", "Giant Wolf", new Roll(6,8,0), 13, 22, new Roll(2,8,3));
 	this.addMonsterDefinition("UMBER_HULK", "Umber Hulk", new Roll(8,6,0), 18, 50, new Roll(6,4,3));
 	this.addMonsterDefinition("VAMPIRE", "Witch", new Roll(8,6,0), 20, 50, new Roll(1,10,0));
 	this.addMonsterDefinition("WRAITH", "Wraith", new Roll(5,6,0), 14, 23, new Roll(1,6,0));
 	this.addMonsterDefinition("XORN", "Xorn", new Roll(7,8,0), 17, 26, new Roll(4,3,6));
 	this.addMonsterDefinition("YETI", "Minotaur", new Roll(4,8,0), 12, 21, new Roll(2,6,0));
-	this.addMonsterDefinition("ZOMBIE", "Zombie", new Roll(2,8,0), 5, 14, new Roll(1,8,0));
+	this.addMonsterDefinition("ZOMBIE", "Zombie", new Roll(2,8,2), 5, 14, new Roll(1,8,0));
 	
 	this.addMonsterDefinition("RODNEY", "Rodney", new Roll(60,3,0), -1, -1, new Roll(3,3,3));
 	
