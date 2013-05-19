@@ -170,7 +170,14 @@ Enemy.prototype.attackPlayer = function(){
 		}
 		JSRL.ui.graph.addGraphicEffect("HIT",JSRL.player.position.x,JSRL.player.position.y);
 		JSRL.sounds.getSound("SND_SWORD").copyPlay();
-		JSRL.player.damage(this.damageRoll.roll());
+		var damage = this.damageRoll.roll();
+		if (JSRL.player.hasSkill("PARRY")){
+			if (this == JSRL.player.currentTarget){
+				JSRL.ui.showMessage("You parry the attack.");
+				damage /= 2;
+			}
+		}
+		JSRL.player.damage(damage);
 		if (JSRL.player.hasSkill("COUNTER")){
 			if (chance(20)){
 				JSRL.ui.showMessage("You counter attack.");

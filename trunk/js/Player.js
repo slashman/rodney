@@ -137,6 +137,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 		JSRL.ui.showMessage("You bump into "+enemy.name);
 		return;
 	}
+	this.currentTarget = enemy;
 	var rageBonus = 0;
 	if (this.hasSkill("RAGE")){
 		this.rageCounter++;
