@@ -176,6 +176,11 @@ Enemy.prototype.attackPlayer = function(){
 				JSRL.ui.showMessage("You counter attack.");
 				JSRL.player.tryMoving(directionToEnemy);
 			}
+		} else if(JSRL.player.hasSkill("RIPOSTE")){
+			if (JSRL.player.buildUpCounter > 0){
+				JSRL.ui.showMessage("You riposte!");
+				JSRL.player.attackEnemy(this, false, false, false, false, directionToEnemy, 4);
+			}
 		}
 	}
 	
