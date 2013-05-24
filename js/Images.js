@@ -1,6 +1,6 @@
 function Images(mapScale){
 	this.images = {};
-	this.mapScale = mapScale
+	this.mapScale = mapScale;
 	
 	this.addImage("TERRAIN", this.loadImage("img/crl_terrain.gif", {imgNum: 20, vImgNum: 13, offsetL: 16, offsetT: 33}));
 	this.addImage("TERRAIN_NIGHT", this.loadImage("img/crl_terrain_night_d.gif", {imgNum: 20, vImgNum: 13, offsetL: 16, offsetT: 33}));
