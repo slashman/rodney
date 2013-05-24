@@ -7,7 +7,7 @@ function Dungeon(){
 Dungeon.prototype.getMapTile = function (x,y){
 	var t = "";
 	try { 
-		t = this.map[y][x]; 
+		t = this.map[x][y]; 
 	}
 	catch(err) {
 		return null; 
@@ -16,18 +16,18 @@ Dungeon.prototype.getMapTile = function (x,y){
 };
 
 Dungeon.prototype.getHeight = function (x,y){
-	return this.map.length;
+	return this.map[0].length;
 };
 
 Dungeon.prototype.getWidth = function (x,y){
-	return this.map[0].length;
+	return this.map.length;
 };
 
 Dungeon.prototype.getDisplayedTile = function (x, y) {
 	// Terrain
 	var t = "";
 	try {
-		t = this.map[y][x]; 
+		t = this.map[x][y]; 
 	} catch(err) {
 		return ut.NULLTILE; 
 	}
@@ -79,13 +79,16 @@ Dungeon.prototype.getTerrainTile = function (x, y) {
 	// Terrain
 	var t = "";
 	try {
-		t = this.map[y][x]; 
+		t = this.map[x][y]; 
 	} catch(err) {
 		return ut.NULLTILE; 
 	}
 	var ret = false;
 	if (JSRL.player.isSeeing(x,y)){
 		if (JSRL.player.getLightRange() > 0){
+			if (!JSRL.tiles.getTerrainTile(t)){
+				console.log("invalid terrain tile: "+t);
+			}
 			ret = JSRL.tiles.getTerrainTile(t).utTile;
 			ret.itType = 0;
 		}else{
@@ -109,7 +112,7 @@ Dungeon.prototype.getOverlayTile = function (x, y) {
 	// Terrain
 	var t = "";
 	try {
-		t = this.map[y][x]; 
+		t = this.map[x][y]; 
 	} catch(err) {
 		return ut.NULLTILE; 
 	}
@@ -311,10 +314,10 @@ Dungeon.prototype.splashBlood = function(position, splashSize){
 
 Dungeon.prototype.addBlood = function(position){
 	var tile = this.getMapTile(position.x, position.y);
-	if (tile.tileId === ".")
+	/*if (tile.tileId === ".")
 		this.changeTile(position, ',');
 	else if (tile.tileId === "#")
-		this.changeTile(position, '*');
+		this.changeTile(position, '*');*/
 };
 
 Dungeon.prototype.hasBlood = function(position){
@@ -323,7 +326,7 @@ Dungeon.prototype.hasBlood = function(position){
 };
 
 Dungeon.prototype.changeTile = function (position, tile){
-	this.map[position.y] = this.map[position.y].replaceAt(position.x, tile);
+	this.map[position.x][position.y] = tile;
 };
 
 Dungeon.prototype.getFreePlace = function(){

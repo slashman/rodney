@@ -25,7 +25,8 @@ FeatureCarveGenerator.prototype.createLevel = function (depth){
 	var addExit = true;
 	if (rodneyLevel || rbLevel)
 		addExit = false;
-	JSRL.dungeon.setMap(this.generateLevel(9, '#', '.', '.', 60, 60, addExit));
+	var theme = rand(1,6);
+	JSRL.dungeon.setMap(this.generateLevel(9, 'W'+theme, 'F'+theme, 'F'+theme, 60, 60, addExit));
 
 	if (rodneyLevel){
 		var rodney = JSRL.monsterFactory.createMonster("RODNEY");
@@ -186,7 +187,7 @@ FeatureCarveGenerator.prototype.generateLevel = function (numberOfRooms, solidCe
 		};
 	}
 	
-	var levelMap = new Array();
+	/*var levelMap = new Array();
 	for (var y = 0; y < this.getLevelHeight(); y++){
 		for (var x = 0; x < this.getLevelWidth(); x++){
 			if (levelMap[y] == null) 
@@ -194,7 +195,8 @@ FeatureCarveGenerator.prototype.generateLevel = function (numberOfRooms, solidCe
 			else levelMap[y] += this.preLevel[x][y];  
 		}
 	}		
-	ret = levelMap;
+	ret = levelMap;*/
+	ret = this.preLevel;
 	if (addExit){
 		var entrance = {x: 0, y: 0};
 		var exit = {x: 0, y: 0};
@@ -230,7 +232,8 @@ FeatureCarveGenerator.prototype.generateLevel = function (numberOfRooms, solidCe
 };
 	
 FeatureCarveGenerator.prototype.addExit = function (ret, exit){
-	ret[exit.y] = ret[exit.y].replaceAt(exit.x, '>');
+	//ret[exit.y] = ret[exit.y].replaceAt(exit.x, '>');
+	ret[exit.x][exit.y] = '>';
 };
 
 FeatureCarveGenerator.prototype.addEntrance = function (ret, entrance){
@@ -238,18 +241,18 @@ FeatureCarveGenerator.prototype.addEntrance = function (ret, entrance){
 };
 
 FeatureCarveGenerator.prototype.isExitPlaceable = function (position){
-	if (this.preLevel[position.x][position.y] !== '.')
+	if (this.preLevel[position.x][position.y].charAt(0) !== 'F')
 		return false;
 	// Check for borders
 	if (position.x === 0 || position.y === 0 || position.x === this.preLevel.length - 1 || position.y === this.preLevel[0].length - 1)
 		return false;
 	// Check for corridors (Don't add exits on corridors)
-	if (this.preLevel[position.x - 1][position.y] !== '.' || 
-		this.preLevel[position.x + 1][position.y] !== '.' ||
-		this.preLevel[position.x ][position.y + 1] !== '.' ||
-		this.preLevel[position.x ][position.y - 1] !== '.')
+	if (this.preLevel[position.x - 1][position.y].charAt(0) !== 'F' || 
+		this.preLevel[position.x + 1][position.y].charAt(0) !== 'F' ||
+		this.preLevel[position.x ][position.y + 1].charAt(0) !== 'F' ||
+		this.preLevel[position.x ][position.y - 1].charAt(0) !== 'F')
 		return false;
-	return true
+	return true;
 };
 
 FeatureCarveGenerator.prototype.getLevelWidth = function (){

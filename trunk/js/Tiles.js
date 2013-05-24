@@ -69,12 +69,26 @@ function Tiles(imagesClass){
 	this.addTile("YENDOR", new ut.Tile("\"", 255, 255, 55), imagesClass.imageTile("ITEMS", 5, 1));
 	
 	//Terrain
-	this.addTerrainTile("#", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 3));
-	this.addTerrainTile(".",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 3));
-	this.addTerrainTile("*", new ut.Tile('#', 255, 0, 0), true, true,false, imagesClass.imageTile("TERRAIN", 0, -3));
-	this.addTerrainTile(",",  new ut.Tile('.', 255, 0, 0), false, false,false, imagesClass.imageTile("TERRAIN", 1, -3));
+	this.addTerrainTile("W1", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 3));
+	this.addTerrainTile("F1",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 3));
+	this.addTerrainTile("W2", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 4));
+	this.addTerrainTile("F2",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 2, 4));
+	this.addTerrainTile("W3", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 5));
+	this.addTerrainTile("F3",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 5));
+	this.addTerrainTile("W4", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 6));
+	this.addTerrainTile("F4",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 6));
+	this.addTerrainTile("W5", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 9));
+	this.addTerrainTile("F5",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 9));
+	this.addTerrainTile("W6", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 11));
+	this.addTerrainTile("F6",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 11));
+	
 	this.addTerrainTile(">", new ut.Tile('>', 170, 0, 0), false, false, true, imagesClass.imageTile("TERRAIN", 4, 3));
 	
+	//Bloody terrain
+	this.addTerrainTile("WB", new ut.Tile('#', 255, 0, 0), true, true,false, imagesClass.imageTile("TERRAIN", 0, -3));
+	this.addTerrainTile("FB",  new ut.Tile('.', 255, 0, 0), false, false,false, imagesClass.imageTile("TERRAIN", 1, -3));
+	
+	// Overworld
 	this.addTerrainTile("^", new ut.Tile('.', 0, 170, 0), false, false, false, imagesClass.imageTile("TERRAIN", 3, 0));
 	this.addTerrainTile("t", new ut.Tile('T', 170, 55, 0), true, false, false, imagesClass.imageTile("TERRAIN", 11, 0));
 	this.addTerrainTile("-", new ut.Tile('*', 170, 55, 0), true, true, false, imagesClass.imageTile("TERRAIN", 0, 6));
