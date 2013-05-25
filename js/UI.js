@@ -31,6 +31,10 @@ UI.prototype.onKeyDown = function (keyboardEvent) {
 	if (keyLock)
 		return;
 	keyLock = true;
+	if (!JSRL.ui.inputEnabled){
+		keyLock = false;
+		return;
+	}
 	if (window.event)
 		keyboardEvent = window.event;
 	var keyCode = keyCodeToChar[keyboardEvent.keyCode];
@@ -41,12 +45,7 @@ UI.prototype.onKeyDown = function (keyboardEvent) {
 			keyboardEvent.returnValue = false; // IEs
 			event.returnValue = false; // IE8
 		}
-	}
-	if (!JSRL.ui.inputEnabled){
-		keyLock = false;
-		return;
-	}
-	
+	}	
 	if (keyCode === "Ctrl" || keyCode === "Shift" || keyCode === "Alt" || keyCode === "Tab"){
 		//Yawn
 		keyLock = false;
