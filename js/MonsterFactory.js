@@ -1,10 +1,10 @@
 function MonsterFactory(){
 	this.monsterDefinitions = {};
 	this.levelMaps = {};
-	this.addMonsterDefinition("WHITE_TROOPER", "Stormtrooper", new Roll(2,4,0), 3,12, new Roll(1,6,1), false);
-	this.addMonsterDefinition("BLACK_TROOPER", "Black Trooper", new Roll(1,8,1), 1, 8, new Roll(1,2,0), false);
-	this.addMonsterDefinition("ELITE_TROOPER", "Elite Trooper", new Roll(4,8,0), 8, 17, new Roll(2,8,2), false);
-	this.addMonsterDefinition("IMPERIAL_ROBOT_1", "Imperial Robot", new Roll(4,8,0), 8, 17, new Roll(2,8,2), false);
+	this.addMonsterDefinition("WHITE_TROOPER", "Stormtrooper", new Roll(2,4,0), 1, 4, new Roll(2,6,1), false, true);
+	this.addMonsterDefinition("BLACK_TROOPER", "Black Trooper", new Roll(1,8,1), 1, 8, new Roll(2,8,0), false, true);
+	this.addMonsterDefinition("ELITE_TROOPER", "Elite Trooper", new Roll(4,8,0), 5, 10, new Roll(3,6,2), false, true);
+	this.addMonsterDefinition("IMPERIAL_ROBOT_1", "Imperial Robot", new Roll(4,8,0), 2, 17, new Roll(3,8,2), false, false);
 	/*this.addMonsterDefinition("DRAGON", "Demon", new Roll(10,8,0), 22, 50, new Roll(4,10,5), false);
 	this.addMonsterDefinition("FLOATING_EYE", "Floating Skull", new Roll(1,8,0), 2, 11, new Roll(0,0,0), false);
 	this.addMonsterDefinition("VIOLET_FUNGI", "Deadly Flower", new Roll(6,8,0), 15, 24, new Roll(1,6,0), false);
@@ -40,14 +40,15 @@ function MonsterFactory(){
 	
 }
 
-MonsterFactory.prototype.addMonsterDefinition = function (monsterId, name, hp, minLevel, maxLevel, damageRoll, doubleSpeed){
+MonsterFactory.prototype.addMonsterDefinition = function (monsterId, name, hp, minLevel, maxLevel, damageRoll, doubleSpeed, isRanged){
 	this.monsterDefinitions[monsterId] = {
 		monsterId: monsterId,
 		tileId: monsterId,
 		name: name,
 		hpRoll: hp,
 		damageRoll: damageRoll,
-		doubleSpeed: doubleSpeed
+		doubleSpeed: doubleSpeed,
+		isRanged: isRanged
 	};
 	for (var i = minLevel; i <= maxLevel; i++){
 		if (!this.levelMaps[i]){
@@ -70,7 +71,8 @@ MonsterFactory.prototype.createMonster = function(monsterId){
 		hp,
 		definition.tileId,
 		definition.damageRoll,
-		definition.doubleSpeed
+		definition.doubleSpeed,
+		definition.isRanged
 	);
 };
 

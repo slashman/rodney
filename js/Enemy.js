@@ -1,4 +1,4 @@
-function Enemy(monsterId, name, hp, tileId, damageRoll, doubleSpeed){
+function Enemy(monsterId, name, hp, tileId, damageRoll, doubleSpeed, isRanged){
 	this.monsterId = monsterId;
 	this.name = name;
 	this.hp = hp;
@@ -9,12 +9,13 @@ function Enemy(monsterId, name, hp, tileId, damageRoll, doubleSpeed){
 	this.aiType = "SIMPLE";
 	this.wasHit = false;
 	this.doubleSpeed = doubleSpeed;
+	this.isRanged = isRanged;
 }
 
 Enemy.prototype.enemyAI = function (){
 	if (this.aiType === "NETWORK") return; 
 	if (this.monsterId === "MIMIC" && !this.wasHit)
-		return;
+		return false;
 	if (this.monsterId === "TROLL" && chance(50)){
 		if (this.hp < this.maxhp){
 			JSRL.ui.showMessage("The "+this.getDescription()+" regenerates");
@@ -29,6 +30,8 @@ Enemy.prototype.enemyAI = function (){
 	}
 	
 	var directionToPlayer = this.starePlayer();
+	var seeing = JSRL.player.isSeeing(this.position.x, this.position.y);
+
 	if (directionToPlayer == "NONE" ||
 			( this.monsterId === "BAT" && chance(80) ) ||
 			( this.monsterId === "FLOATING_EYE" && chance(20) ) ||
@@ -36,7 +39,10 @@ Enemy.prototype.enemyAI = function (){
 		){
 		//Wander aimlessly 
     	this.walk(randomDirection());
-    	return;
+    	return false
+	} else if (this.isRanged && chance(50) && seeing){
+		JSRL.ui.launchEnemyProjectile(this, directionToPlayer);
+		return true;
 	} else {
 		var destinationPosition = {x: directionToPlayer.x + this.position.x, y: directionToPlayer.y + this.position.y};
 		if (JSRL.dungeon.getMapTile(destinationPosition.x, destinationPosition.y).solid || JSRL.dungeon.getEnemy(destinationPosition.x, destinationPosition.y)){ // There's another monster or a mapcell blocking us
@@ -54,6 +60,7 @@ Enemy.prototype.enemyAI = function (){
 		} else { // There's nothing between the monster and the player, charge ahead
 			this.walk(directionToPlayer);
 		}
+		return false;
 	}
 };
 

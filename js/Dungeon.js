@@ -209,11 +209,17 @@ Dungeon.prototype.tryMoveEnemyTo = function (enemy, destinationPosition){
 
 Dungeon.prototype.dungeonTurn = function(){
 	for (var i = 0; i < this.enemies.length; i++){
-		this.enemies[i].enemyAI();
+		var relayed = this.enemies[i].enemyAI();
 		if (!this.enemies[i])
 			continue;
-		if (this.enemies[i].doubleSpeed)
-			this.enemies[i].enemyAI();
+		if (this.enemies[i].doubleSpeed){
+			var relayed2 = this.enemies[i].enemyAI();
+			relayed = relayed || relayed2;
+		}
+		this.enemies[i].acting = relayed;
+	}
+	if (JSRL.ui.pendingProjectiles.length > 0){
+		JSRL.ui.nextEnemyProjectile()
 	}
 };
 

@@ -17,6 +17,7 @@ function UI () {
 	this.messageRepeatCounter = 0;
 	this.textBox = new TextBox(10, 78, {x: 1, y: 1});
 	this.keyboardPollingDelay = 10;
+	this.pendingProjectiles = [];
 	//ut.initInput(this.onKeyDown);
 	if (document.addEventListener)
 		document.addEventListener("keydown",this.onKeyDown);
@@ -65,6 +66,14 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 		JSRL.ui.enterName(key);
 		JSRL.ui.term.render();
 	}  else if (JSRL.ui.mode === 'IN_GAME'){
+		// Check if an enemy still acting
+		for (var i = 0; i < JSRL.dungeon.enemies.length; i++){
+			if (JSRL.dungeon.enemies[i].acting){
+				window.setTimeout(JSRL.ui.pollKeyboard, JSRL.ui.keyboardPollingDelay);
+				keyLock = false;
+				return;
+			}
+		}
 		if (JSRL.player.dead){
 			if (keyCodeToChar[key] === "Enter"){
 				JSRL.ui.keyboardPollingDelay = 10;
@@ -129,9 +138,9 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 	} else if (JSRL.ui.mode === 'SELECT_DIRECTION'){
 		if (keyCodeToChar[key] === "Esc"){
 			JSRL.ui.showMessage("Cancelled.");
-			return;
+		} else {
+			JSRL.ui.selectDirection(key);
 		}
-		JSRL.ui.selectDirection(key);
 	} else if (JSRL.ui.mode === 'SCENE'){
 		if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter" || keyCodeToChar[key] === "V"){
 			JSRL.ui.mode = 'IN_GAME';
@@ -604,11 +613,53 @@ UI.prototype.selectDirection = function(key){
 
 	this.projectileIcon = JSRL.tiles.getTile(projectile);
 	this.hitIcon = JSRL.tiles.getTile('HIT');
+	this.playerProjectile = true;
+	this.fireAnimation(movedir);
+}
+
+UI.prototype.launchEnemyProjectile = function(source, movedir){
+	this.pendingProjectiles.push({source: source, movedir: movedir});
+}
+
+UI.prototype._doLaunchEnemyProjectile = function(source, movedir){
+	this.projectilePosition = {x: source.position.x, y: source.position.y};
+	var projectile;
+	if (movedir.x === 0){
+		projectile = 'P2';
+	} else if (movedir.y === 0){
+		projectile = 'P4';
+	} else if (movedir.x === 1){
+		if (movedir.y === 1){
+			projectile = 'P3';
+		} else {
+			projectile = 'P1';
+		}
+	} else {
+		if (movedir.y === 1){
+			projectile = 'P1'
+		} else {
+			projectile = 'P3';
+		}
+	} 
+	this.projectileEnemy = source;
+	this.projectileIcon = JSRL.tiles.getTile(projectile);
+	this.hitIcon = JSRL.tiles.getTile('HIT');
+	this.playerProjectile = false;
 	this.fireAnimation(movedir);
 }
 
 UI.prototype.hitEnemy = function(enemy, dir){
 	JSRL.player.attackEnemy(enemy, false, false, false, dir, false, 1);
+}
+
+UI.prototype.nextEnemyProjectile = function(){
+	if (this.pendingProjectiles.length > 0){
+		var nextProjectile = this.pendingProjectiles.pop();
+		this._doLaunchEnemyProjectile(nextProjectile.source, nextProjectile.movedir);
+	} else {
+		this.mode = 'IN_GAME';
+	}
+
 }
 
 UI.prototype.fireAnimation = function(dir){
@@ -624,23 +675,29 @@ UI.prototype.fireAnimation = function(dir){
 	var ypos = this.term.cy + (this.projectilePosition.y - JSRL.player.position.y);
 	var cell = JSRL.dungeon.getMapTile(this.projectilePosition.x, this.projectilePosition.y);
 	if (cell.solid){
-		this.mode = 'IN_GAME'; // Only if player shot?
+		if (this.playerProjectile)
+			this.mode = 'IN_GAME';
+		else {
+			this.projectileEnemy.acting = false;
+			this.nextEnemyProjectile();
+		}
 		this.savedTile = false;
 		return;
 	}
 
-
 	if (this.projectilePosition.x === JSRL.player.position.x && this.projectilePosition.y === JSRL.player.position.y){
-		this.hitPlayerWithProjectile();
+		this.projectileEnemy.attackPlayer();
+		this.projectileEnemy.acting = false;
+		this.nextEnemyProjectile();
 		return;
 	}
 	var enemy = JSRL.dungeon.getEnemy(this.projectilePosition.x, this.projectilePosition.y);
-	if (enemy){
+	if (enemy && this.playerProjectile){
 		this.term.put(this.hitIcon, xpos, ypos);
 		this.term.render(); // Render
 		window.setTimeout(function(){
 			JSRL.ui.hitEnemy(enemy, dir);
-			JSRL.ui.mode = 'IN_GAME'; // Only if player shot?
+			JSRL.ui.mode = 'IN_GAME';
 			JSRL.ui.savedTile = false;
 		}, 100);
 		return;
@@ -655,7 +712,7 @@ UI.prototype.fireAnimation = function(dir){
 	}
 	window.setTimeout(function(){
 		JSRL.ui.fireAnimation(dir);
-	}, 70);
+	}, 50);
 }
 
 
