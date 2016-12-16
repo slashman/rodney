@@ -795,13 +795,41 @@ UI.prototype.showRodneyScene = function(){
 	this.term.render();
 };
 
+UI.prototype.showBlueprintsScene = function(){
+	JSRL.ui.mode = 'SCENE';
+	var scene = [
+"You stand in the main console of the Imperial Archive",
+"                                                                         ",
+"You manage to acquire the blueprints of the deadly weapon...             ",
+"                                                                         ",
+"  ...the \"Death Star\"",
+"                                                                         ",
+"Now, you gotta find a way to transmit this information to the rebels     ",
+"                                                                         ",
+"                                            [space to continue]         "
+	             ];
+	this.term.clear();
+	for (var i = 0; i < scene.length; i++){
+		this.term.putString(scene[i], 2, i + 2, 255, 255, 255);
+	}
+	this.term.render();
+};
+
+
+
 UI.prototype.endGame = function(){
 	JSRL.ui.mode = 'END_SCENE';
 	var scene = [
-"And so it was that the brave adventurer vanquished the evil Rogue Band,  ",
-"and brought peace and happiness again to the land...                     ",
+"With you last energies, you manage to use the tower antenna to transmit  ",
+"the Death Star blueprints to the rebels mothership orbiting the planet...",
 "                                                                         ",
-" ... but are they really gone for good?                                  ",
+"Will it reach someone? Will they manage to use it for good?              ",
+"                                                                         ",
+"A ray of pure energy hits the planet. As your body is consumed in        ",
+"the blast, you rest assured that you have brought hope to the galaxy.    ",
+"                                                                         ",
+"                                                                         ",
+"                                                                         ",
 "                                                                         ",
 "            THE END                                                      ",
 "                                                                         ",

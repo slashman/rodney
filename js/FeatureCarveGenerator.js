@@ -14,14 +14,7 @@ FeatureCarveGenerator.prototype.constructor = FeatureCarveGenerator;
 FeatureCarveGenerator.prototype.createLevel = function (depth){
 	var rodneyLevel = false;
 	var rbLevel = false;
-	if (depth > 25 && chance(80) && !JSRL.player.rodneyGenerated){
-		rodneyLevel = true;
-	} 
 	
-	if (!rodneyLevel && chance(80) && depth > 28 && JSRL.player.rodneyGenerated){
-		rbLevel = true;
-	}
-		
 	var addExit = true;
 	if (rodneyLevel || rbLevel)
 		addExit = false;

@@ -245,7 +245,11 @@ Dungeon.prototype.downstairs = function(){
 	this.enemies = new Array();
 	this.items = new Array();
 	this.generateLevel(this.currentDepth);
-	if (this.currentDepth % 2 == 1)
+	if (this.currentDepth == 20){
+		JSRL.ui.showBlueprintsScene();
+	} else if (this.currentDepth == 25){
+		JSRL.ui.endGame();
+	} else if (this.currentDepth % 2 == 1)
 		JSRL.ui.selectAdvancement();
 };
 
