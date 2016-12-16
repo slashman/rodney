@@ -153,7 +153,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 
 	enemy.wasHit = true;
 	JSRL.ui.graph.addGraphicEffect("HIT",enemy.position.x,enemy.position.y);
-	JSRL.sounds.getSound("SND_SWORD").copyPlay();
+	//JSRL.sounds.getSound("SND_SWORD").copyPlay();
 
 	
 	if (this.hasSkill("BASH") && !cornered){

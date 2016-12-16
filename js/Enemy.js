@@ -177,7 +177,7 @@ Enemy.prototype.attackPlayer = function(){
 			JSRL.ui.showMessage("The "+this.name+" hits you.");
 		}
 		JSRL.ui.graph.addGraphicEffect("HIT",JSRL.player.position.x,JSRL.player.position.y);
-		JSRL.sounds.getSound("SND_SWORD").copyPlay();
+		//JSRL.sounds.getSound("SND_SWORD").copyPlay();
 		var damage = this.damageRoll.roll();
 		if (JSRL.player.hasSkill("PARRY")){
 			if (this == JSRL.player.currentTarget){

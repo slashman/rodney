@@ -614,6 +614,7 @@ UI.prototype.selectDirection = function(key){
 	this.projectileIcon = JSRL.tiles.getTile(projectile);
 	this.hitIcon = JSRL.tiles.getTile('HIT');
 	this.playerProjectile = true;
+	JSRL.sounds.getSound("SND_LASER").copyPlay();
 	this.fireAnimation(movedir);
 }
 
@@ -645,6 +646,7 @@ UI.prototype._doLaunchEnemyProjectile = function(source, movedir){
 	this.projectileIcon = JSRL.tiles.getTile(projectile);
 	this.hitIcon = JSRL.tiles.getTile('HIT');
 	this.playerProjectile = false;
+	JSRL.sounds.getSound("SND_LASER").copyPlay();
 	this.fireAnimation(movedir);
 }
 

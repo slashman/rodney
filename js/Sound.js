@@ -3,6 +3,7 @@ function Sound(){
 	
 	this.addSound("SND_WALK",this.loadSound("wav/walk.wav"));
 	this.addSound("SND_SWORD",this.loadSound("wav/sword.wav"));
+	this.addSound("SND_LASER",this.loadSound("wav/34.wav"));
 }
 
 Sound.prototype.addSound = function(sndIndex, sound){
