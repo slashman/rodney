@@ -98,15 +98,15 @@ function Tiles(imagesClass){
 	this.addTerrainTile("W1", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 3));
 	this.addTerrainTile("F1",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 3));
 	this.addTerrainTile("W2", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 4));
-	this.addTerrainTile("F2",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 2, 4));
-	this.addTerrainTile("W3", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 5));
+	this.addTerrainTile("F2",  new ut.Tile('.', 0, 255, 255), false, false,false, imagesClass.imageTile("TERRAIN", 2, 4));
+	this.addTerrainTile("W3", new ut.Tile('#', 100, 100, 255), true, true,false, imagesClass.imageTile("TERRAIN", 0, 5));
 	this.addTerrainTile("F3",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 5));
-	this.addTerrainTile("W4", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 6));
+	this.addTerrainTile("W4", new ut.Tile('#', 100, 100, 255), true, true,false, imagesClass.imageTile("TERRAIN", 0, 6));
 	this.addTerrainTile("F4",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 6));
-	this.addTerrainTile("W5", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 9));
+	this.addTerrainTile("W5", new ut.Tile('#', 120, 120, 255), true, true,false, imagesClass.imageTile("TERRAIN", 0, 9));
 	this.addTerrainTile("F5",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 9));
 	this.addTerrainTile("W6", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 11));
-	this.addTerrainTile("F6",  new ut.Tile('.', 170, 170, 170), false, false,false, imagesClass.imageTile("TERRAIN", 1, 11));
+	this.addTerrainTile("F6",  new ut.Tile('.', 70, 70, 70), false, false,false, imagesClass.imageTile("TERRAIN", 1, 11));
 	
 	this.addTerrainTile(">", new ut.Tile('>', 170, 0, 0), false, false, true, imagesClass.imageTile("TERRAIN", 4, 3));
 	
