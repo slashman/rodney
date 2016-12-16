@@ -212,9 +212,9 @@ UI.prototype.enterName = function (key){
 	} else if (keyCodeToChar[key] === "Backspace"){
 		this.inkeyBuffer = this.inkeyBuffer.substring(0, this.inkeyBuffer.length-1);
 	}
-	this.term.putString("           ", 25, 23, 255, 255, 255);
+	this.term.putString("           ", 25, 24, 255, 255, 255);
 	this.term.render();
-	this.term.putString(this.inkeyBuffer+"_", 25, 23, 255, 255, 255);
+	this.term.putString(this.inkeyBuffer+"_", 25, 24, 255, 255, 255);
 			
 };
 
@@ -481,17 +481,18 @@ UI.prototype.showTitleScreen = function(){
 	this.mode = 'TITLE';
 	showNameEnter();
 	this.term.clear();
-	this.term.putString("- = ROGUElike ONE = -", 32, 1, 120, 120, 255);
-	this.term.putString("by Slashware Interactive", 26, 2, 255, 255, 255);
-	this.term.putString("Your name?", 10, 23, 120, 120, 255);
-	this.term.putString("_", 25, 23, 255, 255, 255);
+	this.term.putString("/===============\\", 30, 1, 120, 120, 255);
+	this.term.putString("| ROGUElike ONE |", 30, 2, 120, 120, 255);
+	this.term.putString("\\===============/", 30, 3, 120, 120, 255);
+	this.term.putString("by Slashware Interactive", 26, 4, 255, 255, 255);
+	this.term.putString("Your name?", 10, 24, 120, 120, 255);
+	this.term.putString("_", 25, 24, 255, 255, 255);
 
 	
 	var scene = [
 "A long time ago, in a galaxy far away...",
 "                                                                         ",
-"All of your life you have lived running in the shadows, escaping from    ",
-"your own past.                                                           ",
+"All of your life you have lived running in the shadows                   ",
 "                                                                         ",
 "Your father, a weapons engineer from the empire, abandoned you years ago,",
 "claimed back by the empire from his self imposed retirement to work on a ",
@@ -508,7 +509,7 @@ UI.prototype.showTitleScreen = function(){
 "to obtain the blueprints of this evil machine and save the galaxy."
 	             ];
 	for (var i = 0; i < scene.length; i++){
-		this.term.putString(scene[i], 2, i + 4, 255, 255, 255);
+		this.term.putString(scene[i], 2, i + 6, 255, 255, 255);
 	}
 	
 	this.term.render();
