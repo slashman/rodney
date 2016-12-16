@@ -762,8 +762,8 @@ Skills.skills =
  },
  {
 	 skillId: "DESTRUCTION",
-	 name: "Butcher",
-	 text1:  "Increase Strength by 3",
+	 name: "Force 1",
+	 text1:  "Increase Force by 3",
 	 animation: 
 			[
 [
@@ -779,8 +779,8 @@ Skills.skills =
  {
 	 skillId: "DESTRUCTION2",
 	 requirements: ["DESTRUCTION"],
-	 name: "Crush",
-	 text1:  "Increase Strength by 3",
+	 name: "Force 2",
+	 text1:  "Increase Force by 3",
 	 animation: 
 			[
 [
@@ -796,8 +796,8 @@ Skills.skills =
  {
 	 skillId: "DESTRUCTION3",
 	 requirements: ["DESTRUCTION2"],
-	 name: "Raze",
-	 text1:  "Increase Strength by 3",
+	 name: "Force 3",
+	 text1:  "Increase Force by 3",
 	 animation: 
 			[
 [
@@ -810,104 +810,6 @@ Skills.skills =
 ]
 	]	 
  },
- {
-	 skillId: "DARK_SIGHT",
-	 name: "Dark Sight",
-	 text1:  "Allows you to see in the dark",
-	 animation: 
-			[
-	[
-	"DDDDDDDDD",  
-	"D@--    D",
-	"D---    D",
-	"D--     D",
-	"D       D",
-	"DDDDDDDDD",
-	],
-	[
-	"DDDDDDDDD",  
-	"D@---   D",
-	"D----   D",
-	"D---    D",
-	"D--     D",
-	"DDDDDDDDD",
-	]
-			]
- },
- {
-	 skillId: "DARK_SIGHT2",
-	 requirements: ["DARK_SIGHT"],
-	 name: "Black Light",
-	 text1:  "See even more into the dark",
-	 animation: 
-			[
-	[
-	"DDDDDDDDD",  
-	"D@--    D",
-	"D---    D",
-	"D--     D",
-	"D       D",
-	"DDDDDDDDD",
-	],
-	[
-	"DDDDDDDDD",  
-	"D@---   D",
-	"D----   D",
-	"D---    D",
-	"D--     D",
-	"DDDDDDDDD",
-	],
-	[
-	"DDDDDDDDD",  
-	"D@----  D",
-	"D-----  D",
-	"D----   D",
-	"D---    D",
-	"DDDDDDDDD",
-	]
-			]
- }, 
- {
-	 skillId: "INFRAVISION",
-	 requirements: ["DARK_SIGHT2"],
-	 name: "Infravision",
-	 text1:  "See light in darkness",
-	 animation: 
-			[
-	[
-	"DDDDDDDDD",  
-	"D@--    D",
-	"D---    D",
-	"D--     D",
-	"D       D",
-	"DDDDDDDDD",
-	],
-	[
-	"DDDDDDDDD",  
-	"D@---   D",
-	"D----   D",
-	"D---    D",
-	"D--     D",
-	"DDDDDDDDD",
-	],
-	[
-	"DDDDDDDDD",  
-	"D@----  D",
-	"D-----  D",
-	"D----   D",
-	"D---    D",
-	"DDDDDDDDD",
-	],
-	[
-	"DDDDDDDDD",  
-	"D@----- D",
-	"D------ D",
-	"D------ D",
-	"D----   D",
-	"DDDDDDDDD",
-	]
-			]
- }, 
  {
 	 skillId: "PACKER",
 	 name: "Packer",
@@ -989,7 +891,7 @@ Skills.skills =
  },
  {
 	 skillId: "WANDERER",
-	 name: "Wanderer",
+	 name: "Scout",
 	 text1:  "Recover 10 HP for entering a new floor.",
 	 animation: [
 		[
