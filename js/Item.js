@@ -151,10 +151,12 @@ DamageableItem.prototype.getFloorDescription = function(){
 	return this.getIntegrityDescription() + this.name;
 };
 
-function Weapon(itemId, name, damageRoll, baseIntegrity, maxIntegrity){
+function Weapon(itemId, name, damageRoll, baseIntegrity, maxIntegrity, isRanged){
 	DamageableItem.call(this, itemId, name, "WEAPON", baseIntegrity, maxIntegrity);
 	this.damageRoll = damageRoll;
 	this.damageRoll.base += INTEGRITY_DAMAGE_ROLL_MODIFIERS[this.getIntegrityLevel()];
+	this.isRanged = isRanged;
+	this.shots = baseIntegrity;
 }
 
 Weapon.prototype = new DamageableItem();
@@ -180,7 +182,7 @@ Weapon.prototype.getStatusDescription = function(){
 };
 
 Weapon.prototype.getMenuDescription = function(){
-	return this.getIntegrityDescription() +this.name + " [" + this.damageRoll.getDescription() + "]";
+	return this.getIntegrityDescription() +this.name + " [" + this.damageRoll.getDescription() + "]" + (this.isRanged ? " ("+this.shots+")": "");
 };
 
 function Armor(itemId, name, protectionValue, baseIntegrity, maxIntegrity){

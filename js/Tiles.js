@@ -82,6 +82,13 @@ function Tiles(imagesClass){
 	this.addTile("GAIN_STRENGTH_POTION", new ut.Tile("+", 255, 0, 255), imagesClass.imageTile("ITEMS", 4, 1));
 	this.addTile("GAIN_VITALITY_POTION", new ut.Tile("+", 0, 255, 255), imagesClass.imageTile("ITEMS", 3, 1));
 	//this.addTile("YENDOR", new ut.Tile("\"", 255, 255, 55), imagesClass.imageTile("ITEMS", 5, 1));
+
+	// Projectiles
+	this.addTile("P1", new ut.Tile("/", 255, 0, 0), imagesClass.imageTile("ITEMS", 3, 1));
+	this.addTile("P2", new ut.Tile("|", 255, 0, 0), imagesClass.imageTile("ITEMS", 3, 1));
+	this.addTile("P3", new ut.Tile("\\", 255, 0, 0), imagesClass.imageTile("ITEMS", 3, 1));
+	this.addTile("P4", new ut.Tile("-", 255, 0, 0), imagesClass.imageTile("ITEMS", 3, 1));
+	this.addTile("HIT", new ut.Tile("*", 255, 0, 0), imagesClass.imageTile("ITEMS", 3, 1));
 	
 	//Terrain
 	this.addTerrainTile("W1", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 3));

@@ -12,10 +12,10 @@ ItemFactory.prototype.setThresholds = function (depth){
 	var tier4Bonus = (depth > 20 ? 10 : 0)+tier3Bonus;
 	
 	// Weapon 2/6 = 200 (-50)
-	this.addWeaponDefinition("BLASTER_PISTOL", "Blaster Pistol", new Roll(1,6,0), 400, 60);
-	this.addWeaponDefinition("LASER_RIFLE", "Laser Rifle", new Roll(1,6,0), 400, 20);
-	this.addWeaponDefinition("ENERGY_STAFF", "Energy Staff", new Roll(1,6,0), 400, 100);
-	this.addWeaponDefinition("LIGHTSABER", "Lightsaber", new Roll(1,6,0), 400, 2);
+	this.addWeaponDefinition("BLASTER_PISTOL", "Blaster Pistol", new Roll(1,6,0), 30, 60, true);
+	this.addWeaponDefinition("LASER_RIFLE", "Laser Rifle", new Roll(1,6,0), 20, 20, true);
+	this.addWeaponDefinition("ENERGY_STAFF", "Energy Staff", new Roll(1,6,0), 200, 100, false);
+	this.addWeaponDefinition("LIGHTSABER", "Lightsaber", new Roll(1,6,0), 300, 2, false);
 
 	
 	/*this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,6,0), 400, 60);
@@ -96,7 +96,7 @@ ItemFactory.prototype.addLightsourceDefinition = function (itemId, name, sightBo
 	this.pushThreshold(itemId, generationChance);
 };
 
-ItemFactory.prototype.addWeaponDefinition = function (itemId, name, damageRoll, baseIntegrity, generationChance){
+ItemFactory.prototype.addWeaponDefinition = function (itemId, name, damageRoll, baseIntegrity, generationChance, isRanged){
 	this.itemDefinitions[itemId] = {
 		itemId: itemId,
 		tileId: itemId,
@@ -104,7 +104,8 @@ ItemFactory.prototype.addWeaponDefinition = function (itemId, name, damageRoll, 
 		damageRoll: damageRoll.clone(),
 		baseIntegrity: baseIntegrity,
 		generationChange: generationChance,
-		type: "WEAPON"
+		type: "WEAPON",
+		isRanged: isRanged
 	};
 	this.pushThreshold(itemId, generationChance);
 };
@@ -130,7 +131,7 @@ ItemFactory.prototype.createItem = function(itemId, worn){
 			integrity = 0.75;
 		integrity = Math.round(definition.baseIntegrity * integrity);
 		if (integrity > definition.baseIntegrity) integrity = definition.baseIntegrity;
-		return new Weapon(definition.itemId, definition.name, definition.damageRoll.clone(), integrity, definition.baseIntegrity);
+		return new Weapon(definition.itemId, definition.name, definition.damageRoll.clone(), integrity, definition.baseIntegrity, definition.isRanged);
 	}else if (definition.type === "ARMOR"){
 		var integrity = rand(25,100) / 100;
 		if (worn)

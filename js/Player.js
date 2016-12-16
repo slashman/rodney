@@ -150,6 +150,7 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 		}
 	}
 	var attackMessage = "You hit "+enemy.getTheDescription();
+
 	enemy.wasHit = true;
 	JSRL.ui.graph.addGraphicEffect("HIT",enemy.position.x,enemy.position.y);
 	JSRL.sounds.getSound("SND_SWORD").copyPlay();
@@ -175,13 +176,21 @@ Player.prototype.attackEnemy = function(enemy, kineticChargeTransferred, cornere
 		damage *= buildupBonus;
 	
 	if (this.currentWeapon){
+		if (this.currentWeapon.isRanged){
+			this.currentWeapon.shots--;
+		}
 		damage += this.currentWeapon.damageRoll.roll();
-		if (damage > 0){
+		if (!this.currentWeapon.isRanged && damage > 0){
 			if (buildupBonus > 0){
 				this.currentWeapon.clash(40);
 			} else {
 				this.currentWeapon.clash(4);
 			}
+		}
+		if (this.currentWeapon.shots == 0){
+			this.inventory.removeObject(this.currentWeapon);
+			this.currentWeapon = false;
+			JSRL.ui.showMessage("Your weapon is destroyed");
 		}
 	}
 	if (cornered){

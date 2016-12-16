@@ -126,6 +126,12 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 			JSRL.ui.mode = 'IN_GAME';
 		}
 		JSRL.ui.drawSelectItem();
+	} else if (JSRL.ui.mode === 'SELECT_DIRECTION'){
+		if (keyCodeToChar[key] === "Esc"){
+			JSRL.ui.showMessage("Cancelled.");
+			return;
+		}
+		JSRL.ui.selectDirection(key);
 	} else if (JSRL.ui.mode === 'SCENE'){
 		if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter" || keyCodeToChar[key] === "V"){
 			JSRL.ui.mode = 'IN_GAME';
@@ -235,6 +241,19 @@ function isDownLeft(key){
 	return keyCodeToChar[key] === "Numpad 1" || keyCodeToChar[key] === "Z";
 }
 
+function getMovementVector(key){
+	var movedir = { x: 0, y: 0 }; // Movement vector
+	if (isLeft(key)) movedir.x = -1;
+	else if (isRight(key)) movedir.x = 1;
+	else if (isUp(key)) movedir.y = -1;
+	else if (isDown(key)) movedir.y = 1;
+	else if (isDownLeft(key)) { movedir.x = -1; movedir.y = 1;}
+	else if (isDownRight(key)) { movedir.x = 1; movedir.y = 1;}
+	else if (isUpLeft(key)) { movedir.x = -1; movedir.y = -1;}
+	else if (isUpRight(key)) { movedir.x = 1; movedir.y = -1;}
+	return movedir;
+}
+
 UI.prototype.movePlayer = function(key){
 	JSRL.player.newTurn();
 	if (JSRL.player.paralysisCounter > 0){
@@ -242,8 +261,12 @@ UI.prototype.movePlayer = function(key){
 		return true;
 	}
 
-	if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "Enter" || keyCodeToChar[key] === "V"){
+	if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "V"){
 		return JSRL.player.doAction();
+	}
+	if (keyCodeToChar[key] === "Enter"){
+		this.tryTarget();
+		return false;
 	}
 	if (keyCodeToChar[key] === "I"){
 		this.selectItem();
@@ -313,7 +336,7 @@ UI.prototype.showStats = function (){
 		}
 	}
 	
-	this.term.putString("Press Space for action (Pick up, Use Stairs, Show Inventory)", 1, 22, 255, 255, 255);
+	this.term.putString("Spacebar to Pick up, Use Stairs or Show Inventory. Enter to fire", 1, 22, 255, 255, 255);
 
 };
 
@@ -539,6 +562,102 @@ UI.prototype.selectItem = function(){
 	}
 	this.activateItemSelection();
 };
+
+UI.prototype.tryTarget = function(){
+	if (!JSRL.player.currentWeapon || !JSRL.player.currentWeapon.isRanged){
+		this.showMessage("You don't have a ranged weapon");
+		return;
+	}
+	this.mode = 'SELECT_DIRECTION';
+	this.showMessage("Press a direction to fire");
+	this.textBox.setText(this.currentMessage);
+	this.textBox.draw();
+	this.term.render(); // Render
+
+}
+
+UI.prototype.selectDirection = function(key){
+	var movedir = getMovementVector(key);
+	if (movedir.x === 0 && movedir.y === 0){
+		return;
+	}
+	this.mode = 'NO_INPUT';
+	this.projectilePosition = {x: JSRL.player.position.x, y: JSRL.player.position.y};
+	var projectile;
+	if (movedir.x === 0){
+		projectile = 'P2';
+	} else if (movedir.y === 0){
+		projectile = 'P4';
+	} else if (movedir.x === 1){
+		if (movedir.y === 1){
+			projectile = 'P3';
+		} else {
+			projectile = 'P1';
+		}
+	} else {
+		if (movedir.y === 1){
+			projectile = 'P1'
+		} else {
+			projectile = 'P3';
+		}
+	} 
+
+	this.projectileIcon = JSRL.tiles.getTile(projectile);
+	this.hitIcon = JSRL.tiles.getTile('HIT');
+	this.fireAnimation(movedir);
+}
+
+UI.prototype.hitEnemy = function(enemy, dir){
+	JSRL.player.attackEnemy(enemy, false, false, false, dir, false, 1);
+}
+
+UI.prototype.fireAnimation = function(dir){
+	if (this.savedTile){
+		var xpos = this.term.cx + (this.projectilePosition.x - JSRL.player.position.x);
+		var ypos = this.term.cy + (this.projectilePosition.y - JSRL.player.position.y);
+		this.term.put(this.savedTile, xpos, ypos);
+	}
+
+	this.projectilePosition.x += dir.x;
+	this.projectilePosition.y += dir.y;
+	var xpos = this.term.cx + (this.projectilePosition.x - JSRL.player.position.x);
+	var ypos = this.term.cy + (this.projectilePosition.y - JSRL.player.position.y);
+	var cell = JSRL.dungeon.getMapTile(this.projectilePosition.x, this.projectilePosition.y);
+	if (cell.solid){
+		this.mode = 'IN_GAME'; // Only if player shot?
+		this.savedTile = false;
+		return;
+	}
+
+
+	if (this.projectilePosition.x === JSRL.player.position.x && this.projectilePosition.y === JSRL.player.position.y){
+		this.hitPlayerWithProjectile();
+		return;
+	}
+	var enemy = JSRL.dungeon.getEnemy(this.projectilePosition.x, this.projectilePosition.y);
+	if (enemy){
+		this.term.put(this.hitIcon, xpos, ypos);
+		this.term.render(); // Render
+		window.setTimeout(function(){
+			JSRL.ui.hitEnemy(enemy, dir);
+			JSRL.ui.mode = 'IN_GAME'; // Only if player shot?
+			JSRL.ui.savedTile = false;
+		}, 100);
+		return;
+	}
+	if (JSRL.player.maskBuffer[this.projectilePosition.x][this.projectilePosition.y]){
+		this.savedTile = this.term.get(xpos, ypos);
+		this.term.put(this.projectileIcon, xpos, ypos);
+		this.term.render(); // Render
+	} else {
+		this.savedTile = false;
+		this.term.render(); // Render
+	}
+	window.setTimeout(function(){
+		JSRL.ui.fireAnimation(dir);
+	}, 70);
+}
+
 
 UI.prototype.activateItemSelection = function(){
 	if (JSRL.player.inventory.length === 0){
