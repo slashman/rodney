@@ -490,7 +490,7 @@ Player.prototype.tryMoving = function (movedir){
 	var enemy = JSRL.dungeon.getEnemy(x, y);
 
 	//Check for enemies in jump range #ASSAULT
-	if (!enemy && this.hasSkill("ASSAULT") && this.isRunning(movedir) ){
+	if (!enemy && this.hasSkill("ASSAULT") && this.isRunning(movedir)  && (!this.currentWeapon || !this.currentWeapon.isRanged )){
 		var xx = x + movedir.x;
 		var yy = y + movedir.y;
 		var xenemy = JSRL.dungeon.getEnemy(xx, yy);
@@ -506,22 +506,22 @@ Player.prototype.tryMoving = function (movedir){
 	if (enemy){
 		var kineticChargeTransferred = false;
 		// Verify if kineticCharge is transferred #CHARGE
-		if (this.hasSkill("CHARGE") && this.currentWeapon)
+		if (this.hasSkill("CHARGE") && this.currentWeapon && !this.currentWeapon.isRanged)
 			kineticChargeTransferred = this.isRunning(movedir);
 		// Check if there's a solid cell behind the enemy #CORNER
 		var cornered = false;
-		if (this.hasSkill("CORNER")){
+		if (this.hasSkill("CORNER")  && !this.currentWeapon.isRanged){
 			var behindCell = JSRL.dungeon.getMapTile(x+movedir.x, y+movedir.y);
 			cornered = behindCell && behindCell.solid;
 		}
 		// Check if spinslashing #SPIN
 		var spinSlash = false;
-		if (this.hasSkill("SPIN") && this.currentWeapon){
+		if (this.hasSkill("SPIN") && this.currentWeapon  && !this.currentWeapon.isRanged){
 			spinSlash = this.lastAttackDir && oppositeDirection(movedir, this.lastAttackDir);
 		}
 		
 		var buildupBonus = 0;
-		if (this.hasSkill("BUILDUP") && this.buildUpCounter > 0){
+		if (this.hasSkill("BUILDUP") && this.buildUpCounter > 0  && !this.currentWeapon.isRanged){
 			buildupBonus = 2;
 		}
 		
@@ -538,6 +538,8 @@ Player.prototype.tryMoving = function (movedir){
 			}
 		} else {
 			// Bump into enemy!
+			if (this.currentWeapon && this.currentWeapon.isRanged)
+				JSRL.sounds.getSound("SND_LASER").copyPlay();
 			this.attackEnemy(enemy, kineticChargeTransferred, cornered, false, movedir, buildupBonus, 1);
 			
 			if (this.hasSkill("SWEEP")){
