@@ -77,6 +77,10 @@ function Tiles(imagesClass){
 	this.addTile("TORCH", new ut.Tile("/", 255, 255, 55), imagesClass.imageTile("ITEMS", 2, 2));
 	this.addTile("LANTERN", new ut.Tile("/", 255, 170, 170), imagesClass.imageTile("ITEMS", 2, 2));*/
 	
+	this.addTile("TROOPER_ARMOR", new ut.Tile("]", 200, 200, 200), imagesClass.imageTile("ITEMS", 0, 7));
+	this.addTile("BLACK_TROOPER_ARMOR", new ut.Tile("]", 100, 100, 100), imagesClass.imageTile("ITEMS", 8, 7));
+
+
 	this.addTile("HEALTH_POTION", new ut.Tile("+", 255, 0, 0), imagesClass.imageTile("ITEMS", 8, 2));
 	this.addTile("EXTRA_HEALTH_POTION", new ut.Tile("+", 0, 255, 0), imagesClass.imageTile("ITEMS", 8, 0));
 	this.addTile("GAIN_STRENGTH_POTION", new ut.Tile("+", 255, 0, 255), imagesClass.imageTile("ITEMS", 4, 1));
