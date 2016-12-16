@@ -23,7 +23,7 @@ Item.prototype.getTypeDescription = function(){
 		else
 			return "???";
 	} else if (this.type === "SPENDABLE")
-		return "Potions";
+		return "Medical";
 	else if (this.type === "WEAPON")
 		return "Weapons";
 	else if (this.type === "ARMOR")
@@ -75,22 +75,22 @@ Potion.prototype.constructor = Potion;
 
 Potion.prototype.use = function(){
 	if (this.itemId === "HEALTH_POTION"){
-		JSRL.ui.showMessage("You drink the potion: You feel better");
+		JSRL.ui.showMessage("You activate the medikit: You feel better");
 		JSRL.player.recoverHP(rand(20,40));
 		JSRL.player.inventory.removeObject(this);
 		return true;
 	} else if (this.itemId === "EXTRA_HEALTH_POTION"){
-		JSRL.ui.showMessage("You drink the potion: You feel much better!");
+		JSRL.ui.showMessage("You activate the medikit: You feel much better!");
 		JSRL.player.recoverHP(rand(40,60));
 		JSRL.player.inventory.removeObject(this);
 		return true;
 	} else if (this.itemId === "GAIN_STRENGTH_POTION"){
-		JSRL.ui.showMessage("You drink the potion: You feel stronger");
+		JSRL.ui.showMessage("You inject the serum: You feel stronger");
 		JSRL.player.strength+=2;
 		JSRL.player.inventory.removeObject(this);
 		return true;
 	} else if (this.itemId === "GAIN_VITALITY_POTION"){
-		JSRL.ui.showMessage("You drink the potion: You feel bolder!");
+		JSRL.ui.showMessage("You inject the serum: You feel bolder!");
 		JSRL.player.maxhp += 20;
 		JSRL.player.inventory.removeObject(this);
 		return true;

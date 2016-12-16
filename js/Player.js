@@ -18,16 +18,18 @@ function Player(name) {
 	this.inventory = new Array();
 	this.currentWeapon;
 	this.currentArmor;
-	var torch = JSRL.itemFactory.createItem("TORCH");
-	var dagger = JSRL.itemFactory.createItem("DAGGER", true);
-	var leather = JSRL.itemFactory.createItem("LEATHER", true);
+	//var torch = JSRL.itemFactory.createItem("TORCH");
+	var dagger = JSRL.itemFactory.createItem("BLASTER_PISTOL", true);
+	var leather = JSRL.itemFactory.createItem("BLACK_TROOPER_ARMOR", true);
 	
-	this.addItem(torch);
-	this.currentAccesory = torch;
+	/*this.addItem(torch);
+	this.currentAccesory = torch;*/
 	this.addItem(dagger);
 	this.currentWeapon = dagger;
 	this.addItem(leather);
 	this.currentArmor = leather;
+	this.addItem(JSRL.itemFactory.createItem("HEALTH_POTION", false));
+	this.addItem(JSRL.itemFactory.createItem("ENERGY_STAFF", false));
 	this.sessionInfo = "";
 	this.skillPath = "";
 	this.score = 0;
@@ -280,7 +282,8 @@ Player.prototype.getSightRange = function(){
 };
 
 Player.prototype.getLightRange = function(){
-	return (this.currentAccesory && this.currentAccesory.lightBonus ? this.currentAccesory.lightBonus : 0);
+	//return (this.currentAccesory && this.currentAccesory.lightBonus ? this.currentAccesory.lightBonus : 0);
+	return 5;
 };
 
 Player.prototype.shootRay = function (a) {
@@ -340,7 +343,7 @@ Player.prototype.damage = function(damage){
 Player.prototype.landOn = function (x, y){
 	var tile = JSRL.dungeon.getMapTile(x, y);
 	if (tile.downstairs){
-		JSRL.ui.showMessage("There is a stairway going down here");
+		JSRL.ui.showMessage("There is a stairway going up here");
 	}
 	var item = JSRL.dungeon.getItem(x, y);
 	if (item){

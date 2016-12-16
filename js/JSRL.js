@@ -8,5 +8,5 @@ function JSRL(){
 	this.sounds = new Sound();
 	this.tiles = new Tiles(this.images);
 	this.websocket;
-	this.isGraphicMode = true;
+	this.isGraphicMode = false;
 }

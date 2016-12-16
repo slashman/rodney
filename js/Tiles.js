@@ -5,7 +5,13 @@ function Tiles(imagesClass){
 	this.AT.imageTile = imagesClass.imageTile("CHARS", 2, 0);
 
 	//Monsters
-	this.addTile("GIANT_ANT", new ut.Tile("P", 255, 255, 255), imagesClass.imageTile("MONSTERS32", 1, 2));
+	this.addTile("WHITE_TROOPER", new ut.Tile("t", 255, 255, 255), imagesClass.imageTile("MONSTERS32", 1, 2));
+	this.addTile("BLACK_TROOPER", new ut.Tile("t", 80, 80, 80), imagesClass.imageTile("MONSTERS32", 1, 2));
+	this.addTile("ELITE_TROOPER", new ut.Tile("t", 255, 0, 0), imagesClass.imageTile("MONSTERS32", 1, 2));
+	this.addTile("IMPERIAL_ROBOT_1", new ut.Tile("R", 120, 120, 120), imagesClass.imageTile("MONSTERS32", 1, 2));
+
+
+	/*this.addTile("GIANT_ANT", new ut.Tile("P", 255, 255, 255), imagesClass.imageTile("MONSTERS32", 1, 2));
 	this.addTile("BAT", new ut.Tile("b", 170, 170, 170), imagesClass.imageTile("MONSTERS32", 7, 2));
 	this.addTile("CENTAUR", new ut.Tile("B", 170, 55, 0), imagesClass.imageTile("MONSTERS48", 1, 0));
 	this.addTile("DRAGON", new ut.Tile("D", 170, 0, 0), imagesClass.imageTile("MONSTERS48", 5, 0));
@@ -33,24 +39,33 @@ function Tiles(imagesClass){
 	this.addTile("YETI", new ut.Tile("m", 255, 255, 255), imagesClass.imageTile("MONSTERS32", 6, 5));
 	this.addTile("ZOMBIE", new ut.Tile("z", 170, 55, 0), imagesClass.imageTile("MONSTERS32", 2, 1));
 
-	this.addTile("RODNEY", new ut.Tile("☺", 0, 255, 0), imagesClass.imageTile("CHARS", 2, 0));
+	this.addTile("RODNEY", new ut.Tile("☺", 0, 255, 0), imagesClass.imageTile("CHARS", 2, 0));*/
 
 	this.addTile("AT", new ut.Tile("@", 0, 0, 255), imagesClass.imageTile("CHARS", 0, 2));
 	
-	this.addTile("ARNOLD", new ut.Tile("@", 255, 0, 0), imagesClass.imageTile("CHARS", 0, 0));
+	/*this.addTile("ARNOLD", new ut.Tile("@", 255, 0, 0), imagesClass.imageTile("CHARS", 0, 0));
 	this.addTile("TOY", new ut.Tile("@", 0, 255, 0), imagesClass.imageTile("CHARS", 0, 4));
 	this.addTile("LANE", new ut.Tile("@", 0, 0, 255), imagesClass.imageTile("CHARS", 0, 1));
-	this.addTile("MANGO", new ut.Tile("@", 255, 0, 255), imagesClass.imageTile("CHARS", 2, 2));
+	this.addTile("MANGO", new ut.Tile("@", 255, 0, 255), imagesClass.imageTile("CHARS", 2, 2));*/
 	
 	//Items
+
+	this.addTile("BLASTER_PISTOL", new ut.Tile("{", 255, 255, 255), imagesClass.imageTile("ITEMS", 1, 10));
+	this.addTile("LASER_RIFLE", new ut.Tile("{", 255, 255, 55), imagesClass.imageTile("ITEMS", 0, 14));
+	this.addTile("ENERGY_STAFF", new ut.Tile("/", 120, 120, 120), imagesClass.imageTile("ITEMS", 0, 21));
+	this.addTile("LIGHTSABER", new ut.Tile("/", 0, 255, 255), imagesClass.imageTile("ITEMS", 1, 12));
+	/*this.addTile("SPEAR", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 0, 17));
+	this.addTile("CLAYMORE", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 8, 18));*/
+	/*
 	this.addTile("DAGGER", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 1, 10));
 	this.addTile("STAFF", new ut.Tile("/", 255, 255, 55), imagesClass.imageTile("ITEMS", 0, 14));
 	this.addTile("LONG_SWORD", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 0, 21));
 	this.addTile("MACE", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 1, 12));
 	this.addTile("SPEAR", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 0, 17));
 	this.addTile("CLAYMORE", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 8, 18));
+	*/
 	
-	this.addTile("LEATHER", new ut.Tile("]", 255, 255, 55), imagesClass.imageTile("ITEMS", 1, 7));
+	/*this.addTile("LEATHER", new ut.Tile("]", 255, 255, 55), imagesClass.imageTile("ITEMS", 1, 7));
 	this.addTile("STUDDED", new ut.Tile("]", 255, 255, 55), imagesClass.imageTile("ITEMS", 2, 7));
 	this.addTile("RING", new ut.Tile("]", 170, 170, 170), imagesClass.imageTile("ITEMS", 0, 7));
 	this.addTile("SCALE", new ut.Tile("]", 170, 255, 170), imagesClass.imageTile("ITEMS", 8, 7));
@@ -60,13 +75,13 @@ function Tiles(imagesClass){
 	this.addTile("PLATE", new ut.Tile("]", 255, 255, 255), imagesClass.imageTile("ITEMS", 6, 7));
 	
 	this.addTile("TORCH", new ut.Tile("/", 255, 255, 55), imagesClass.imageTile("ITEMS", 2, 2));
-	this.addTile("LANTERN", new ut.Tile("/", 255, 170, 170), imagesClass.imageTile("ITEMS", 2, 2));
+	this.addTile("LANTERN", new ut.Tile("/", 255, 170, 170), imagesClass.imageTile("ITEMS", 2, 2));*/
 	
-	this.addTile("HEALTH_POTION", new ut.Tile("!", 255, 0, 0), imagesClass.imageTile("ITEMS", 8, 2));
-	this.addTile("EXTRA_HEALTH_POTION", new ut.Tile("!", 0, 255, 0), imagesClass.imageTile("ITEMS", 8, 0));
-	this.addTile("GAIN_STRENGTH_POTION", new ut.Tile("!", 0, 0, 255), imagesClass.imageTile("ITEMS", 4, 1));
-	this.addTile("GAIN_VITALITY_POTION", new ut.Tile("!", 255, 255, 255), imagesClass.imageTile("ITEMS", 3, 1));
-	this.addTile("YENDOR", new ut.Tile("\"", 255, 255, 55), imagesClass.imageTile("ITEMS", 5, 1));
+	this.addTile("HEALTH_POTION", new ut.Tile("+", 255, 0, 0), imagesClass.imageTile("ITEMS", 8, 2));
+	this.addTile("EXTRA_HEALTH_POTION", new ut.Tile("+", 0, 255, 0), imagesClass.imageTile("ITEMS", 8, 0));
+	this.addTile("GAIN_STRENGTH_POTION", new ut.Tile("+", 255, 0, 255), imagesClass.imageTile("ITEMS", 4, 1));
+	this.addTile("GAIN_VITALITY_POTION", new ut.Tile("+", 0, 255, 255), imagesClass.imageTile("ITEMS", 3, 1));
+	//this.addTile("YENDOR", new ut.Tile("\"", 255, 255, 55), imagesClass.imageTile("ITEMS", 5, 1));
 	
 	//Terrain
 	this.addTerrainTile("W1", new ut.Tile('#', 170, 170, 170), true, true,false, imagesClass.imageTile("TERRAIN", 0, 3));

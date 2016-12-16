@@ -234,7 +234,7 @@ Dungeon.prototype.setMap = function(map){
 
 Dungeon.prototype.downstairs = function(){
 	this.currentDepth++;
-	JSRL.ui.showMessage('You descend into level '+this.currentDepth);
+	JSRL.ui.showMessage('You climb to floor '+this.currentDepth);
 	JSRL.websocket.sendNewDepthMessage();
 	this.enemies = new Array();
 	this.items = new Array();

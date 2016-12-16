@@ -2,8 +2,8 @@
 var Rodney = {};
 
 //var WS_HOST = "ws://192.168.1.2:12345/echo";
-var WS_HOST = "ws://games.slashware.net:12345/echo";
-//var WS_HOST = "NEIN";
+//var WS_HOST = "ws://games.slashware.net:12345/echo";
+var WS_HOST = "NEIN";
 
 Rodney.mixPanelEnabled = false;
 
@@ -80,15 +80,6 @@ Rodney.switchConnection = function() {
 
 };
 
-Rodney.switchGraphics = function() {
-	JSRL.isGraphicMode = !JSRL.isGraphicMode;	
-	document.getElementById("btnGraphics").value = !JSRL.isGraphicMode ? "Using Characters" : "Using Graphics";
-};
-
 Rodney.leaderboard = function(){
 	location.href = "leadboard.php";
-};
-
-Rodney.sdrl = function(){
-	location.href = "7drl";
 };

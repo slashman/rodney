@@ -1,10 +1,11 @@
 function MonsterFactory(){
 	this.monsterDefinitions = {};
 	this.levelMaps = {};
-	this.addMonsterDefinition("GIANT_ANT", "Poisonous Mass", new Roll(2,4,0), 3,12, new Roll(1,6,1), false);
-	this.addMonsterDefinition("BAT", "Bat", new Roll(1,8,1), 1, 8, new Roll(1,2,0), false);
-	this.addMonsterDefinition("CENTAUR", "Beast", new Roll(4,8,0), 8, 17, new Roll(2,8,2), false);
-	this.addMonsterDefinition("DRAGON", "Demon", new Roll(10,8,0), 22, 50, new Roll(4,10,5), false);
+	this.addMonsterDefinition("WHITE_TROOPER", "Stormtrooper", new Roll(2,4,0), 3,12, new Roll(1,6,1), false);
+	this.addMonsterDefinition("BLACK_TROOPER", "Black Trooper", new Roll(1,8,1), 1, 8, new Roll(1,2,0), false);
+	this.addMonsterDefinition("ELITE_TROOPER", "Elite Trooper", new Roll(4,8,0), 8, 17, new Roll(2,8,2), false);
+	this.addMonsterDefinition("IMPERIAL_ROBOT_1", "Imperial Robot", new Roll(4,8,0), 8, 17, new Roll(2,8,2), false);
+	/*this.addMonsterDefinition("DRAGON", "Demon", new Roll(10,8,0), 22, 50, new Roll(4,10,5), false);
 	this.addMonsterDefinition("FLOATING_EYE", "Floating Skull", new Roll(1,8,0), 2, 11, new Roll(0,0,0), false);
 	this.addMonsterDefinition("VIOLET_FUNGI", "Deadly Flower", new Roll(6,8,0), 15, 24, new Roll(1,6,0), false);
 	this.addMonsterDefinition("GNOME", "Gnome", new Roll(1,4,0), 6, 15, new Roll(1,6,1), true);
@@ -34,7 +35,7 @@ function MonsterFactory(){
 	this.addMonsterDefinition("ARNOLD", "Arnold", new Roll(5,3,0), -1, -1, new Roll(3,3,3), true);
 	this.addMonsterDefinition("TOY", "The Sudopoet", new Roll(10,3,0), -1, -1, new Roll(3,3,3), false);
 	this.addMonsterDefinition("LANE", "Jon Lane", new Roll(10,3,0), -1, -1, new Roll(1,3,3), true);
-	this.addMonsterDefinition("MANGO", "Captain Mango", new Roll(10,3,0), -1, -1, new Roll(3,3,3), false);
+	this.addMonsterDefinition("MANGO", "Captain Mango", new Roll(10,3,0), -1, -1, new Roll(3,3,3), false);*/
 	
 	
 }

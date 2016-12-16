@@ -283,18 +283,18 @@ UI.prototype.getOverlayTile = function(x, y){
 };
 
 UI.prototype.showStats = function (){
-	this.term.putString(JSRL.player.name, 1, 4, 255, 0, 0);
+	this.term.putString(JSRL.player.name, 1, 4, 120, 120, 255);
 	if (JSRL.player.currentWeapon)
 		this.term.putString(JSRL.player.currentWeapon.getStatusDescription(), 1, 5, 255, 255, 255);
 	if (JSRL.player.currentArmor)
 		this.term.putString(JSRL.player.currentArmor.getStatusDescription(), 1, 6, 255, 255, 255);
 	if (JSRL.player.currentAccesory)
 		this.term.putString(JSRL.player.currentAccesory.getStatusDescription(), 1, 7, 255, 255, 255);
-	this.term.putString("Level    "+JSRL.dungeon.currentDepth, 1, 9, 255, 255, 255);
+	this.term.putString("Floor    "+JSRL.dungeon.currentDepth, 1, 9, 255, 255, 255);
 	var percentage = JSRL.player.hp / JSRL.player.maxhp;
 	this.term.putString("HP       "+JSRL.player.hp+"/"+JSRL.player.maxhp, 1, 10, 255, Math.round(255*percentage), Math.round(255*percentage));
 	
-	this.term.putString("Strength "+JSRL.player.strength, 1, 11, 255, 255, 255);
+	this.term.putString("Force    "+JSRL.player.strength, 1, 11, 255, 255, 255);
 	
 	if (JSRL.player.kineticCharge>0)
 		this.term.putString("Running", 1, 13, 255, 255, 255);
@@ -313,7 +313,7 @@ UI.prototype.showStats = function (){
 		}
 	}
 	
-	this.term.putString("Press Space for action (Pick, Stairs, Inventory)", 1, 22, 255, 255, 255);
+	this.term.putString("Press Space for action (Pick up, Use Stairs, Show Inventory)", 1, 22, 255, 255, 255);
 
 };
 
@@ -449,31 +449,31 @@ UI.prototype.showTitleScreen = function(){
 	this.mode = 'TITLE';
 	showNameEnter();
 	this.term.clear();
-	this.term.putString("- = RODNEY = -", 32, 1, 255, 0, 0);
-	this.term.putString("by Slashware Interactive", 26, 2, 255, 0, 0);
-	this.term.putString("Rogue's name?", 10, 23, 255, 0, 0);
+	this.term.putString("- = ROGUElike ONE = -", 32, 1, 120, 120, 255);
+	this.term.putString("by Slashware Interactive", 26, 2, 255, 255, 255);
+	this.term.putString("Your name?", 10, 23, 120, 120, 255);
 	this.term.putString("_", 25, 23, 255, 255, 255);
 
 	
 	var scene = [
-"Twenty years ago, the brave adventurer 'Rodney' descended into the Dungeons",
-"of Doom, seeking fame and fortune.                                       ",
+"A long time ago, in a galaxy far away...",
 "                                                                         ",
-"Alas, as with most adventurers foolish enough to take that venture,     ",
-"nothing was ever heard from him again.                                   ",
+"All of your life you have lived running in the shadows, escaping from    ",
+"your own past.                                                           ",
 "                                                                         ",
-"  -'He had more bravery than brains' said Roseline, his lonely widow.    ",
+"Your father, a weapons engineer from the empire, abandoned you years ago,",
+"claimed back by the empire from his self imposed retirement to work on a ",
+"secret project.",
 "                                                                         ",
-"Years went by, and everybody forgot good old Rodney. Until that sad day. ",
+"The rebel alliance has managed to get a hold on you, and fate has made it",
+"possible for you to obtain a message from him. ",
 "                                                                         ",
-"The whole world was covered in darkness as civilizations fell one by one ",
-"prey to a dark army of monsters, rising from the Northern Mountains.     ",
+"The Empire is creating the deadliest weapon that has ever existed, and   ",
+"the only way to stop them is to exploit a single weakness your father has",
+"included on its design.",
 "                                                                         ",
-"And there was only one thing the minions would say when captured         ",
-"                                                                         ",
-" - 'To our master Rodney we serve and we'll gladly die for him!'         ",
-"                                                                         ",
-"The time has come, to challenge the Dungeons again.                      "
+"With only a small squad supporting you, you embark to Scarif in a quest  ",
+"to obtain the blueprints of this evil machine and save the galaxy."
 	             ];
 	for (var i = 0; i < scene.length; i++){
 		this.term.putString(scene[i], 2, i + 4, 255, 255, 255);
