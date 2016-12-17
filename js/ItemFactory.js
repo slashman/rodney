@@ -12,10 +12,14 @@ ItemFactory.prototype.setThresholds = function (depth){
 	var tier4Bonus = (depth > 20 ? 10 : 0)+tier3Bonus;
 	
 	// Weapon 2/6 = 200 (-50)
-	this.addWeaponDefinition("BLASTER_PISTOL", "Blaster Pistol", new Roll(1,6,0), 30, 60, true);
-	this.addWeaponDefinition("LASER_RIFLE", "Laser Rifle", new Roll(1,6,0), 20, 20, true);
+	this.addWeaponDefinition("BLASTER_PISTOL", "Blaster Pistol", new Roll(2,3,0), 30, 60, true);
+	this.addWeaponDefinition("BLASTER_RIFLE", "Blaster Rifle", new Roll(3,4,0), 30, 60, true);
+	this.addWeaponDefinition("HEAVY_BLASTER_PISTOL", "Heavy Blaster Pistol", new Roll(2,5,0), 30, 40, true);
+	this.addWeaponDefinition("HEAVY_BLASTER_RIFLE", "Heavy Blaster Rifle", new Roll(3,6,0), 30, 20, true);
+	this.addWeaponDefinition("LASER_PISTOL", "Laser Pistol", new Roll(1,16,0), 30, 40, true);
+	this.addWeaponDefinition("LASER_RIFLE", "Laser Rifle", new Roll(1,32,0), 30, 20, true);
 	this.addWeaponDefinition("ENERGY_STAFF", "Energy Staff", new Roll(1,6,0), 200, 100, false);
-	this.addWeaponDefinition("LIGHTSABER", "Lightsaber", new Roll(1,6,0), 300, 2, false);
+	this.addWeaponDefinition("LIGHTSABER", "Lightsaber", new Roll(5,6,0), 300, 2, false);
 
 	
 	/*this.addWeaponDefinition("DAGGER", "Dagger", new Roll(1,6,0), 400, 60);
@@ -26,8 +30,8 @@ ItemFactory.prototype.setThresholds = function (depth){
 	this.addWeaponDefinition("CLAYMORE", "Claymore", new Roll(4,4,0), 400, 5 + tier4Bonus);*/
 	
 	// Armor 1/6 = 100
-	this.addArmorDefinition("TROOPER_ARMOR", "White Trooper Armor", 2, 75, 30);
-	this.addArmorDefinition("BLACK_TROOPER_ARMOR", "Black Trooper Armor", 2, 75, 20);
+	this.addArmorDefinition("TROOPER_ARMOR", "White Trooper Armor", 2, 100, 60);
+	this.addArmorDefinition("BLACK_TROOPER_ARMOR", "Black Trooper Armor", 4, 100, 30);
 	
 
 	/*this.addArmorDefinition("LEATHER", "Leather armor", 2, 75, 30);

@@ -5,10 +5,14 @@ function Tiles(imagesClass){
 	this.AT.imageTile = imagesClass.imageTile("CHARS", 2, 0);
 
 	//Monsters
+	this.addTile("GUARD", new ut.Tile("g", 120, 120, 255), imagesClass.imageTile("MONSTERS32", 1, 2));
+	this.addTile("ELITE_GUARD", new ut.Tile("g", 255, 120, 120), imagesClass.imageTile("MONSTERS32", 1, 2));
 	this.addTile("WHITE_TROOPER", new ut.Tile("t", 255, 255, 255), imagesClass.imageTile("MONSTERS32", 1, 2));
-	this.addTile("BLACK_TROOPER", new ut.Tile("t", 80, 80, 80), imagesClass.imageTile("MONSTERS32", 1, 2));
+	this.addTile("BLACK_TROOPER", new ut.Tile("t", 120, 120, 120), imagesClass.imageTile("MONSTERS32", 1, 2));
 	this.addTile("ELITE_TROOPER", new ut.Tile("t", 255, 0, 0), imagesClass.imageTile("MONSTERS32", 1, 2));
 	this.addTile("IMPERIAL_ROBOT_1", new ut.Tile("R", 120, 120, 120), imagesClass.imageTile("MONSTERS32", 1, 2));
+	this.addTile("IMPERIAL_ROBOT_2", new ut.Tile("R", 0, 255, 255), imagesClass.imageTile("MONSTERS32", 1, 2));
+	this.addTile("IMPERIAL_ROBOT_3", new ut.Tile("R", 255, 0, 0), imagesClass.imageTile("MONSTERS32", 1, 2));
 
 
 	/*this.addTile("GIANT_ANT", new ut.Tile("P", 255, 255, 255), imagesClass.imageTile("MONSTERS32", 1, 2));
@@ -50,10 +54,16 @@ function Tiles(imagesClass){
 	
 	//Items
 
-	this.addTile("BLASTER_PISTOL", new ut.Tile("{", 255, 255, 255), imagesClass.imageTile("ITEMS", 1, 10));
-	this.addTile("LASER_RIFLE", new ut.Tile("{", 255, 255, 55), imagesClass.imageTile("ITEMS", 0, 14));
+	this.addTile("BLASTER_PISTOL", new ut.Tile("{", 255, 255, 0), imagesClass.imageTile("ITEMS", 1, 10));
+	this.addTile("HEAVY_BLASTER_PISTOL", new ut.Tile("{", 0, 255, 255), imagesClass.imageTile("ITEMS", 1, 10));
+	
+	this.addTile("BLASTER_RIFLE", new ut.Tile("}", 255, 255, 0), imagesClass.imageTile("ITEMS", 0, 14));
+	this.addTile("HEAVY_BLASTER_RIFLE", new ut.Tile("}", 0, 255, 255), imagesClass.imageTile("ITEMS", 0, 14));	
+	this.addTile("LASER_RIFLE", new ut.Tile("}", 0, 255, 0), imagesClass.imageTile("ITEMS", 0, 14));
+	
 	this.addTile("ENERGY_STAFF", new ut.Tile("/", 120, 120, 120), imagesClass.imageTile("ITEMS", 0, 21));
-	this.addTile("LIGHTSABER", new ut.Tile("/", 0, 255, 255), imagesClass.imageTile("ITEMS", 1, 12));
+	this.addTile("LIGHTSABER", new ut.Tile("/", 0, 255, 0), imagesClass.imageTile("ITEMS", 1, 12));
+
 	/*this.addTile("SPEAR", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 0, 17));
 	this.addTile("CLAYMORE", new ut.Tile(")", 255, 255, 255), imagesClass.imageTile("ITEMS", 8, 18));*/
 	/*
