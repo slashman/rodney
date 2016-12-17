@@ -154,7 +154,9 @@ DamageableItem.prototype.getFloorDescription = function(){
 function Weapon(itemId, name, damageRoll, baseIntegrity, maxIntegrity, isRanged){
 	DamageableItem.call(this, itemId, name, "WEAPON", baseIntegrity, maxIntegrity);
 	this.damageRoll = damageRoll;
-	this.damageRoll.base += INTEGRITY_DAMAGE_ROLL_MODIFIERS[this.getIntegrityLevel()];
+	if (!isRanged){
+		this.damageRoll.base += INTEGRITY_DAMAGE_ROLL_MODIFIERS[this.getIntegrityLevel()];
+	}
 	this.isRanged = isRanged;
 	this.shots = baseIntegrity;
 }
