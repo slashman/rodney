@@ -270,10 +270,10 @@ UI.prototype.movePlayer = function(key){
 		return true;
 	}
 
-	if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "V"){
+	if (keyCodeToChar[key] === "Space" || keyCodeToChar[key] === "V" || keyCodeToChar[key] === "G"  || keyCodeToChar[key] === ","){
 		return JSRL.player.doAction();
 	}
-	if (keyCodeToChar[key] === "Enter"){
+	if (keyCodeToChar[key] === "Enter" || keyCodeToChar[key] === "T"  || keyCodeToChar[key] === "F"){
 		this.tryTarget();
 		return false;
 	}
