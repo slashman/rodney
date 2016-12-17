@@ -15,7 +15,9 @@ Sound.prototype.loadSound = function(fname){
 	var sound = new Audio();
 	sound.src = fname;
 	sound.copyPlay = function(){
-		this.cloneNode().play();
+		var node = this.cloneNode();
+		node.volume = 0.1;
+		node.play();
 	};
 	
 	return sound;
