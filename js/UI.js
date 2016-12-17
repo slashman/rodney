@@ -678,6 +678,7 @@ UI.prototype.fireAnimation = function(dir){
 	var ypos = this.term.cy + (this.projectilePosition.y - JSRL.player.position.y);
 	var cell = JSRL.dungeon.getMapTile(this.projectilePosition.x, this.projectilePosition.y);
 	if (cell.solid){
+		this.savedTile = false;
 		if (this.playerProjectile){
 			JSRL.dungeon.dungeonTurn();
 			JSRL.ui.tick();
@@ -686,11 +687,11 @@ UI.prototype.fireAnimation = function(dir){
 			this.projectileEnemy.acting = false;
 			this.nextEnemyProjectile();
 		}
-		this.savedTile = false;
 		return;
 	}
 
 	if (this.projectilePosition.x === JSRL.player.position.x && this.projectilePosition.y === JSRL.player.position.y){
+		this.savedTile = false;
 		this.projectileEnemy.attackPlayer();
 		this.projectileEnemy.acting = false;
 		this.nextEnemyProjectile();
