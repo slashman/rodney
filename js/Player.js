@@ -391,7 +391,7 @@ Player.prototype.doAction = function(){
 			if (this.hp > this.maxhp)
 				this.hp = this.maxhp;
 		}
-		return true;
+		return false;
 	}
 	var item = JSRL.dungeon.getItem(this.position.x, this.position.y);
 	if (item){
