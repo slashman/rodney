@@ -138,6 +138,8 @@ UI.prototype.pollKeyboard = function (keyboardEvent) {
 	} else if (JSRL.ui.mode === 'SELECT_DIRECTION'){
 		if (keyCodeToChar[key] === "Esc"){
 			JSRL.ui.showMessage("Cancelled.");
+			JSRL.ui.mode = 'IN_GAME';
+			JSRL.ui.tick();
 		} else {
 			JSRL.ui.selectDirection(key);
 		}
