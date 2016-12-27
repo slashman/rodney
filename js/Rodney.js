@@ -10,6 +10,7 @@ Rodney.mixPanelEnabled = false;
 Rodney.initGame = function () {
 	JSRL.ui = new UI();
 	Rodney.restartGame();
+	resizeCanvas();
 };
 
 Rodney.restartGame = function (){
