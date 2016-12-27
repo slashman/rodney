@@ -682,7 +682,6 @@ UI.prototype.fireAnimation = function(dir){
 }
 
 UI.prototype.fireAnimationGraphics = function(dir){
-	// TODO: Rotate the laser sprite
 	// Calculate outcome
 	var xStart = this.projectilePosition.x;
 	var yStart = this.projectilePosition.y;
@@ -721,7 +720,7 @@ UI.prototype.fireAnimationGraphics = function(dir){
 	var speedY = dir.y * speed;
 	xStart = xStart - JSRL.player.position.x;
 	yStart = yStart - JSRL.player.position.y;
-	this.graph.activateLaser(xStart, yStart, speedX, speedY);
+	this.graph.activateLaser(xStart, yStart, speedX, speedY, this.projectileIcon.imageTile);
 	setTimeout(this._onLaserEnd.bind(this, outcome, dir, enemy), (1000 / FPS) * length);
 }
 

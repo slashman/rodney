@@ -76,13 +76,13 @@ GraphicRender.prototype.refresh = function(playerPos){
 	}
 };
 
-GraphicRender.prototype.activateLaser = function(x, y, speedX, speedY){
+GraphicRender.prototype.activateLaser = function(x, y, speedX, speedY, laserTile){
 	this.laserSpeed = {
 		x: speedX,
 		y: speedY
 	}
 	this.laserVisible = true;
-	this.laserTile = JSRL.tiles.getTile("P4").imageTile;
+	this.laserTile = laserTile;
 	x += Math.floor(this.view.w / 2);
 	y += Math.floor(this.view.h / 2);
 	this.laserTile.x = x * this.imagesMan.mapScale.w + 12;
