@@ -39,7 +39,10 @@ GraphicRender.prototype.refresh = function(playerPos){
 					blood = this.imagesMan.imageTile("BLOOD",0,0);
 				
 				if (tile.itType == 2 && tile.imageTile.image.imageId == "TERRAIN"){
-					img = {image: this.imagesMan.getImage("TERRAIN_DARK"), imgIn: tile.imageTile.imgIn, vImgIn: tile.imageTile.vImgIn};
+					if (img.dark === undefined){
+						img.dark = {image: this.imagesMan.getImage("TERRAIN_DARK"), imgIn: tile.imageTile.imgIn, vImgIn: tile.imageTile.vImgIn};
+					}
+					img = img.dark;
 					blood = null;
 				}
 					
