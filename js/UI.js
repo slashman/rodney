@@ -1,6 +1,6 @@
 var MAP_WIDTH = 100;
 var MAP_HEIGHT = 100;
-var FPS = 10;
+var FPS = 24;
 
 
 function UI () {
@@ -470,6 +470,8 @@ UI.prototype.tick = function () {
 			};
 		}
 		this.term.render();
+	} else if (this.mode === 'NO_INPUT' && JSRL.isGraphicMode){
+		this.graphicRefresh();
 	}
 };
 
@@ -686,6 +688,7 @@ UI.prototype.fireAnimationGraphics = function(dir){
 	var yStart = this.projectilePosition.y;
 	var xEnd  = this.projectilePosition.x;
 	var yEnd = this.projectilePosition.y;
+	var length = 0;
 	while (true){
 		this.projectilePosition.x += dir.x;
 		this.projectilePosition.y += dir.y;
@@ -710,11 +713,20 @@ UI.prototype.fireAnimationGraphics = function(dir){
 		if (JSRL.player.maskBuffer[this.projectilePosition.x][this.projectilePosition.y]){
 			xEnd += dir.x;
 			yEnd += dir.y;
+			length++;
 		} 
 	}
-	console.log("Outcome "+outcome)
-	// TODO: Tween to destination
-	// TODO: Affect when done (for now affects immediately)
+	var speed = 40; // Pixels per frame
+	var speedX = dir.x * speed;
+	var speedY = dir.y * speed;
+	xStart = xStart - JSRL.player.position.x;
+	yStart = yStart - JSRL.player.position.y;
+	this.graph.activateLaser(xStart, yStart, speedX, speedY);
+	setTimeout(this._onLaserEnd.bind(this, outcome, dir, enemy), (1000 / FPS) * length);
+}
+
+UI.prototype._onLaserEnd = function(outcome, dir, enemy){
+	this.graph.hideLaser();
 	if (outcome === 'playerHitWall'){
 		JSRL.dungeon.dungeonTurn();
 		JSRL.ui.tick();
@@ -732,7 +744,6 @@ UI.prototype.fireAnimationGraphics = function(dir){
 		JSRL.ui.tick();
 		JSRL.ui.mode = 'IN_GAME';
 	}
-
 }
 
 UI.prototype.fireAnimationConsole = function(dir){

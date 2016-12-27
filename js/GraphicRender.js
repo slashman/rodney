@@ -65,8 +65,33 @@ GraphicRender.prototype.refresh = function(playerPos){
 		screenTile.x = 0;
 		screenTile.y++;
 	}
-	
+	// Draw laser beam
+	if (this.laserVisible){
+		var laserTile = this.laserTile;
+		this.imagesMan.drawImageFinely(laserTile, laserTile.x, laserTile.y);
+		laserTile.x += this.laserSpeed.x;
+		laserTile.y += this.laserSpeed.y;
+		console.log(laserTile.x);
+		console.log(laserTile.y);
+	}
 };
+
+GraphicRender.prototype.activateLaser = function(x, y, speedX, speedY){
+	this.laserSpeed = {
+		x: speedX,
+		y: speedY
+	}
+	this.laserVisible = true;
+	this.laserTile = JSRL.tiles.getTile("P4").imageTile;
+	x += Math.floor(this.view.w / 2);
+	y += Math.floor(this.view.h / 2);
+	this.laserTile.x = x * this.imagesMan.mapScale.w + 12;
+	this.laserTile.y = y * this.imagesMan.mapScale.h + 12;
+}
+
+GraphicRender.prototype.hideLaser = function(){
+	this.laserVisible = false;
+}
 
 GraphicRender.prototype.drawTextBuffer = function(){
 	for (var i=0,len=this.textBuffer.length;i<len;i++){

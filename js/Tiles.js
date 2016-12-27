@@ -41,7 +41,7 @@ function Tiles(imagesClass){
 	this.addTile("P1", new ut.Tile("/", 255, 0, 0), imagesClass.imageTile("ITEMS", 3, 1));
 	this.addTile("P2", new ut.Tile("|", 255, 0, 0), imagesClass.imageTile("ITEMS", 3, 1));
 	this.addTile("P3", new ut.Tile("\\", 255, 0, 0), imagesClass.imageTile("ITEMS", 3, 1));
-	this.addTile("P4", new ut.Tile("-", 255, 0, 0), imagesClass.imageTile("ITEMS", 3, 1));
+	this.addTile("P4", new ut.Tile("-", 255, 0, 0), imagesClass.imageTile("EFFECTS", 0, 0));
 	this.addTile("HIT", new ut.Tile("*", 255, 0, 0), imagesClass.imageTile("ITEMS", 3, 1));
 	
 	//Terrain

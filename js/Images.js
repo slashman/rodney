@@ -6,6 +6,7 @@ function Images(mapScale){
 	this.addImage("TERRAIN_DARK", this.loadImage("img/terrain_dark.png", {imgNum: 10, vImgNum: 5, offsetL: 12, offsetT: 24}));
 	this.addImage("CHARS", this.loadImage("img/chars.png", {imgNum: 10, vImgNum: 10, offsetL: 12, offsetT: 12}));
 	this.addImage("ITEMS", this.loadImage("img/items.png", {imgNum: 10, vImgNum: 10, offsetL: 8, offsetT: 8}));
+	this.addImage("EFFECTS", this.loadImage("img/effects.png", {imgNum: 4, vImgNum: 4, offsetL: 12, offsetT: 12}));
 	this.addImage("HIT", this.loadImage("img/hit.gif", {imgNum: 2, vImgNum: 1, offsetL: 16, offsetT: 16}));
 }
 
@@ -66,6 +67,29 @@ Images.prototype.drawImage = function(image, imgIn, vImgIn, x, y){
 	
 	var x1 = imgIn * image.imgWidth;
 	var y1 = Math.abs(vImgIn) * image.imgHeight;
+	
+	ctx.save();
+	ctx.drawImage(image, 
+		x1, y1, image.imgWidth, image.imgHeight,
+		x, y, image.imgWidth, image.imgHeight);
+	ctx.restore();
+};
+
+Images.prototype.drawImageFinely = function(imageTile, x, y){
+	if (!(imageTile.image instanceof Image))
+		imageTile.image = this.getImage(imageTile.image);
+	var image = imageTile.image;
+	
+	if (image == null)
+		return;
+	
+	x = x - image.offsetL;
+	y = y - image.offsetT;
+
+	var ctx = JSRL.ui.eng.viewport.renderer.ctx2;
+	
+	var x1 = imageTile.imgIn * image.imgWidth;
+	var y1 = Math.abs(imageTile.vImgIn) * image.imgHeight;
 	
 	ctx.save();
 	ctx.drawImage(image, 
