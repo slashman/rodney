@@ -13,7 +13,7 @@ function UI () {
 	this.term = new ut.Viewport(document.getElementById("game"), 80, 25, "canvas");
 	this.eng = new ut.Engine(this.term, this.getDisplayedTile, MAP_WIDTH, MAP_HEIGHT);
 	this.eng.setShaderFunc(TorchFilter.doLighting);
-	this.graph = new GraphicRender(this.eng.viewport.renderer.ctx2, this.getTerrainTile, this.getOverlayTile, JSRL.images, {w: 24, h: 12}, {w: 32, h: 32},'XXpx "Fondamento"');
+	this.graph = new GraphicRender(this.eng.viewport.renderer.ctx2, this.getTerrainTile, this.getOverlayTile, JSRL.images, {w: 24, h: 12}, {w: 32, h: 32},'XXpx "Arial"');
 	this.messageRepeatCounter = 0;
 	this.textBox = new TextBox(10, 78, {x: 1, y: 1});
 	this.keyboardPollingDelay = 10;
