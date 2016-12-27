@@ -17,7 +17,7 @@ ItemFactory.prototype.setThresholds = function (depth){
 	this.addWeaponDefinition("HEAVY_BLASTER_PISTOL", "Heavy Blaster Pistol", new Roll(2,5,0), 30, 40, true);
 	this.addWeaponDefinition("HEAVY_BLASTER_RIFLE", "Heavy Blaster Rifle", new Roll(3,6,0), 30, 20, true);
 	this.addWeaponDefinition("LASER_RIFLE", "Laser Rifle", new Roll(1,32,0), 30, 20, true);
-	this.addWeaponDefinition("ENERGY_STAFF", "Energy Staff", new Roll(1,10,0), 200, 100, false);
+	this.addWeaponDefinition("ENERGY_STAFF", "Steel Knife", new Roll(1,10,0), 200, 100, false);
 	this.addWeaponDefinition("LIGHTSABER", "Lightsaber", new Roll(5,6,0), 300, 2, false);
 
 	
