@@ -14,7 +14,7 @@ function Tiles(imagesClass){
 	this.addTile("IMPERIAL_ROBOT_2", new ut.Tile("R", 0, 255, 255), imagesClass.imageTile("CHARS", 6, 1));
 	this.addTile("IMPERIAL_ROBOT_3", new ut.Tile("R", 255, 0, 0), imagesClass.imageTile("CHARS", 7, 1));
 
-	this.addTile("AT", new ut.Tile("@", 0, 0, 255), imagesClass.imageTile("CHARS", 0, 0));
+	this.addTile("AT", new ut.Tile("@", 0, 0, 255), imagesClass.imageTile("CHARS", 1, 0));
 	
 	//Items
 
