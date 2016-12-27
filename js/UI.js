@@ -582,9 +582,13 @@ UI.prototype.tryTarget = function(){
 	}
 	this.mode = 'SELECT_DIRECTION';
 	this.showMessage("Press a direction to fire");
-	this.textBox.setText(this.currentMessage);
-	this.textBox.draw();
-	this.term.render(); // Render
+	if (JSRL.isGraphicMode){
+		this.graphicRefresh();
+	} else {
+		this.textBox.setText(this.currentMessage);
+		this.textBox.draw();
+		this.term.render(); // Render
+	}
 
 }
 
@@ -668,6 +672,70 @@ UI.prototype.nextEnemyProjectile = function(){
 }
 
 UI.prototype.fireAnimation = function(dir){
+	if (JSRL.isGraphicMode){
+		this.fireAnimationGraphics(dir);
+	} else {
+		this.fireAnimationConsole(dir);
+	}
+}
+
+UI.prototype.fireAnimationGraphics = function(dir){
+	// TODO: Rotate the laser sprite
+	// Calculate outcome
+	var xStart = this.projectilePosition.x;
+	var yStart = this.projectilePosition.y;
+	var xEnd  = this.projectilePosition.x;
+	var yEnd = this.projectilePosition.y;
+	while (true){
+		this.projectilePosition.x += dir.x;
+		this.projectilePosition.y += dir.y;
+		var cell = JSRL.dungeon.getMapTile(this.projectilePosition.x, this.projectilePosition.y);
+		if (cell.solid){
+			if (this.playerProjectile){
+				outcome = 'playerHitWall';
+			} else {
+				outcome = 'enemyHitWall';
+			}
+			break;
+		}
+		if (this.projectilePosition.x === JSRL.player.position.x && this.projectilePosition.y === JSRL.player.position.y){
+			outcome = 'enemyHitPlayer';
+			break;
+		}
+		var enemy = JSRL.dungeon.getEnemy(this.projectilePosition.x, this.projectilePosition.y);
+		if (enemy && this.playerProjectile){
+			outcome = 'playerHitEnemy';
+			break;
+		}
+		if (JSRL.player.maskBuffer[this.projectilePosition.x][this.projectilePosition.y]){
+			xEnd += dir.x;
+			yEnd += dir.y;
+		} 
+	}
+	console.log("Outcome "+outcome)
+	// TODO: Tween to destination
+	// TODO: Affect when done (for now affects immediately)
+	if (outcome === 'playerHitWall'){
+		JSRL.dungeon.dungeonTurn();
+		JSRL.ui.tick();
+		this.mode = 'IN_GAME';
+	} else if (outcome === 'enemyHitWall'){
+		this.projectileEnemy.acting = false;
+		this.nextEnemyProjectile();
+	} else if (outcome === 'enemyHitPlayer'){
+		this.projectileEnemy.attackPlayer();
+		this.projectileEnemy.acting = false;
+		this.nextEnemyProjectile();
+	} else if (outcome === 'playerHitEnemy'){
+		JSRL.ui.hitEnemy(enemy, dir);
+		JSRL.dungeon.dungeonTurn();
+		JSRL.ui.tick();
+		JSRL.ui.mode = 'IN_GAME';
+	}
+
+}
+
+UI.prototype.fireAnimationConsole = function(dir){
 	if (this.savedTile){
 		var xpos = this.term.cx + (this.projectilePosition.x - JSRL.player.position.x);
 		var ypos = this.term.cy + (this.projectilePosition.y - JSRL.player.position.y);
