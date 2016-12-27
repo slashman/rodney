@@ -71,8 +71,6 @@ GraphicRender.prototype.refresh = function(playerPos){
 		this.imagesMan.drawImageFinely(laserTile, laserTile.x, laserTile.y);
 		laserTile.x += this.laserSpeed.x;
 		laserTile.y += this.laserSpeed.y;
-		console.log(laserTile.x);
-		console.log(laserTile.y);
 	}
 };
 
