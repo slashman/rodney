@@ -5,7 +5,7 @@ function JSRL(){
 	this.dungeon;
 	this.dungeonGenerator;
 	this.images = new Images({w: 24, h: 24});
-	this.sounds = new Sound();
+	this.sounds = new AudioAPI();
 	this.tiles = new Tiles(this.images);
 	this.websocket;
 	this.isGraphicMode = true;
