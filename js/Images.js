@@ -53,7 +53,7 @@ Images.prototype.getImage = function(imageId){
 	return this.images[imageId];
 };
 
-Images.prototype.drawImage = function(image, imgIn, vImgIn, x, y){
+Images.prototype.drawImage = function(image, imgIn, vImgIn, x, y, flipped){
 	if (!(image instanceof Image))
 		image = this.getImage(image);
 	
@@ -69,6 +69,11 @@ Images.prototype.drawImage = function(image, imgIn, vImgIn, x, y){
 	var y1 = Math.abs(vImgIn) * image.imgHeight;
 	
 	ctx.save();
+	if (flipped){
+		ctx.translate(image.imgWidth, 0);
+		ctx.scale(-1, 1);
+		x *= -1;
+	}
 	ctx.drawImage(image, 
 		x1, y1, image.imgWidth, image.imgHeight,
 		x, y, image.imgWidth, image.imgHeight);
@@ -108,7 +113,7 @@ Images.prototype.drawFogTile = function(x, y){
 };
 
 Images.prototype.drawImageTile = function(imageTile, x, y){
-	this.drawImage(imageTile.image, imageTile.imgIn, imageTile.vImgIn, x, y);
+	this.drawImage(imageTile.image, imageTile.imgIn, imageTile.vImgIn, x, y, imageTile.flipped);
 };
 
 Images.prototype.imageTile = function(imageId, left, top){

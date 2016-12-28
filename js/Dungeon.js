@@ -40,9 +40,9 @@ Dungeon.prototype.getDisplayedTile = function (x, y) {
 				ret = JSRL.tiles.getTerrainTile(">").utTile;
 			else if (enemy.monsterId != "INVISIBLE_STALKER")
 				ret = JSRL.tiles.getTile(enemy.tileId);
-			else if (JSRL.player.getLightRange() > 0)
+			else if (JSRL.player.getLightRange() > 0){
 				ret = JSRL.tiles.getTerrainTile(t).utTile;
-			else{
+			} else {
 				ret = JSRL.tiles.getTerrainTile(t).darkTile;
 				ret.itType = 1;
 			}
@@ -123,9 +123,10 @@ Dungeon.prototype.getOverlayTile = function (x, y) {
 		if (enemy){
 			if (enemy.monsterId === "MIMIC" && !enemy.wasHit)
 				ret = JSRL.tiles.getTerrainTile(">").utTile;
-			else if (enemy.monsterId != "INVISIBLE_STALKER")
+			else if (enemy.monsterId != "INVISIBLE_STALKER"){
 				ret = JSRL.tiles.getTile(enemy.tileId);
-			else
+				ret.imageTile.flipped = enemy.flipped;
+			} else
 				return ut.NULLTILE; 
 		} else {
 			// Items
@@ -202,6 +203,9 @@ Dungeon.prototype.tryMoveEnemyTo = function (enemy, destinationPosition){
 			this.getEnemy(destinationPosition.x, destinationPosition.y) ){
 		// Bump!
 	} else {
+		if (enemy.position.x != destinationPosition.x){
+			enemy.flipped = enemy.position.x < destinationPosition.x;
+		}
 		enemy.position.x = destinationPosition.x;
 		enemy.position.y = destinationPosition.y;
 	}

@@ -33,6 +33,7 @@ function Player(name) {
 	this.sessionInfo = "";
 	this.skillPath = "";
 	this.score = 0;
+	this.flipped = true;
 }
 
 Player.prototype.addItem = function (item){
@@ -350,6 +351,10 @@ Player.prototype.damage = function(damage){
 };
 
 Player.prototype.landOn = function (x, y){
+	if (this.position.x != x)
+		this.flipped = this.position.x < x;
+	this.position.x = x;
+	this.position.y = y;
 	var tile = JSRL.dungeon.getMapTile(x, y);
 	if (tile.downstairs){
 		JSRL.ui.showMessage("There is a stairway going up here");
@@ -484,6 +489,8 @@ Player.prototype.standFast = function(){
 
 Player.prototype.tryMoving = function (movedir){
 	var moved = false;
+	if (movedir.x != 0)
+		this.flipped = movedir.x > 0;
 	var x = this.position.x + movedir.x;
 	var y = this.position.y + movedir.y;
 	
@@ -497,8 +504,7 @@ Player.prototype.tryMoving = function (movedir){
 		if (xenemy){
 			enemy = xenemy;
 			JSRL.ui.showMessage("You jump into "+enemy.getTheDescription());
-			this.position.x = x;
-			this.position.y = y;
+			this.setPosition(x,y);
 			this.landOn(x, y);
 			moved = true;
 		}
@@ -586,8 +592,6 @@ Player.prototype.tryMoving = function (movedir){
 				if (!xenemy && !xtile.solid){
 					JSRL.ui.showMessage("You backflip!");
 					this.kineticCharge = 0;
-					this.position.x = landingPosition.x;
-					this.position.y = landingPosition.y;
 					this.landOn(landingPosition.x, landingPosition.y);
 					moved = true;
 				} else {
@@ -605,8 +609,6 @@ Player.prototype.tryMoving = function (movedir){
 				var xtile = JSRL.dungeon.getMapTile(landingPosition1.x, landingPosition1.y);
 				if (!xenemy && xtile && !xtile.solid){
 					JSRL.ui.showMessage("You jump on the wall!");
-					this.position.x = landingPosition1.x;
-					this.position.y = landingPosition1.y;
 					this.landOn(landingPosition1.x, landingPosition1.y);
 					moved = true;
 				} else {
@@ -615,8 +617,6 @@ Player.prototype.tryMoving = function (movedir){
 					xtile = JSRL.dungeon.getMapTile(landingPosition2.x, landingPosition2.y);
 					if (!xenemy && !xtile.solid){
 						JSRL.ui.showMessage("You jump on the wall!");
-						this.position.x = landingPosition2.x;
-						this.position.y = landingPosition2.y;
 						this.landOn(landingPosition2.x, landingPosition2.y);
 						moved = true;
 					} else {
@@ -641,8 +641,6 @@ Player.prototype.tryMoving = function (movedir){
 			this.trySlash(movedir, buildupBonus);
 		}
 		var addBlood = JSRL.dungeon.hasBlood(this.position) && chance(30);
-		this.position.x = x;
-		this.position.y = y;
 		this.landOn(x, y);
 		if (addBlood)
 			JSRL.dungeon.addBlood(this.position);

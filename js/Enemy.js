@@ -10,6 +10,7 @@ function Enemy(monsterId, name, hp, tileId, damageRoll, doubleSpeed, isRanged){
 	this.wasHit = false;
 	this.doubleSpeed = doubleSpeed;
 	this.isRanged = isRanged;
+	this.flipped = false;
 }
 
 Enemy.prototype.enemyAI = function (){
@@ -41,6 +42,9 @@ Enemy.prototype.enemyAI = function (){
     	this.walk(randomDirection());
     	return false
 	} else if (this.isRanged && chance(50) && seeing){
+		if (directionToPlayer.x != 0){
+			this.flipped = directionToPlayer.x > 0;
+		}
 		JSRL.ui.launchEnemyProjectile(this, directionToPlayer);
 		return true;
 	} else {
@@ -89,6 +93,9 @@ Enemy.prototype.attackPlayer = function(){
 	if (directionToEnemy.y > 1) directionToEnemy.y = 1;
 	if (directionToEnemy.y < -1) directionToEnemy.y = -1;
 	var attackDirection = {x: directionToEnemy.x * -1, y: directionToEnemy.y * -1};
+	if (attackDirection.x != 0){
+		this.flipped = attackDirection.x > 0;
+	}
 	switch (this.monsterId){
 		case "GIANT_ANT":
 			if (chance(10)){
@@ -100,8 +107,6 @@ Enemy.prototype.attackPlayer = function(){
 			var destinationPosition = {x: JSRL.player.position.x + attackDirection.x * 2, y:JSRL.player.position.y + attackDirection.y * 2};
 			if (JSRL.dungeon.isFree(destinationPosition)){
 				attackMessage = "The "+this.getTheDescription()+" pushes you back!";
-				JSRL.player.position.x = destinationPosition.x;
-				JSRL.player.position.y = destinationPosition.y;
 				JSRL.player.landOn(destinationPosition.x, destinationPosition.y);
 
 			}

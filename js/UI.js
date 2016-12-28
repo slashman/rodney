@@ -359,11 +359,11 @@ UI.prototype.showGraphicStats = function (){
 		this.graph.addText(JSRL.player.currentArmor.getStatusDescription(), "rgb(255,255,255)", 20, 500, 1, 9);
 	if (JSRL.player.currentAccesory)
 		this.graph.addText(JSRL.player.currentAccesory.getStatusDescription(), "rgb(255,255,255)", 20, 500, 1, 10);
-	this.graph.addText("Level    "+JSRL.dungeon.currentDepth, "rgb(255,255,255)", 20, 500, 1, 12);
+	this.graph.addText("Floor    "+JSRL.dungeon.currentDepth, "rgb(255,255,255)", 20, 500, 1, 12);
 	var percentage = JSRL.player.hp / JSRL.player.maxhp;
 	this.graph.addText("HP       "+JSRL.player.hp+"/"+JSRL.player.maxhp, "rgb(255,"+Math.round(255*percentage)+","+Math.round(255*percentage)+")", 20, 500, 1, 13);
 	
-	this.graph.addText("Strength "+JSRL.player.strength, "rgb(255,255,255)", 20, 500, 1, 14);
+	this.graph.addText("Force "+JSRL.player.strength, "rgb(255,255,255)", 20, 500, 1, 14);
 	
 	if (JSRL.player.kineticCharge>0)
 		this.graph.addText("Running", "rgb(255,255,255)", 20, 500, 1, 16);
@@ -379,7 +379,7 @@ UI.prototype.showGraphicStats = function (){
 		}
 	}
 	
-	this.graph.addText("Press Space for action (Pick, Stairs, Inventory)", "rgb(255,255,255)", 20, 500, 3, 18);
+	this.graph.addText("Spacebar to Pick up, Use Stairs or Show Inventory. Enter to fire", "rgb(255,255,255)", 20, 500, 3, 18);
 };
 
 UI.prototype.graphicRefresh = function(){
@@ -393,7 +393,7 @@ UI.prototype.graphicRefresh = function(){
 	}
 	
 	this.showGraphicStats();
-	this.graph.update(JSRL.player.position.x, JSRL.player.position.y);
+	this.graph.update(JSRL.player.position.x, JSRL.player.position.y, JSRL.player);
 	
 };
 
@@ -598,6 +598,9 @@ UI.prototype.selectDirection = function(key){
 	var movedir = getMovementVector(key);
 	if (movedir.x === 0 && movedir.y === 0){
 		return;
+	}
+	if (movedir.x != 0){
+		JSRL.player.flipped = movedir.x > 0;
 	}
 	this.mode = 'NO_INPUT';
 	this.projectilePosition = {x: JSRL.player.position.x, y: JSRL.player.position.y};

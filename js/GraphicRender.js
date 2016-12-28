@@ -12,7 +12,7 @@ function GraphicRender(context, terrainFunc, overlayFunc, imagesMan, view, tileS
 	this.currentView = {x: 0, y: 0};
 }
 
-GraphicRender.prototype.refresh = function(playerPos){
+GraphicRender.prototype.refresh = function(playerPos, player){
 	//var tile = this.getTile(playerPos.x, playerPos.y).imageTile;
 	var left = playerPos.x - Math.floor(this.view.w / 2);
 	var top = playerPos.y - Math.floor(this.view.h / 2);
@@ -48,15 +48,16 @@ GraphicRender.prototype.refresh = function(playerPos){
 					
 				if (tile.itType == 1 && tile.imageTile.image.imageId == "TERRAIN")
 					img = {image: this.imagesMan.getImage("TERRAIN_NIGHT"), imgIn: tile.imageTile.imgIn, vImgIn: tile.imageTile.vImgIn};
-				
 				this.imagesMan.drawImageTile(img, screenTile.x, screenTile.y);
 				if (blood != null)
 					this.imagesMan.drawImageTile(blood, screenTile.x, screenTile.y);
+
 			}
 			
 			//Draw player
 			if (screenTile.x == Math.floor(this.view.w / 2) && screenTile.y == Math.floor(this.view.h / 2)){
 				var tile = JSRL.tiles.getTile("AT").imageTile;
+				tile.flipped = player.flipped;
 				this.imagesMan.drawImageTile(tile, screenTile.x, screenTile.y);
 			}
 			
@@ -146,11 +147,11 @@ GraphicRender.prototype.drawGraphicEffectsBuffer = function(){
 	}
 };
 
-GraphicRender.prototype.update = function(playerX, playerY){
+GraphicRender.prototype.update = function(playerX, playerY, player){
 	this.ctx.fillStyle = "rgb(0,0,0)";
 	this.ctx.fillRect(0,0,this.ctx.canvas.width,this.ctx.canvas.height);
 	
-	this.refresh({x: playerX, y: playerY});
+	this.refresh({x: playerX, y: playerY}, player);
 	this.drawTextBuffer();
 	this.drawTextEffectsBuffer();
 	this.drawGraphicEffectsBuffer();
